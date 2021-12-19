@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">TravelCards</string>
     <string name="title_card">Card</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_journey">Journey</string>
+    <string name="title_settings">Settings</string>
 </resources>

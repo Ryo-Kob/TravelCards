@@ -1,13 +1,13 @@
-package com.rkb.travelcards.ui.dashboard
+package com.rkb.travelcards.ui.journey
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DashboardViewModel : ViewModel() {
+class JourneyViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+        value = "This is journey Fragment"
     }
     val text: LiveData<String> = _text
 }
