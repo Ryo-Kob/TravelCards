@@ -3,4 +3,7 @@
     <string name="title_card">Card</string>
     <string name="title_journey">Journey</string>
     <string name="title_settings">Settings</string>
+    <string name="activity_new_card_titletext">カード新規作成</string>
+    <string name="activity_new_card_button_save">提出</string>
+    <string name="activity_new_card_edittext">Name</string>
 </resources>

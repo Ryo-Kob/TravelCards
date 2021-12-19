@@ -53,10 +53,14 @@ class CardFragment : Fragment() {
 //                val word = Word(it)
 //                wordViewModel.insert(word)
 //            }
+            Toast.makeText(
+                activity,
+                "天才！！",
+                Toast.LENGTH_LONG).show()
         } else {
             Toast.makeText(
                 activity,
-                "aaaaaaaaaaaaaa",
+                "名前が登録されてないよーーー",
                 Toast.LENGTH_LONG).show()
         }
     }
