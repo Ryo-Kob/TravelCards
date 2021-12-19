@@ -1,5 +1,6 @@
 package com.rkb.travelcards.ui.card
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +20,7 @@ class CardFragment : Fragment() {
 
     private lateinit var cardViewModel: CardViewModel
     private lateinit var fab: FloatingActionButton
-
+    private val newCardActivityRequestCode = 1
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -37,9 +38,26 @@ class CardFragment : Fragment() {
 
         this.fab = view.findViewById<FloatingActionButton>(R.id.fragment_card_fab)
         this.fab.setOnClickListener {
-//            val intent = Intent(this, NewCardActivity::class.java)
-//            startActivityForResult(intent, newCardActivityRequestCode)
-            Toast.makeText(getActivity(), "Hello World!!!!!!!!!!!!!!", 1).show()
+            val intent = Intent(activity, NewCardActivity::class.java)
+//            startActivity(intent)
+            startActivityForResult(intent, newCardActivityRequestCode)
+//            Toast.makeText(getActivity(), "Hello World!!!!!!!!!!!!!!", 1).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == newCardActivityRequestCode && resultCode == Activity.RESULT_OK) {
+//            data?.getStringExtra(NewCardActivity.EXTRA_REPLY)?.let {
+//                val word = Word(it)
+//                wordViewModel.insert(word)
+//            }
+        } else {
+            Toast.makeText(
+                activity,
+                "aaaaaaaaaaaaaa",
+                Toast.LENGTH_LONG).show()
         }
     }
 }
