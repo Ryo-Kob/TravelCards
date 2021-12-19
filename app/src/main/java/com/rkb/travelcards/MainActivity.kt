@@ -29,11 +29,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val fab = findViewById<FloatingActionButton>(R.id.fragment_card_fab)
-        fab.setOnClickListener {
-            val intent = Intent(this@MainActivity, NewCardActivity::class.java)
-            startActivityForResult(intent, newCardActivityRequestCode)
-        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
