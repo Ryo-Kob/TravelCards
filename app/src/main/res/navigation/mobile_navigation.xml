@@ -12,13 +12,13 @@
         tools:layout="@layout/fragment_card" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_journey"
         android:name="com.rkb.travelcards.ui.journey.JourneyFragment"
         android:label="@string/title_journey"
         tools:layout="@layout/fragment_journey" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_settings"
         android:name="com.rkb.travelcards.ui.setting.SettingFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
