@@ -4,6 +4,7 @@
     <string name="title_journey">Journey</string>
     <string name="title_settings">Settings</string>
     <string name="activity_new_card_title_text">カード新規作成</string>
-    <string name="activity_new_card_button_save">提出</string>
+    <string name="activity_new_card_button_save">作成</string>
     <string name="activity_new_card_edit_text_title">カードのタイトルを入力 ...</string>
+    <string name="activity_new_card_edit_text_comment">コメント</string>
 </resources>

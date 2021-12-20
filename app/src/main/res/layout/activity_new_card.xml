@@ -6,36 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".NewCardActivity">
 
-    <TextView
-        android:id="@+id/title_new_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/activity_new_card_title_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/activity_new_card_button_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_new_card_button_save"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/activity_new_card_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="68dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/activity_new_card_edit_text_title"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/activity_new_card_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center_horizontal"
+                android:inputType="text"
+                android:hint="@string/activity_new_card_edit_text_title"
+                />
 
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/red"
+                android:layout_gravity="center_horizontal"
+                android:text="ここに、日付時刻(開始-終了) or 時刻(開始-終了) or 所要時間 を入力させるUIを入れたいけど、DialogFragmentについて勉強する必要があるので、一旦保留。" />
+
+            <EditText
+                android:id="@+id/activity_new_card_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center_horizontal"
+                android:inputType="textMultiLine"
+                android:hint="@string/activity_new_card_edit_text_comment"
+                />
+
+            <Button
+                android:id="@+id/activity_new_card_button_submit"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_margin="16dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/activity_new_card_button_save" />
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

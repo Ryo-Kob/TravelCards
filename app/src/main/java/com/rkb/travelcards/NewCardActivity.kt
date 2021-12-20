@@ -13,10 +13,12 @@ class NewCardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_card)
 
+        setTitle(getString(R.string.activity_new_card_title_text))
+
         val button = findViewById<Button>(R.id.activity_new_card_button_submit)
         button.setOnClickListener {
             val replyIntent = Intent()
-            val editWordView = findViewById<EditText>(R.id.activity_new_card_name)
+            val editWordView = findViewById<EditText>(R.id.activity_new_card_title)
 
             if (TextUtils.isEmpty(editWordView.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
