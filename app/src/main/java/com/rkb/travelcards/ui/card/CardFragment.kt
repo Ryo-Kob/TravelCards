@@ -9,10 +9,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.rkb.travelcards.CardListAdapter
 import com.rkb.travelcards.NewCardActivity
 import com.rkb.travelcards.R
 
@@ -30,11 +34,18 @@ class CardFragment : Fragment() {
         cardViewModel =
                 ViewModelProvider(this).get(CardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_card, container, false)
+
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.card_list_recycler_view)
+        val adapter = CardListAdapter()
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
 
         this.fab = view.findViewById<FloatingActionButton>(R.id.fragment_card_fab)
         this.fab.setOnClickListener {
