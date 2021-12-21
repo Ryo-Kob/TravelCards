@@ -2,10 +2,10 @@ package com.rkb.travelcards.ui.card
 
 import androidx.lifecycle.*
 import com.rkb.travelcards.Card
-import com.rkb.travelcards.travelCardRepository
+import com.rkb.travelcards.TravelCardRepository
 import kotlinx.coroutines.launch
 
-class CardViewModel(private val repository: travelCardRepository) : ViewModel() {
+class CardViewModel(private val repository: TravelCardRepository) : ViewModel() {
 
     // Using LiveData and caching what allWords returns has several benefits:
     // - We can put an observer on the data (instead of polling for changes) and only update the
@@ -21,7 +21,7 @@ class CardViewModel(private val repository: travelCardRepository) : ViewModel() 
     }
 }
 
-class WordViewModelFactory(private val repository: travelCardRepository) : ViewModelProvider.Factory {
+class CardViewModelFactory(private val repository: TravelCardRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CardViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

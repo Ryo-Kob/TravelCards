@@ -8,11 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.rkb.travelcards.Card
 import com.rkb.travelcards.NewCardActivity
 import com.rkb.travelcards.R
+import com.rkb.travelcards.TravelCardsApplication
 
 class CardFragment : Fragment() {
 
@@ -41,6 +45,11 @@ class CardFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 
+        wordViewModel.allCards.observe(viewLifecycleOwner, Observer { cards ->
+            // Update the cached copy of the words in the adapter.
+            cards?.let { adapter.submitList(it) }
+        })
+
         this.fab = view.findViewById<FloatingActionButton>(R.id.fragment_card_fab)
         this.fab.setOnClickListener {
             val intent = Intent(activity, NewCardActivity::class.java)
@@ -54,10 +63,11 @@ class CardFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newCardActivityRequestCode && resultCode == Activity.RESULT_OK) {
-//            data?.getStringExtra(NewCardActivity.EXTRA_REPLY)?.let {
-//                val word = Word(it)
-//                wordViewModel.insert(word)
-//            }
+            data?.getStringExtra(NewCardActivity.EXTRA_REPLY)?.let {
+                val card = Card(0)
+                card.title = it
+                cardViewModel.insert(card)
+            }
             Toast.makeText(
                 activity,
                 "天才！！",
@@ -68,5 +78,9 @@ class CardFragment : Fragment() {
                 "名前が登録されてないよーーー",
                 Toast.LENGTH_LONG).show()
         }
+    }
+
+    private val wordViewModel: CardViewModel by viewModels {
+        CardViewModelFactory((activity?.application as TravelCardsApplication).repository)
     }
 }

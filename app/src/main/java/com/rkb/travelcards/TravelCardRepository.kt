@@ -3,7 +3,7 @@ package com.rkb.travelcards
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
 
-class travelCardRepository(private val cardDao: CardDao) {
+class TravelCardRepository(private val cardDao: CardDao) {
 
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
