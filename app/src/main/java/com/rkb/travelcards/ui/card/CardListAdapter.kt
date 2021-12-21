@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class CardListAdapter() : RecyclerView.Adapter<CardListAdapter.ViewHolder>() {
+class CardListAdapter : RecyclerView.Adapter<CardListAdapter.ViewHolder>() {
 
     /**
      * Provide a reference to the type of views that you are using
