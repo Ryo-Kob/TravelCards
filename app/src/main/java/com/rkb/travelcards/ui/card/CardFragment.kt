@@ -31,8 +31,8 @@ class CardFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        cardViewModel =
-                ViewModelProvider(this).get(CardViewModel::class.java)
+//        cardViewModel =
+//                ViewModelProvider(this).get(CardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_card, container, false)
 
         return root
