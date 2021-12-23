@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CardDao {
-    @Query("SELECT * FROM card_table ORDER BY id ASC")
+    @Query("SELECT * FROM card_table")
     fun getCards(): Flow<List<Card>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
