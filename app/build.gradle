@@ -54,9 +54,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation("androidx.cardview:cardview:1.0.0")
     implementation('androidx.recyclerview:recyclerview:1.1.0')
-    annotationProcessor('androidx.room:room-compiler:2.4.0')
+    kapt "androidx.room:room-compiler:2.4.0"
 
     implementation 'android.arch.persistence.room:runtime:1.0.0'
-//    annotationProcessor  'android.arch.persistence.room:compiler:1.0.0'
     kapt 'android.arch.persistence.room:compiler:1.0.0'
+
+    implementation "androidx.room:room-ktx:2.4.0"
 }
