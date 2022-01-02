@@ -37,6 +37,12 @@ class CardListAdapter : ListAdapter<Card, CardListAdapter.ViewHolder>(CardsCompa
         val view = LayoutInflater.from(viewGroup.context)
                 .inflate(R.layout.card_list_recycler_view_item, viewGroup, false)
 
+        val holder = CardListAdapter.ViewHolder(view)
+
+        view.setOnClickListener{       // リスナーの実装
+            itemClickListener?.onItemClick(holder)
+        }
+
         return ViewHolder(view)
     }
 
@@ -63,5 +69,10 @@ class CardListAdapter : ListAdapter<Card, CardListAdapter.ViewHolder>(CardsCompa
         override fun areContentsTheSame(oldItem: Card, newItem: Card): Boolean {
             return oldItem.title == newItem.title // ここに要注意!
         }
+    }
+
+    var itemClickListener: OnItemClickListener? = null
+    interface OnItemClickListener {
+        fun onItemClick(holder: CardListAdapter.ViewHolder)
     }
 }

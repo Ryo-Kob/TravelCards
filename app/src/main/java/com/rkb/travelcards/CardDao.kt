@@ -12,8 +12,8 @@ interface CardDao {
     fun getCards(): Flow<List<Card>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(card: Card)
+    suspend fun insert(card: Card)
 
     @Query("DELETE FROM card_table")
-    fun deleteAll()
+    suspend fun deleteAll()
 }
