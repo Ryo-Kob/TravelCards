@@ -28,15 +28,58 @@
                 android:hint="@string/activity_new_card_edit_text_title"
                 />
 
+<!--            <TextView-->
+<!--                android:id="@+id/textView2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="16dp"-->
+<!--                android:layout_marginRight="16dp"-->
+<!--                android:textColor="@color/red"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:text="ここに、日付時刻(開始-終了) or 時刻(開始-終了) or 所要時間 を入力させるUIを入れたいけど、DialogFragmentについて勉強する必要があるので、一旦保留。" />-->
+
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:textColor="@color/red"
+                android:textColor="@color/black"
                 android:layout_gravity="center_horizontal"
-                android:text="ここに、日付時刻(開始-終了) or 時刻(開始-終了) or 所要時間 を入力させるUIを入れたいけど、DialogFragmentについて勉強する必要があるので、一旦保留。" />
+                android:text="スケジュールはお決まりですか？" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                >
+                <Button
+                    android:id="@+id/button_1"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="日付/時刻 で絞る"/>
+                <Button
+                    android:id="@+id/button_2"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="所要時間 で絞る"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/black"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/activity_new_card_text_comment" />
 
             <EditText
                 android:id="@+id/activity_new_card_comment"
