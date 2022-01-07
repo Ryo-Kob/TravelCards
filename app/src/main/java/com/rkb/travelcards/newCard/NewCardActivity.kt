@@ -1,4 +1,4 @@
-package com.rkb.travelcards
+package com.rkb.travelcards.newCard
 
 import android.app.Activity
 import android.content.Intent
@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import com.rkb.travelcards.R
 
 class NewCardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,6 +16,17 @@ class NewCardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_card)
 
         setTitle(getString(R.string.activity_new_card_title_text))
+
+        // ボタンクリックイベント
+        val bDate = findViewById<Button>(R.id.activity_new_card_button_date)
+        bDate.setOnClickListener {
+            Toast.makeText(applicationContext, "Hello World!!!!!!!!!!!!!!", 1).show()
+        }
+
+        val bTime = findViewById<Button>(R.id.activity_new_card_button_time)
+        bTime.setOnClickListener {
+            Toast.makeText(applicationContext, "Hello World!!!!!!!!!!!!!!", 1).show()
+        }
 
         val button = findViewById<Button>(R.id.activity_new_card_button_submit)
         button.setOnClickListener {

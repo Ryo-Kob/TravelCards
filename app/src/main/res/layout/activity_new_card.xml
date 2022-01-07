@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewCardActivity">
+    tools:context=".newCard.NewCardActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -57,13 +57,13 @@
                 android:layout_marginRight="16dp"
                 >
                 <Button
-                    android:id="@+id/button_1"
+                    android:id="@+id/activity_new_card_button_date"
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="日付/時刻 で絞る"/>
                 <Button
-                    android:id="@+id/button_2"
+                    android:id="@+id/activity_new_card_button_time"
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
