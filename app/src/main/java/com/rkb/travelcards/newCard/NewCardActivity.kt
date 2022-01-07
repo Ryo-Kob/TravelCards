@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -18,10 +19,10 @@ class NewCardActivity : AppCompatActivity() {
         setTitle(getString(R.string.activity_new_card_title_text))
 
         // ボタンクリックイベント
-        val bDate = findViewById<Button>(R.id.activity_new_card_button_date)
-        bDate.setOnClickListener {
-            Toast.makeText(applicationContext, "Hello World!!!!!!!!!!!!!!", 1).show()
-        }
+//        val bDate = findViewById<Button>(R.id.activity_new_card_button_date)
+//        bDate.setOnClickListener {
+//            Toast.makeText(applicationContext, "Hello World!!!!!!!!!!!!!!", 1).show()
+//        }
 
         val bTime = findViewById<Button>(R.id.activity_new_card_button_time)
         bTime.setOnClickListener {
@@ -46,5 +47,9 @@ class NewCardActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
+    }
+
+    fun showTimePickerDialog(v: View) {
+        TimePickerFragment().show(supportFragmentManager, "timePicker")
     }
 }

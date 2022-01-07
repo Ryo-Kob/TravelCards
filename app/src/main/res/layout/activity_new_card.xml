@@ -61,6 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:onClick="showTimePickerDialog"
                     android:text="日付/時刻 で絞る"/>
                 <Button
                     android:id="@+id/activity_new_card_button_time"
