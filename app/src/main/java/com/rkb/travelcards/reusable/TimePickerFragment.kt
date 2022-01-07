@@ -1,4 +1,4 @@
-package com.rkb.travelcards.newCard
+package com.rkb.travelcards.reusable
 
 import android.app.Dialog
 import android.app.TimePickerDialog
