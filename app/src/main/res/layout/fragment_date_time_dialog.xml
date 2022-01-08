@@ -27,7 +27,7 @@
             android:layout_marginRight="16dp"
             android:onClick="showDatePickerDialog"
             android:ems="10"
-            android:hint="1/1"
+            android:hint="日付未指定"
             android:focusable="false"
             android:gravity="center_horizontal"
             android:inputType="date" />
@@ -40,7 +40,7 @@
             android:layout_marginRight="16dp"
             android:onClick="showTimePickerDialog"
             android:ems="10"
-            android:hint="00:00"
+            android:hint="時刻未指定"
             android:focusable="false"
             android:gravity="center_horizontal"
             android:inputType="time" />

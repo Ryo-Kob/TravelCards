@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.rkb.travelcards.R
 import com.rkb.travelcards.reusable.DatePickerFragment
 import com.rkb.travelcards.reusable.TimePickerFragment
+import com.rkb.travelcards.reusable.TimerPickerFragment
 
 class NewCardActivity : AppCompatActivity() {
 
@@ -49,12 +50,16 @@ class NewCardActivity : AppCompatActivity() {
         const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
     }
 
+    fun showDatePickerDialog(v: View) {
+        DatePickerFragment().show(supportFragmentManager, "datePicker")
+    }
+
     fun showTimePickerDialog(v: View) {
         TimePickerFragment().show(supportFragmentManager, "timePicker")
     }
 
-    fun showDatePickerDialog(v: View) {
-        DatePickerFragment().show(supportFragmentManager, "datePicker")
+    fun showTimerPickerDialog(v: View) {
+        TimerPickerFragment().show(supportFragmentManager, "timerPicker")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
