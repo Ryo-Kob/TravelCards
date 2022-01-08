@@ -3,10 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/ryoco/AndroidStudioProjects/TravelCards/app/src/main/res/layout/activity_new_card.xml" value="0.25" />
+        <entry key="..\:/Users/ryoco/AndroidStudioProjects/TravelCards/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/ryoco/AndroidStudioProjects/TravelCards/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/ryoco/AndroidStudioProjects/TravelCards/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/ryoco/AndroidStudioProjects/TravelCards/app/src/main/res/layout/activity_main.xml" value="0.32518115942028986" />
+        <entry key="..\:/Users/ryoco/AndroidStudioProjects/TravelCards/app/src/main/res/layout/activity_new_card.xml" value="0.5" />
         <entry key="..\:/Users/ryoco/AndroidStudioProjects/TravelCards/app/src/main/res/layout/card_list_recycler_view_item.xml" value="0.1765625" />
         <entry key="..\:/Users/ryoco/AndroidStudioProjects/TravelCards/app/src/main/res/layout/fragment_card.xml" value="0.1765625" />
-        <entry key="..\:/Users/ryoco/AndroidStudioProjects/TravelCards/app/src/main/res/layout/fragment_date_time_dialog.xml" value="0.1" />
+        <entry key="..\:/Users/ryoco/AndroidStudioProjects/TravelCards/app/src/main/res/layout/fragment_date_time_dialog.xml" value="0.5" />
+        <entry key="..\:/Users/ryoco/AndroidStudioProjects/TravelCards/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3333333333333333" />
       </map>
     </option>
   </component>

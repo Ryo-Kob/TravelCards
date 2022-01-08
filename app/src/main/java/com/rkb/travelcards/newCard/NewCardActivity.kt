@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.rkb.travelcards.R
 import com.rkb.travelcards.reusable.DatePickerFragment
 import com.rkb.travelcards.reusable.TimePickerFragment
@@ -25,20 +24,15 @@ class NewCardActivity : AppCompatActivity() {
         setTitle(getString(R.string.activity_new_card_title_text))
 
         // ボタンクリックイベント
-        val btn = findViewById<Button>(R.id.activity_new_card_button_date)
+        val btn = findViewById<Button>(R.id.button_date)
         btn.setOnClickListener {
-//            val intent = Intent(this, DateTimeDialogFragment::class.java)
-//            startFragment(intent)
             DateTimeDialogFragment().show(supportFragmentManager, "String")
-//            Toast.makeText(this, answer, Toast.LENGTH_LONG).show()
-//            startFragmentForResult(intent, REQUEST_INPUT_NAME)
-//            Toast.makeText(getActivity(), "Hello World!!!!!!!!!!!!!!", 1).show()
         }
 
         val button = findViewById<Button>(R.id.activity_new_card_button_submit)
         button.setOnClickListener {
             val replyIntent = Intent()
-            val editWordView = findViewById<EditText>(R.id.activity_new_card_title)
+            val editWordView = findViewById<EditText>(R.id.editText_title)
 
             if (TextUtils.isEmpty(editWordView.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)

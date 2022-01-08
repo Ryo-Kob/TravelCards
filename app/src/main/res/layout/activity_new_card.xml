@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/activity_new_card_title"
+                android:id="@+id/editText_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -45,7 +45,6 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:textColor="@color/black"
                 android:layout_gravity="center_horizontal"
                 android:text="スケジュールはお決まりですか？" />
 
@@ -59,18 +58,75 @@
                 android:layout_marginRight="16dp"
                 >
                 <Button
-                    android:id="@+id/activity_new_card_button_date"
+                    android:id="@+id/button_date"
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="7dp"
                     android:text="日付/時刻 で絞る"/>
                 <Button
-                    android:id="@+id/activity_new_card_button_time"
+                    android:id="@+id/button_time"
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:onClick="showTimePickerDialog"
                     android:text="所要時間 で絞る"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                >
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="1"
+                    >
+                    <TextView
+                        android:id="@+id/text_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="7dp"
+                        android:gravity="center"
+                        android:text="1/1 12:00"/>
+
+                    <ImageButton
+                        android:id="@+id/button1"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@color/design_default_color_background"
+                        android:src="@drawable/ic_baseline_close_24" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center_horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/text_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:onClick="showTimePickerDialog"
+                        android:gravity="center"
+                        android:text="0時間0分"/>
+                    <ImageButton
+                        android:id="@+id/button2"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="end"
+                        android:background="@color/design_default_color_background"
+                        android:src="@drawable/ic_baseline_close_24" />
+                </LinearLayout>
             </LinearLayout>
 
             <TextView
@@ -80,12 +136,11 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:textColor="@color/black"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/activity_new_card_text_comment" />
 
             <EditText
-                android:id="@+id/activity_new_card_comment"
+                android:id="@+id/editText_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
