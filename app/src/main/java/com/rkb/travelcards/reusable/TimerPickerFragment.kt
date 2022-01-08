@@ -22,18 +22,6 @@ import android.widget.Toast
 
 class TimerPickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        throw IllegalArgumentException("A percentage must be between 0 and 100")
-
-        // findViewByIdの前に「view」を付けてIdの取得
-        val timePicker = view.findViewById<View>(R.id.timePicker) as TimePicker
-        timePicker.setIs24HourView(true)
-        timePicker.setHour(1)
-
-    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 0時間0分がデフォルト
         val hour = 0

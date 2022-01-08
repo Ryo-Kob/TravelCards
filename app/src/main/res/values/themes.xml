@@ -17,6 +17,5 @@
 
     <style name="SpinnerTimePicker" parent="android:Widget.Material.Light.TimePicker">
         <item name="android:timePickerMode">spinner</item>
-        <item name="android:textColor">@color/red</item>
     </style>
 </resources>
