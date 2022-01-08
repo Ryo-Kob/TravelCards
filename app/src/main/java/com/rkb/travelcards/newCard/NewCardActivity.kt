@@ -15,6 +15,9 @@ import com.rkb.travelcards.reusable.DatePickerFragment
 import com.rkb.travelcards.reusable.TimePickerFragment
 
 class NewCardActivity : AppCompatActivity() {
+
+    private val REQUEST_INPUT_NAME : Int = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_card)
@@ -24,10 +27,11 @@ class NewCardActivity : AppCompatActivity() {
         // ボタンクリックイベント
         val btn = findViewById<Button>(R.id.activity_new_card_button_date)
         btn.setOnClickListener {
-//            val intent = Intent(this, DateTimeDialogFragment::class.java)
+            val intent = Intent(this, DateTimeDialogFragment::class.java)
 //            startFragment(intent)
-            DateTimeDialogFragment().show(supportFragmentManager, "String")
-//            startActivityForResult(intent, newCardActivityRequestCode)
+//            DateTimeDialogFragment().show(supportFragmentManager, "String")
+//            Toast.makeText(this, answer, Toast.LENGTH_LONG).show()
+            startActivityForResult(intent, REQUEST_INPUT_NAME)
 //            Toast.makeText(getActivity(), "Hello World!!!!!!!!!!!!!!", 1).show()
         }
 
@@ -57,5 +61,21 @@ class NewCardActivity : AppCompatActivity() {
 
     fun showDatePickerDialog(v: View) {
         DatePickerFragment().show(supportFragmentManager, "datePicker")
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Toast.makeText(this, "Code: $requestCode, $resultCode", Toast.LENGTH_SHORT)
+
+        when (requestCode) {
+            REQUEST_INPUT_NAME -> {
+                if (resultCode != RESULT_OK) {
+                    return
+                }
+                val name = data?.getStringExtra(Intent.EXTRA_TEXT)
+                Toast.makeText(this, "FirstFragment: 入力された名前は$name", Toast.LENGTH_SHORT)
+                return
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

@@ -49,6 +49,8 @@
                 android:layout_gravity="center_horizontal"
                 android:text="スケジュールはお決まりですか？" />
 
+            <!-- TODO: ダークモードのときは黒いテキストは全く見えない。 -->
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
