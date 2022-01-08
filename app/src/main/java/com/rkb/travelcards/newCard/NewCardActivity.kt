@@ -13,10 +13,12 @@ import com.rkb.travelcards.R
 import com.rkb.travelcards.reusable.DatePickerFragment
 import com.rkb.travelcards.reusable.TimePickerFragment
 import com.rkb.travelcards.reusable.TimerPickerFragment
+import java.util.*
 
 class NewCardActivity : AppCompatActivity() {
 
-    private val REQUEST_INPUT_NAME : Int = 1
+    private val REQUEST_INPUT_NAME : Int = 1234
+    private val dateTimeDialogFragmentRequestCode : Int = 2345
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +29,8 @@ class NewCardActivity : AppCompatActivity() {
         // ボタンクリックイベント
         val btn = findViewById<Button>(R.id.button_date)
         btn.setOnClickListener {
-            DateTimeDialogFragment().show(supportFragmentManager, "String")
+            val dateTimeDialog = DateTimeDialogFragment()
+            dateTimeDialog.show(supportFragmentManager, "String")
         }
 
         val button = findViewById<Button>(R.id.activity_new_card_button_submit)

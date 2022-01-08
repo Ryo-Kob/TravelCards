@@ -6,13 +6,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.rkb.travelcards.R
-import android.app.Activity
 
 import android.content.Intent
-import androidx.fragment.app.Fragment
+import java.util.*
 
 
 class DateTimeDialogFragment : DialogFragment() {
+
+    lateinit var startDateTime : Calendar
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -21,8 +22,7 @@ class DateTimeDialogFragment : DialogFragment() {
             builder.setMessage("日付・時刻を指定しましょう")
                 .setPositiveButton("決定",
                     DialogInterface.OnClickListener { dialog, id ->
-                        // FIRE ZE MISSILES!
-                        submit("answer")
+                        submit(startDateTime)
                     })
                 .setNegativeButton("キャンセル",
                     DialogInterface.OnClickListener { dialog, id ->
@@ -34,10 +34,13 @@ class DateTimeDialogFragment : DialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    fun submit(inputText: String?) {
-        val target = targetFragment ?: return
-        val data = Intent()
-        data.putExtra(Intent.EXTRA_TEXT, inputText)
-        target.onActivityResult(targetRequestCode, Activity.RESULT_OK, data)
+    fun submit(inputCalendar: Calendar?) {
+//        val target = targetFragment ?: return
+//        val intent = Intent()
+//        intent.putExtra("startDateTime", inputCalendar)
+//        target.onActivityResult(targetRequestCode, Activity.RESULT_OK, data)
+
+
+
     }
 }
