@@ -28,6 +28,7 @@ class DateTimeDialogFragment : DialogFragment() {
                     DialogInterface.OnClickListener { dialog, id ->
                         // User cancelled the dialog
                     })
+                .setView(R.layout.fragment_date_time_dialog)
             // Create the AlertDialog object and return it
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")

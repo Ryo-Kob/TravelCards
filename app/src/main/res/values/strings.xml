@@ -8,4 +8,6 @@
     <string name="activity_new_card_edit_text_title">カードのタイトルを入力 …</string>
     <string name="activity_new_card_text_comment">コメント</string>
     <string name="activity_new_card_edit_text_comment">コメントを入力 …</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

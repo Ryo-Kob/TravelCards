@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelCards">
-        <activity android:name=".newCard.NewCardActivity"></activity>
+        <activity android:name=".newCard.NewCardActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

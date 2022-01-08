@@ -27,11 +27,11 @@ class NewCardActivity : AppCompatActivity() {
         // ボタンクリックイベント
         val btn = findViewById<Button>(R.id.activity_new_card_button_date)
         btn.setOnClickListener {
-            val intent = Intent(this, DateTimeDialogFragment::class.java)
+//            val intent = Intent(this, DateTimeDialogFragment::class.java)
 //            startFragment(intent)
-//            DateTimeDialogFragment().show(supportFragmentManager, "String")
+            DateTimeDialogFragment().show(supportFragmentManager, "String")
 //            Toast.makeText(this, answer, Toast.LENGTH_LONG).show()
-            startActivityForResult(intent, REQUEST_INPUT_NAME)
+//            startFragmentForResult(intent, REQUEST_INPUT_NAME)
 //            Toast.makeText(getActivity(), "Hello World!!!!!!!!!!!!!!", 1).show()
         }
 
