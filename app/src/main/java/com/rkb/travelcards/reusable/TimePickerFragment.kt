@@ -6,6 +6,7 @@ import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.widget.TimePicker
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 
 class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
@@ -22,5 +23,12 @@ class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener 
 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
         // Do something with the time chosen by the user
+
+        val data = bundleOf(
+            "hourOfDay" to hourOfDay, "minute" to minute
+        )
+
+        // FragmentManager経由で結果を伝える
+        parentFragmentManager.setFragmentResult("keyTime", data)
     }
 }

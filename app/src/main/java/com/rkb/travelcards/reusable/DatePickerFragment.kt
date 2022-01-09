@@ -9,6 +9,7 @@ import android.widget.DatePicker
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import android.content.Intent
+import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 
 
@@ -28,19 +29,11 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         // Do something with the date chosen by the user
 
-        Log.v("", "届けー")
-
-        //データの入れ物
-        val data = Bundle()
-        data.putString("text", "とどくかなー")
+        val data = bundleOf(
+            "year" to year, "month" to month+1, "day" to day
+        ) // なぜか, monthは本来の月より1低い値が渡される。
 
         // FragmentManager経由で結果を伝える
-        parentFragmentManager.setFragmentResult("input", data)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        Log.v("", "こんにちはー")
+        parentFragmentManager.setFragmentResult("keyDate", data)
     }
 }

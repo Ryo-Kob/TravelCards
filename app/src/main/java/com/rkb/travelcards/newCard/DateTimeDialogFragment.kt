@@ -23,6 +23,8 @@ import java.util.*
 class DateTimeDialogFragment : DialogFragment() {
 
     lateinit var startDateTime : Calendar
+    lateinit var etDate : EditText
+    lateinit var etTime : EditText
 
     @SuppressLint("ResourceAsColor")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -33,20 +35,17 @@ class DateTimeDialogFragment : DialogFragment() {
             // 事前準備: viewを用意
             val view = View.inflate(activity, R.layout.fragment_date_time_dialog, null)
 
-            val etDate = view.findViewById<EditText>(R.id.editText_Date)
+            etDate = view.findViewById<EditText>(R.id.editText_Date)
             etDate.setHintTextColor(R.color.red)
             etDate.setOnClickListener {
-                Log.v("", "押されてんぞ")
-//                showDatePickerDialog(view)
                 DatePickerFragment().show(childFragmentManager, "datePicker")
             }
-//
-//            val etTime = view.findViewById<EditText>(R.id.editText_Time)
-//            etTime.setBackgroundColor(R.color.red)
-//            etTime.setOnClickListener {
-//                Log.v("", "押されてんぞ")
-//                showTimePickerDialog(view)
-//            }
+
+            etTime = view.findViewById<EditText>(R.id.editText_Time)
+            etTime.setBackgroundColor(R.color.red)
+            etTime.setOnClickListener {
+                TimePickerFragment().show(childFragmentManager, "timePicker")
+            }
 
             // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
@@ -88,23 +87,38 @@ class DateTimeDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.v("", "はろー")
-        childFragmentManager.setFragmentResultListener("input", this) { key, data ->
-            val text = data.getString("text", "")
+
+        childFragmentManager.setFragmentResultListener("keyDate", this) { key, data ->
+            val year = data.getInt("year", 0)
+            val month = data.getInt("month", 0)
+            val day = data.getInt("day", 0)
+
             // 結果を使った処理
-            Log.v("", "Good: $text")
+            Log.v("", "Good: $year $month $day")
+            setStartDateTime(year, month, day)
         }
+
+        childFragmentManager.setFragmentResultListener("keyTime", this) { key, data ->
+            val hourOfDay = data.getInt("hourOfDay", 0)
+            val minute = data.getInt("minute", 0)
+
+            // 結果を使った処理
+            Log.v("", "Good: $hourOfDay $minute")
+            setStartDateTime(hourOfDay, minute)
+        }
+
+        startDateTime = Calendar.getInstance()
     }
 
-    fun showTimePickerDialog(v: View) {
-//        TimePickerFragment().show(supportFragmentManager, "timePicker")
-        val dfTime = TimePickerFragment()
-        dfTime.setTargetFragment(this, 123)
-        dfTime.show(childFragmentManager, "my_dialog2");
-    }
-
-    fun setStartDate(year: Int, month: Int, day: Int) {
+    fun setStartDateTime(year: Int, month: Int, day: Int) {
         startDateTime.set(year, month, day)
+        etDate.setText("$month/$day")
+    }
+
+    fun setStartDateTime(hourOfDay: Int, minute: Int) {
+        startDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        startDateTime.set(Calendar.MINUTE, minute)
+        etTime.setText("$hourOfDay:$minute")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
