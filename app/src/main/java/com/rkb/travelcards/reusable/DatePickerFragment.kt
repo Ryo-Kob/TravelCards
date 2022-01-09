@@ -9,8 +9,7 @@ import android.widget.DatePicker
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import android.content.Intent
-
-
+import androidx.fragment.app.setFragmentResult
 
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
@@ -29,8 +28,19 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         // Do something with the date chosen by the user
 
-//        dismiss()
-//        val intent = Intent()
-//        getTargetFragment().onActivityResult(getTargetRequestCode(), 0, intent)
+        Log.v("", "届けー")
+
+        //データの入れ物
+        val data = Bundle()
+        data.putString("text", "とどくかなー")
+
+        // FragmentManager経由で結果を伝える
+        parentFragmentManager.setFragmentResult("input", data)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        Log.v("", "こんにちはー")
     }
 }

@@ -1,5 +1,6 @@
 package com.rkb.travelcards.newCard
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
@@ -13,19 +14,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.fragment.app.setFragmentResultListener
 import com.rkb.travelcards.reusable.DatePickerFragment
 import com.rkb.travelcards.reusable.TimePickerFragment
 import java.util.*
 
+
 class DateTimeDialogFragment : DialogFragment() {
 
     lateinit var startDateTime : Calendar
-    val dfDate = DatePickerFragment()
-    val dfTime = TimePickerFragment()
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val ad : AlertDialog
-        ad = activity?.let {
+
+        return activity?.let {
+
+            // 事前準備: viewを用意
+            val view = View.inflate(activity, R.layout.fragment_date_time_dialog, null)
+
+            val etDate = view.findViewById<EditText>(R.id.editText_Date)
+            etDate.setHintTextColor(R.color.red)
+            etDate.setOnClickListener {
+                Log.v("", "押されてんぞ")
+//                showDatePickerDialog(view)
+                DatePickerFragment().show(childFragmentManager, "datePicker")
+            }
+//
+//            val etTime = view.findViewById<EditText>(R.id.editText_Time)
+//            etTime.setBackgroundColor(R.color.red)
+//            etTime.setOnClickListener {
+//                Log.v("", "押されてんぞ")
+//                showTimePickerDialog(view)
+//            }
+
             // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
             builder.setMessage("日付・時刻を指定しましょう")
@@ -37,31 +59,13 @@ class DateTimeDialogFragment : DialogFragment() {
                     DialogInterface.OnClickListener { dialog, id ->
                         // User cancelled the dialog
                     })
-                .setView(R.layout.fragment_date_time_dialog)
+                .setView(view)
 
             Log.v("", builder.toString())
 
             // Create the AlertDialog object and return it
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
-
-        Log.v("", "ほげほげほげー！")
-
-        val etDate = ad.findViewById<EditText>(R.id.editText_Time)
-        Log.v("", etDate.toString())
-        etDate?.setOnClickListener {
-            Log.v("", "押されてんぞ")
-//            showDatePickerDialog((view)ad)
-        }
-
-        return ad
-    }
-
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 
     fun submit(inputCalendar: Calendar?) {
@@ -72,16 +76,31 @@ class DateTimeDialogFragment : DialogFragment() {
 
     }
 
-    fun showDatePickerDialog(v: View?) {
-//        DatePickerFragment().show(supportFragmentManager, "datePicker")
-        dfDate.setTargetFragment(this, 100)
-        dfDate.show(childFragmentManager, "my_dialog");
+    fun showDatePickerDialog(v: View) {
+//        val dDate = Bundle()
+//
+//        val dfDate = DatePickerFragment()
+//        Log.v("", "どもー、シャムでっす")
+//        dfDate.setTargetFragment(this, 100)
+//        Log.v("", "さて、今日はオフ会当日ですけども")
+//        dfDate.show(childFragmentManager, "my_dialog1");
     }
 
-    fun showTimePickerDialog(v: View?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.v("", "はろー")
+        childFragmentManager.setFragmentResultListener("input", this) { key, data ->
+            val text = data.getString("text", "")
+            // 結果を使った処理
+            Log.v("", "Good: $text")
+        }
+    }
+
+    fun showTimePickerDialog(v: View) {
 //        TimePickerFragment().show(supportFragmentManager, "timePicker")
+        val dfTime = TimePickerFragment()
         dfTime.setTargetFragment(this, 123)
-        dfTime.show(childFragmentManager, "my_dialog");
+        dfTime.show(childFragmentManager, "my_dialog2");
     }
 
     fun setStartDate(year: Int, month: Int, day: Int) {
