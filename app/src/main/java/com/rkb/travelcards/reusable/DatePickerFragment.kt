@@ -8,6 +8,10 @@ import android.util.Log
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import android.content.Intent
+
+
+
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
@@ -25,6 +29,8 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         // Do something with the date chosen by the user
 
-        getTargetFragment().onActivityResult(getTargetRequestCode(), which, intent)
+//        dismiss()
+//        val intent = Intent()
+//        getTargetFragment().onActivityResult(getTargetRequestCode(), 0, intent)
     }
 }

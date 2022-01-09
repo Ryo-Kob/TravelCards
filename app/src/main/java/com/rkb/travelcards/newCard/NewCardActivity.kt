@@ -53,13 +53,13 @@ class NewCardActivity : AppCompatActivity() {
         const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
     }
 
-    fun showDatePickerDialog(v: View) {
-        DatePickerFragment().show(supportFragmentManager, "datePicker")
-    }
-
-    fun showTimePickerDialog(v: View) {
-        TimePickerFragment().show(supportFragmentManager, "timePicker")
-    }
+//    fun showDatePickerDialog(v: View) {
+//        DatePickerFragment().show(supportFragmentManager, "datePicker")
+//    }
+//
+//    fun showTimePickerDialog(v: View) {
+//        TimePickerFragment().show(supportFragmentManager, "timePicker")
+//    }
 
     fun showTimerPickerDialog(v: View) {
         TimerPickerFragment().show(supportFragmentManager, "timerPicker")
