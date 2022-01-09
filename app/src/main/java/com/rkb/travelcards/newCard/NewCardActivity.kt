@@ -2,27 +2,34 @@ package com.rkb.travelcards.newCard
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import com.rkb.travelcards.R
 import com.rkb.travelcards.reusable.TimerPickerFragment
 import java.util.*
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.temporal.TemporalAmount
 
 class NewCardActivity : AppCompatActivity() {
 
     private val REQUEST_INPUT_NAME : Int = 1234
 
-    lateinit var startDateTime : Calendar // TODO: livedata的なのを使う
+    lateinit var startDateTime : Calendar // TODO: viewmodel的なのを使う
+    lateinit var timer : Duration
 
     lateinit var tvDate : TextView
     lateinit var ibDate : ImageButton
     lateinit var tvTime : TextView
     lateinit var ibTime : ImageButton
 
+    @RequiresApi(Build.VERSION_CODES.O) // なぜこの宣言が必要かわからないが、Duration.ofHours() を使うときに要求された
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_card)
@@ -40,6 +47,11 @@ class NewCardActivity : AppCompatActivity() {
         btn.setOnClickListener {
             val dateTimeDialog = DateTimeDialogFragment()
             dateTimeDialog.show(supportFragmentManager, "String")
+        }
+
+        val btTimer = findViewById<Button>(R.id.button_time)
+        btTimer.setOnClickListener {
+            TimerPickerFragment().show(supportFragmentManager, "timerPicker")
         }
 
         val button = findViewById<Button>(R.id.activity_new_card_button_submit)
@@ -70,7 +82,17 @@ class NewCardActivity : AppCompatActivity() {
             setStartDateTime(year, month, date, hourOfDay, minute)
         }
 
+        supportFragmentManager.setFragmentResultListener("setTimer", this) { key, data ->
+            val hour = data.getInt("hour", 0)
+            val minute = data.getInt("minute", 0)
+
+            // 結果を使った処理
+            Log.v("", "Good: $hour $minute")
+            setTimer(hour, minute)
+        }
+
         startDateTime = Calendar.getInstance()
+        timer = Duration.ofHours(0)
     }
 
     private fun setStartDateTime(year: Int, month: Int, date: Int, hourOfDay: Int, minute: Int) {
@@ -81,7 +103,13 @@ class NewCardActivity : AppCompatActivity() {
         startDateTime.set(Calendar.MINUTE, minute)
         tvDate.setText("$month/$date $hourOfDay:$minute")
         ibDate.visibility=View.VISIBLE
+    }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setTimer(hour: Int, minute: Int) {
+        timer.withSeconds((minute*60 + hour*3600).toLong())
+        tvTime.setText("$hour 時間 $minute 分")
+        ibTime.visibility=View.VISIBLE
     }
 
     companion object {
@@ -89,7 +117,7 @@ class NewCardActivity : AppCompatActivity() {
     }
 
     fun showTimerPickerDialog(v: View) {
-        TimerPickerFragment().show(supportFragmentManager, "timerPicker")
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

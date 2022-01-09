@@ -8,6 +8,7 @@ import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -19,13 +20,18 @@ import android.view.View
 
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.os.bundleOf
 
 class TimerPickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
+
+    lateinit var timer : Calendar
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 0時間0分がデフォルト
         val hour = 0
         val minute = 0
+
+        timer = Calendar.getInstance()
 
         // Create a new instance of TimePickerDialog and return it
 //        return TimePickerDialog(activity, android.R.style.Theme_Dialog, this, hour, minute, DateFormat.is24HourFormat(activity))
@@ -54,12 +60,21 @@ class TimerPickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener
 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
         // Do something with the time chosen by the user
+
+
+        Log.v("", "aaa")
+
+        timer.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        timer.set(Calendar.MINUTE, minute)
     }
 
     fun submit(inputText: String?) {
-        val target = targetFragment ?: return
-        val data = Intent()
-        data.putExtra(Intent.EXTRA_TEXT, inputText)
-        target.onActivityResult(targetRequestCode, Activity.RESULT_OK, data)
+        val data = bundleOf(
+            "hour" to timer.get(Calendar.HOUR_OF_DAY),
+            "minute" to timer.get(Calendar.MINUTE)
+        )
+
+        // FragmentManager経由で結果を伝える
+        parentFragmentManager.setFragmentResult("setTimer", data)
     }
 }
