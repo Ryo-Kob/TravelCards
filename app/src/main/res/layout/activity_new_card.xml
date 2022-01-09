@@ -88,19 +88,20 @@
                     android:layout_weight="1"
                     >
                     <TextView
-                        android:id="@+id/text_date"
+                        android:id="@+id/text_view_date"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="7dp"
                         android:gravity="center"
-                        android:text="1/1 12:00"/>
+                        android:text=""/>
 
                     <ImageButton
-                        android:id="@+id/button1"
+                        android:id="@+id/image_button_date"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:background="@color/design_default_color_background"
-                        android:src="@drawable/ic_baseline_close_24" />
+                        android:src="@drawable/ic_baseline_close_24"
+                        android:visibility="invisible"/>
 
                 </LinearLayout>
                 <LinearLayout
@@ -113,19 +114,20 @@
                     android:gravity="center_horizontal"
                     >
                     <TextView
-                        android:id="@+id/text_time"
+                        android:id="@+id/text_view_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:onClick="showTimePickerDialog"
                         android:gravity="center"
-                        android:text="0時間0分"/>
+                        android:text=""/>
                     <ImageButton
-                        android:id="@+id/button2"
+                        android:id="@+id/image_button_time"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="end"
                         android:background="@color/design_default_color_background"
-                        android:src="@drawable/ic_baseline_close_24" />
+                        android:src="@drawable/ic_baseline_close_24"
+                        android:visibility="invisible"/>
                 </LinearLayout>
             </LinearLayout>
 

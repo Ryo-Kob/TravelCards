@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResultListener
 import com.rkb.travelcards.reusable.DatePickerFragment
 import com.rkb.travelcards.reusable.TimePickerFragment
@@ -36,13 +37,11 @@ class DateTimeDialogFragment : DialogFragment() {
             val view = View.inflate(activity, R.layout.fragment_date_time_dialog, null)
 
             etDate = view.findViewById<EditText>(R.id.editText_Date)
-            etDate.setHintTextColor(R.color.red)
             etDate.setOnClickListener {
                 DatePickerFragment().show(childFragmentManager, "datePicker")
             }
 
             etTime = view.findViewById<EditText>(R.id.editText_Time)
-            etTime.setBackgroundColor(R.color.red)
             etTime.setOnClickListener {
                 TimePickerFragment().show(childFragmentManager, "timePicker")
             }
@@ -73,16 +72,14 @@ class DateTimeDialogFragment : DialogFragment() {
 //        intent.putExtra("startDateTime", inputCalendar)
 //        target.onActivityResult(targetRequestCode, Activity.RESULT_OK, data)
 
-    }
-
-    fun showDatePickerDialog(v: View) {
-//        val dDate = Bundle()
-//
-//        val dfDate = DatePickerFragment()
-//        Log.v("", "どもー、シャムでっす")
-//        dfDate.setTargetFragment(this, 100)
-//        Log.v("", "さて、今日はオフ会当日ですけども")
-//        dfDate.show(childFragmentManager, "my_dialog1");
+        val data = bundleOf(
+            "year" to startDateTime.get(Calendar.YEAR),
+            "month" to startDateTime.get(Calendar.MONTH),
+            "date" to startDateTime.get(Calendar.DATE),
+            "hourOfDay" to startDateTime.get(Calendar.HOUR_OF_DAY),
+            "minute" to startDateTime.get(Calendar.MINUTE)
+        )
+        parentFragmentManager.setFragmentResult("setStartDateTime", data)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

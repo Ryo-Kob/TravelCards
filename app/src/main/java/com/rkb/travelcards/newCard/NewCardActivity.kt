@@ -5,26 +5,35 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import com.rkb.travelcards.R
-import com.rkb.travelcards.reusable.DatePickerFragment
-import com.rkb.travelcards.reusable.TimePickerFragment
 import com.rkb.travelcards.reusable.TimerPickerFragment
 import java.util.*
 
 class NewCardActivity : AppCompatActivity() {
 
     private val REQUEST_INPUT_NAME : Int = 1234
-    private val dateTimeDialogFragmentRequestCode : Int = 2345
+
+    lateinit var startDateTime : Calendar // TODO: livedata的なのを使う
+
+    lateinit var tvDate : TextView
+    lateinit var ibDate : ImageButton
+    lateinit var tvTime : TextView
+    lateinit var ibTime : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_card)
 
-        setTitle(getString(R.string.activity_new_card_title_text))
+        title = getString(R.string.activity_new_card_title_text)
+
+        // lateinit
+        tvDate = findViewById(R.id.text_view_date)
+        ibDate = findViewById(R.id.image_button_date)
+        tvTime = findViewById(R.id.text_view_time)
+        ibTime = findViewById(R.id.image_button_time)
 
         // ボタンクリックイベント
         val btn = findViewById<Button>(R.id.button_date)
@@ -47,19 +56,37 @@ class NewCardActivity : AppCompatActivity() {
             }
             finish()
         }
+
+        // 子Fragment実行結果
+        supportFragmentManager.setFragmentResultListener("setStartDateTime", this) { key, data ->
+            val year = data.getInt("year", 0)
+            val month = data.getInt("month", 0)
+            val date = data.getInt("date", 0)
+            val hourOfDay = data.getInt("hourOfDay", 0)
+            val minute = data.getInt("minute", 0)
+
+            // 結果を使った処理
+            Log.v("", "Good: $year $month $date - $hourOfDay $minute")
+            setStartDateTime(year, month, date, hourOfDay, minute)
+        }
+
+        startDateTime = Calendar.getInstance()
+    }
+
+    private fun setStartDateTime(year: Int, month: Int, date: Int, hourOfDay: Int, minute: Int) {
+        startDateTime.set(Calendar.YEAR, year)
+        startDateTime.set(Calendar.MONTH, month)
+        startDateTime.set(Calendar.DATE, date)
+        startDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        startDateTime.set(Calendar.MINUTE, minute)
+        tvDate.setText("$month/$date $hourOfDay:$minute")
+        ibDate.visibility=View.VISIBLE
+
     }
 
     companion object {
         const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
     }
-
-//    fun showDatePickerDialog(v: View) {
-//        DatePickerFragment().show(supportFragmentManager, "datePicker")
-//    }
-//
-//    fun showTimePickerDialog(v: View) {
-//        TimePickerFragment().show(supportFragmentManager, "timePicker")
-//    }
 
     fun showTimerPickerDialog(v: View) {
         TimerPickerFragment().show(supportFragmentManager, "timerPicker")
