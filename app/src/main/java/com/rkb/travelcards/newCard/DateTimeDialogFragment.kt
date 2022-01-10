@@ -26,6 +26,8 @@ class DateTimeDialogFragment : DialogFragment() {
     lateinit var startDateTime : Calendar
     lateinit var etDate : EditText
     lateinit var etTime : EditText
+    val isSetDate = false
+    val isSetTime = false
 
     @SuppressLint("ResourceAsColor")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -77,7 +79,9 @@ class DateTimeDialogFragment : DialogFragment() {
             "month" to startDateTime.get(Calendar.MONTH),
             "date" to startDateTime.get(Calendar.DATE),
             "hourOfDay" to startDateTime.get(Calendar.HOUR_OF_DAY),
-            "minute" to startDateTime.get(Calendar.MINUTE)
+            "minute" to startDateTime.get(Calendar.MINUTE),
+            "isSetDate" to isSetDate,
+            "isSetTime" to isSetTime
         )
         parentFragmentManager.setFragmentResult("setStartDateTime", data)
     }
@@ -110,11 +114,13 @@ class DateTimeDialogFragment : DialogFragment() {
     fun setStartDateTime(year: Int, month: Int, day: Int) {
         startDateTime.set(year, month, day)
         etDate.setText("$month/$day")
+        isSetDate = true
     }
 
     fun setStartDateTime(hourOfDay: Int, minute: Int) {
         startDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
         startDateTime.set(Calendar.MINUTE, minute)
         etTime.setText("$hourOfDay:$minute")
+        isSetTime = true
     }
 }
