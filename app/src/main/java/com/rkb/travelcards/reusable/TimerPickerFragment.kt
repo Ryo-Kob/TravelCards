@@ -52,7 +52,7 @@ class TimerPickerFragment : DialogFragment() {
                 .setPositiveButton("決定",
                     DialogInterface.OnClickListener { dialog, id ->
                         // FIRE ZE MISSILES!
-                        submit("answer")
+                        submit()
                     })
                 .setNegativeButton("キャンセル",
                     DialogInterface.OnClickListener { dialog, id ->
@@ -65,7 +65,7 @@ class TimerPickerFragment : DialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    fun submit(inputText: String?) {
+    fun submit() {
         val data = bundleOf(
             "hour" to npHour.value,
             "minute" to npMinute.value

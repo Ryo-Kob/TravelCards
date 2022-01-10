@@ -121,7 +121,7 @@ class NewCardActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Toast.makeText(this, "Code: $requestCode, $resultCode", Toast.LENGTH_SHORT)
+        Log.v("", "Code: $requestCode, $resultCode")
 
         when (requestCode) {
             REQUEST_INPUT_NAME -> {
@@ -129,7 +129,7 @@ class NewCardActivity : AppCompatActivity() {
                     return
                 }
                 val name = data?.getStringExtra(Intent.EXTRA_TEXT)
-                Toast.makeText(this, "FirstFragment: 入力された名前は$name", Toast.LENGTH_SHORT)
+                Log.v("", "FirstFragment: 入力された名前は$name")
                 return
             }
         }

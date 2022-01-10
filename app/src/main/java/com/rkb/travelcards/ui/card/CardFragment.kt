@@ -85,6 +85,7 @@ class CardFragment : Fragment() {
             data?.getStringExtra(NewCardActivity.EXTRA_REPLY)?.let {
                 val card = Card(0)
                 card.title = it
+
                 cardViewModel.insert(card)
             }
             Toast.makeText(

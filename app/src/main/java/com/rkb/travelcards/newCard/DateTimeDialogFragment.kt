@@ -51,7 +51,7 @@ class DateTimeDialogFragment : DialogFragment() {
             builder.setMessage("日付・時刻を指定しましょう")
                 .setPositiveButton("決定",
                     DialogInterface.OnClickListener { dialog, id ->
-                        submit(startDateTime)
+                        submit()
                     })
                 .setNegativeButton("キャンセル",
                     DialogInterface.OnClickListener { dialog, id ->
@@ -66,7 +66,7 @@ class DateTimeDialogFragment : DialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    fun submit(inputCalendar: Calendar?) {
+    fun submit() {
 //        val target = targetFragment ?: return
 //        val intent = Intent()
 //        intent.putExtra("startDateTime", inputCalendar)
@@ -116,15 +116,5 @@ class DateTimeDialogFragment : DialogFragment() {
         startDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
         startDateTime.set(Calendar.MINUTE, minute)
         etTime.setText("$hourOfDay:$minute")
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == 100) {
-            if (resultCode == DialogInterface.BUTTON_POSITIVE) {
-                // positive_button 押下時の処理
-            } else if (resultCode == DialogInterface.BUTTON_NEGATIVE) {
-                // negative_button 押下時の処理
-            }
-        }
     }
 }
