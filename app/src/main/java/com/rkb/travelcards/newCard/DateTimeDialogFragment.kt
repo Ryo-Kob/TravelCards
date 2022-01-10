@@ -26,8 +26,8 @@ class DateTimeDialogFragment : DialogFragment() {
     lateinit var startDateTime : Calendar
     lateinit var etDate : EditText
     lateinit var etTime : EditText
-    val isSetDate = false
-    val isSetTime = false
+    var isSetDate = false
+    var isSetTime = false
 
     @SuppressLint("ResourceAsColor")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

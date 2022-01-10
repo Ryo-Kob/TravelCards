@@ -18,6 +18,8 @@ import java.time.Duration
 class NewCardActivity : AppCompatActivity() {
 
     lateinit var startDateTime : Calendar // TODO: viewmodel的なのを使う
+    var isSetDate : Boolean = false
+    var isSetTime : Boolean = false
     lateinit var timer : Duration
 
     lateinit var tvDate : TextView
@@ -27,6 +29,9 @@ class NewCardActivity : AppCompatActivity() {
 
     companion object {
         const val card_name = "カードの名前"
+        const val card_startDateTime = "カードの開始日時"
+        const val card_isStartDateSet = "カードの開始日付を使うか"
+        const val card_isStartTimeSet = "カードの開始時刻を使うか"
         const val card_comment = "カードのコメント"
     }
 
@@ -65,6 +70,9 @@ class NewCardActivity : AppCompatActivity() {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
                 replyIntent.putExtra(card_name, editWordView.text.toString())
+                replyIntent.putExtra(card_startDateTime, startDateTime)
+                replyIntent.putExtra(card_isStartDateSet, isSetDate)
+                replyIntent.putExtra(card_isStartTimeSet, isSetTime)
                 replyIntent.putExtra(card_comment, editCommentView.text.toString())
                 setResult(Activity.RESULT_OK, replyIntent)
             }
@@ -78,10 +86,12 @@ class NewCardActivity : AppCompatActivity() {
             val date = data.getInt("date", 0)
             val hourOfDay = data.getInt("hourOfDay", 0)
             val minute = data.getInt("minute", 0)
+            isSetDate = data.getBoolean("isSetDate")
+            isSetTime = data.getBoolean("isSetTime")
 
             // 結果を使った処理
             Log.v("", "Good: $year $month $date - $hourOfDay $minute")
-            setStartDateTime(year, month, date, hourOfDay, minute)
+            setStartDateTime(year, month, date, hourOfDay, minute, isSetDate, isSetTime)
         }
 
         supportFragmentManager.setFragmentResultListener("setTimer", this) { key, data ->
@@ -97,13 +107,20 @@ class NewCardActivity : AppCompatActivity() {
         timer = Duration.ofHours(0)
     }
 
-    private fun setStartDateTime(year: Int, month: Int, date: Int, hourOfDay: Int, minute: Int) {
-        startDateTime.set(Calendar.YEAR, year)
-        startDateTime.set(Calendar.MONTH, month)
-        startDateTime.set(Calendar.DATE, date)
-        startDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
-        startDateTime.set(Calendar.MINUTE, minute)
-        tvDate.setText("$month/$date $hourOfDay:$minute")
+    private fun setStartDateTime(year: Int, month: Int, date: Int, hourOfDay: Int, minute: Int, isSetDate: Boolean, isSetTime: Boolean) {
+        if (isSetDate) {
+            startDateTime.set(Calendar.YEAR, year)
+            startDateTime.set(Calendar.MONTH, month)
+            startDateTime.set(Calendar.DATE, date)
+        }
+        if (isSetTime) {
+            startDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+            startDateTime.set(Calendar.MINUTE, minute)
+        }
+        if (isSetDate && isSetTime) tvDate.setText("$month/$date $hourOfDay:$minute")
+        if (isSetDate && !isSetTime) tvDate.setText("$month/$date")
+        if (!isSetDate && isSetTime) tvDate.setText("$hourOfDay:$minute")
+        if (!isSetDate && !isSetTime) return
         ibDate.visibility=View.VISIBLE
     }
 
