@@ -9,21 +9,25 @@ import androidx.fragment.app.DialogFragment
 import com.rkb.travelcards.R
 
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResultListener
 import com.rkb.travelcards.reusable.DatePickerFragment
 import com.rkb.travelcards.reusable.TimePickerFragment
-import java.util.*
+import java.time.LocalDate
+import java.time.LocalTime
 
 
 class DateTimeDialogFragment : DialogFragment() {
 
-    lateinit var startDateTime : Calendar
+    lateinit var startDate : LocalDate
+    lateinit var startTime : LocalTime
     lateinit var etDate : EditText
     lateinit var etTime : EditText
     var isSetDate = false
@@ -68,6 +72,7 @@ class DateTimeDialogFragment : DialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun submit() {
 //        val target = targetFragment ?: return
 //        val intent = Intent()
@@ -75,17 +80,18 @@ class DateTimeDialogFragment : DialogFragment() {
 //        target.onActivityResult(targetRequestCode, Activity.RESULT_OK, data)
 
         val data = bundleOf(
-            "year" to startDateTime.get(Calendar.YEAR),
-            "month" to startDateTime.get(Calendar.MONTH),
-            "date" to startDateTime.get(Calendar.DATE),
-            "hourOfDay" to startDateTime.get(Calendar.HOUR_OF_DAY),
-            "minute" to startDateTime.get(Calendar.MINUTE),
+            "year" to startDate.year,
+            "month" to startDate.monthValue,
+            "date" to startDate.dayOfMonth,
+            "hourOfDay" to startTime.hour,
+            "minute" to startTime.minute,
             "isSetDate" to isSetDate,
             "isSetTime" to isSetTime
         )
         parentFragmentManager.setFragmentResult("setStartDateTime", data)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -108,18 +114,20 @@ class DateTimeDialogFragment : DialogFragment() {
             setStartDateTime(hourOfDay, minute)
         }
 
-        startDateTime = Calendar.getInstance()
+        startDate = LocalDate.now()
+        startTime = LocalTime.now()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun setStartDateTime(year: Int, month: Int, day: Int) {
-        startDateTime.set(year, month, day)
+        startDate = LocalDate.of(year, month, day)
         etDate.setText("$month/$day")
         isSetDate = true
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun setStartDateTime(hourOfDay: Int, minute: Int) {
-        startDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
-        startDateTime.set(Calendar.MINUTE, minute)
+        startTime = LocalTime.of(hourOfDay, minute)
         etTime.setText("$hourOfDay:$minute")
         isSetTime = true
     }
