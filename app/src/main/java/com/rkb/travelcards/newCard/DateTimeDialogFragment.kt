@@ -22,6 +22,7 @@ import com.rkb.travelcards.reusable.DatePickerFragment
 import com.rkb.travelcards.reusable.TimePickerFragment
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 
 class DateTimeDialogFragment : DialogFragment() {
@@ -33,7 +34,7 @@ class DateTimeDialogFragment : DialogFragment() {
     var isSetDate = false
     var isSetTime = false
 
-    @SuppressLint("ResourceAsColor")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val ad : AlertDialog
 
@@ -80,11 +81,8 @@ class DateTimeDialogFragment : DialogFragment() {
 //        target.onActivityResult(targetRequestCode, Activity.RESULT_OK, data)
 
         val data = bundleOf(
-            "year" to startDate.year,
-            "month" to startDate.monthValue,
-            "date" to startDate.dayOfMonth,
-            "hourOfDay" to startTime.hour,
-            "minute" to startTime.minute,
+            "startDate" to startDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd")),
+            "startTime" to startTime.format(DateTimeFormatter.ofPattern("HH:mm")),
             "isSetDate" to isSetDate,
             "isSetTime" to isSetTime
         )
@@ -121,14 +119,14 @@ class DateTimeDialogFragment : DialogFragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun setStartDateTime(year: Int, month: Int, day: Int) {
         startDate = LocalDate.of(year, month, day)
-        etDate.setText("$month/$day")
+        etDate.setText(startDate.format(DateTimeFormatter.ofPattern("M/dd")))
         isSetDate = true
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun setStartDateTime(hourOfDay: Int, minute: Int) {
         startTime = LocalTime.of(hourOfDay, minute)
-        etTime.setText("$hourOfDay:$minute")
+        etTime.setText(startTime.format(DateTimeFormatter.ofPattern("H:mm")))
         isSetTime = true
     }
 }

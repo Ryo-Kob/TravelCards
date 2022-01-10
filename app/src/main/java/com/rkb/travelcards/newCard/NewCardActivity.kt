@@ -14,10 +14,14 @@ import com.rkb.travelcards.R
 import com.rkb.travelcards.reusable.TimerPickerFragment
 import java.util.*
 import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class NewCardActivity : AppCompatActivity() {
 
-    lateinit var startDateTime : Calendar // TODO: viewmodel的なのを使う
+    lateinit var startDate : LocalDate // TODO: viewmodel的なのを使う
+    lateinit var startTime : LocalTime
     var isSetDate : Boolean = false
     var isSetTime : Boolean = false
     lateinit var timer : Duration
@@ -29,7 +33,9 @@ class NewCardActivity : AppCompatActivity() {
 
     companion object {
         const val card_name = "カードの名前"
-        const val card_startDateTime = "カードの開始日時"
+//        const val card_startDateTime = "カードの開始日時"
+        const val card_startDate = "カードの開始日付"
+        const val card_startTime = "カードの開始時刻"
         const val card_isStartDateSet = "カードの開始日付を使うか"
         const val card_isStartTimeSet = "カードの開始時刻を使うか"
         const val card_comment = "カードのコメント"
@@ -70,7 +76,8 @@ class NewCardActivity : AppCompatActivity() {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
                 replyIntent.putExtra(card_name, editWordView.text.toString())
-                replyIntent.putExtra(card_startDateTime, startDateTime)
+                replyIntent.putExtra(card_startDate, startDate)
+                replyIntent.putExtra(card_startTime, startTime)
                 replyIntent.putExtra(card_isStartDateSet, isSetDate)
                 replyIntent.putExtra(card_isStartTimeSet, isSetTime)
                 replyIntent.putExtra(card_comment, editCommentView.text.toString())
@@ -81,17 +88,14 @@ class NewCardActivity : AppCompatActivity() {
 
         // 子Fragment実行結果
         supportFragmentManager.setFragmentResultListener("setStartDateTime", this) { key, data ->
-            val year = data.getInt("year", 0)
-            val month = data.getInt("month", 0)
-            val date = data.getInt("date", 0)
-            val hourOfDay = data.getInt("hourOfDay", 0)
-            val minute = data.getInt("minute", 0)
+            startDate = LocalDate.parse(data.getString("startDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+            startTime = LocalTime.parse(data.getString("startTime"), DateTimeFormatter.ofPattern("HH:mm"))
             isSetDate = data.getBoolean("isSetDate")
             isSetTime = data.getBoolean("isSetTime")
 
             // 結果を使った処理
-            Log.v("", "Good: $year $month $date - $hourOfDay $minute")
-            setStartDateTime(year, month, date, hourOfDay, minute, isSetDate, isSetTime)
+//            Log.v("", "Good: $year $month $date - $hourOfDay $minute")
+            setStartDateTime(startDate, startTime, isSetDate, isSetTime)
         }
 
         supportFragmentManager.setFragmentResultListener("setTimer", this) { key, data ->
@@ -103,23 +107,26 @@ class NewCardActivity : AppCompatActivity() {
             setTimer(hour, minute)
         }
 
-        startDateTime = Calendar.getInstance()
+        startDate = LocalDate.now()
+        startTime = LocalTime.now()
         timer = Duration.ofHours(0)
     }
 
-    private fun setStartDateTime(year: Int, month: Int, date: Int, hourOfDay: Int, minute: Int, isSetDate: Boolean, isSetTime: Boolean) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setStartDateTime(sd: LocalDate, st: LocalTime, isSetDate: Boolean, isSetTime: Boolean) {
+        var strDate : String = ""
+        var strTime : String = ""
         if (isSetDate) {
-            startDateTime.set(Calendar.YEAR, year)
-            startDateTime.set(Calendar.MONTH, month)
-            startDateTime.set(Calendar.DATE, date)
+            startDate = LocalDate.of(sd.year, sd.monthValue, sd.dayOfMonth)
+            strDate = startDate.format(DateTimeFormatter.ofPattern("M/dd"))
         }
         if (isSetTime) {
-            startDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
-            startDateTime.set(Calendar.MINUTE, minute)
+            startTime = LocalTime.of(st.hour, st.minute, 0)
+            strTime = startTime.format(DateTimeFormatter.ofPattern("H:mm"))
         }
-        if (isSetDate && isSetTime) tvDate.setText("$month/$date $hourOfDay:$minute")
-        if (isSetDate && !isSetTime) tvDate.setText("$month/$date")
-        if (!isSetDate && isSetTime) tvDate.setText("$hourOfDay:$minute")
+        if (isSetDate && isSetTime) tvDate.setText("$strDate $strTime")
+        if (isSetDate && !isSetTime) tvDate.setText(strDate)
+        if (!isSetDate && isSetTime) tvDate.setText(strTime)
         if (!isSetDate && !isSetTime) return
         ibDate.visibility=View.VISIBLE
     }
