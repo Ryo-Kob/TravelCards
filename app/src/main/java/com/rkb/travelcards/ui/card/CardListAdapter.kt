@@ -19,15 +19,18 @@ class CardListAdapter : ListAdapter<Card, CardListAdapter.ViewHolder>(CardsCompa
      * (custom ViewHolder).
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
+        val textViewName: TextView
+        val textViewDescription: TextView
 
         init {
             // Define click listener for the ViewHolder's View.
-            textView = view.findViewById(R.id.card_text_view_name)
+            textViewName = view.findViewById(R.id.card_text_view_name)
+            textViewDescription = view.findViewById(R.id.card_text_view_time)
         }
 
-        fun bind(text: String?) {
-            textView.text = text
+        fun bind(text: String?, description: String?) {
+            textViewName.text = text
+            textViewDescription.text = description
         }
     }
 
@@ -54,7 +57,7 @@ class CardListAdapter : ListAdapter<Card, CardListAdapter.ViewHolder>(CardsCompa
 
 //        viewHolder.textView.text = "てきすと"//dataSet[position]
         val current = getItem(position)
-        viewHolder.bind(current.title) // ここにも注意だ!
+        viewHolder.bind(current.title, current.description) // ここにも注意だ!
     }
 
     // Return the size of your dataset (invoked by the layout manager)

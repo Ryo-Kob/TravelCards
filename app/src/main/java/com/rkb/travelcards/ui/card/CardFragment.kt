@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -68,7 +67,7 @@ class CardFragment : Fragment() {
                 //
                 // 例：Toastを表示
                 val _position = holder.adapterPosition  // アイテムのポジションを取得
-                val _mesg = holder.textView.text    // mesgはエレメントのView(TextView)
+                val _mesg = holder.textViewName.text    // mesgはエレメントのView(TextView)
                 Toast.makeText(
                     activity,
                     "Click Pos=${_position} Mesg=\"${_mesg}\"",
@@ -82,12 +81,16 @@ class CardFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newCardActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            data?.getStringExtra(NewCardActivity.EXTRA_REPLY)?.let {
-                val card = Card(0)
-                card.title = it
+            val card = Card(0)
 
+            data?.getStringExtra(NewCardActivity.card_name)?.let {
+                card.title = it
+                data?.getStringExtra(NewCardActivity.card_comment)?.let {
+                    card.description = it
+                }
                 cardViewModel.insert(card)
             }
+
             Toast.makeText(
                 activity,
                 "天才！！",

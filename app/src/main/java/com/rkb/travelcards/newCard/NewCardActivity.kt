@@ -14,12 +14,8 @@ import com.rkb.travelcards.R
 import com.rkb.travelcards.reusable.TimerPickerFragment
 import java.util.*
 import java.time.Duration
-import java.time.LocalDateTime
-import java.time.temporal.TemporalAmount
 
 class NewCardActivity : AppCompatActivity() {
-
-    private val REQUEST_INPUT_NAME : Int = 1234
 
     lateinit var startDateTime : Calendar // TODO: viewmodel的なのを使う
     lateinit var timer : Duration
@@ -28,6 +24,11 @@ class NewCardActivity : AppCompatActivity() {
     lateinit var ibDate : ImageButton
     lateinit var tvTime : TextView
     lateinit var ibTime : ImageButton
+
+    companion object {
+        const val card_name = "カードの名前"
+        const val card_comment = "カードのコメント"
+    }
 
     @RequiresApi(Build.VERSION_CODES.O) // なぜこの宣言が必要かわからないが、Duration.ofHours() を使うときに要求された
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,12 +59,13 @@ class NewCardActivity : AppCompatActivity() {
         button.setOnClickListener {
             val replyIntent = Intent()
             val editWordView = findViewById<EditText>(R.id.editText_title)
+            val editCommentView = findViewById<EditText>(R.id.editText_comment)
 
             if (TextUtils.isEmpty(editWordView.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
-                val word = editWordView.text.toString()
-                replyIntent.putExtra(EXTRA_REPLY, word)
+                replyIntent.putExtra(card_name, editWordView.text.toString())
+                replyIntent.putExtra(card_comment, editCommentView.text.toString())
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()
@@ -112,27 +114,16 @@ class NewCardActivity : AppCompatActivity() {
         ibTime.visibility=View.VISIBLE
     }
 
-    companion object {
-        const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
-    }
-
-    fun showTimerPickerDialog(v: View) {
-
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.v("", "Code: $requestCode, $resultCode")
-
-        when (requestCode) {
-            REQUEST_INPUT_NAME -> {
-                if (resultCode != RESULT_OK) {
-                    return
-                }
-                val name = data?.getStringExtra(Intent.EXTRA_TEXT)
-                Log.v("", "FirstFragment: 入力された名前は$name")
-                return
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        Log.v("", "Code: $requestCode, $resultCode")
+//
+//        if (resultCode != RESULT_OK) {
+//            return
+//        }
+//        val name = data?.getStringExtra(Intent.EXTRA_TEXT)
+//        Log.v("", "FirstFragment: 入力された名前は$name")
+//        return
+//    }
 }
