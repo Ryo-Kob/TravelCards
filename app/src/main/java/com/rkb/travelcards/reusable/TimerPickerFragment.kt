@@ -31,6 +31,9 @@ class TimerPickerFragment : DialogFragment() {
             npHour.minValue = 0
             npHour.maxValue = 23
             npHour.value = 1
+            npHour.setOnValueChangedListener { picker, oldVal, newVal ->
+                if (npMinute.value == 0 && newVal == 0) npMinute.value = 1
+            }
 
             npMinute = view.findViewById<NumberPicker>(R.id.numberPicker_minute)
             npMinute.minValue = 0
