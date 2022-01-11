@@ -25,6 +25,7 @@ class NewCardActivity : AppCompatActivity() {
     var isSetDate : Boolean = false
     var isSetTime : Boolean = false
     lateinit var timer : Duration
+    var strStartDateTime : String = ""
 
     lateinit var tvDate : TextView
     lateinit var ibDate : ImageButton
@@ -38,6 +39,7 @@ class NewCardActivity : AppCompatActivity() {
         const val card_startTime = "カードの開始時刻"
         const val card_isStartDateSet = "カードの開始日付を使うか"
         const val card_isStartTimeSet = "カードの開始時刻を使うか"
+        const val card_strStartDateTime = "カードの開始日時を表す文字列"
         const val card_comment = "カードのコメント"
     }
 
@@ -76,10 +78,11 @@ class NewCardActivity : AppCompatActivity() {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
                 replyIntent.putExtra(card_name, editWordView.text.toString())
-                replyIntent.putExtra(card_startDate, startDate)
-                replyIntent.putExtra(card_startTime, startTime)
+                replyIntent.putExtra(card_startDate, startDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd")))
+                replyIntent.putExtra(card_startTime, startTime.format(DateTimeFormatter.ofPattern("HH:mm")))
                 replyIntent.putExtra(card_isStartDateSet, isSetDate)
                 replyIntent.putExtra(card_isStartTimeSet, isSetTime)
+                replyIntent.putExtra(card_strStartDateTime, strStartDateTime)
                 replyIntent.putExtra(card_comment, editCommentView.text.toString())
                 setResult(Activity.RESULT_OK, replyIntent)
             }
@@ -124,10 +127,11 @@ class NewCardActivity : AppCompatActivity() {
             startTime = LocalTime.of(st.hour, st.minute, 0)
             strTime = startTime.format(DateTimeFormatter.ofPattern("H:mm"))
         }
-        if (isSetDate && isSetTime) tvDate.setText("$strDate $strTime")
-        if (isSetDate && !isSetTime) tvDate.setText(strDate)
-        if (!isSetDate && isSetTime) tvDate.setText(strTime)
+        if (isSetDate && isSetTime) strStartDateTime = "$strDate $strTime"
+        if (isSetDate && !isSetTime) strStartDateTime = strDate
+        if (!isSetDate && isSetTime) strStartDateTime = strTime
         if (!isSetDate && !isSetTime) return
+        tvDate.setText(strStartDateTime)
         ibDate.visibility=View.VISIBLE
     }
 

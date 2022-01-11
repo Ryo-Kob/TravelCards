@@ -88,6 +88,19 @@ class CardFragment : Fragment() {
                 data?.getStringExtra(NewCardActivity.card_comment)?.let {
                     card.description = it
                 }
+                data?.getStringExtra(NewCardActivity.card_startDate)?.let {
+                    if (data?.getBooleanExtra(NewCardActivity.card_isStartDateSet, false)) {
+                        card.strStartDate = it
+                    }
+                }
+                data?.getStringExtra(NewCardActivity.card_startTime)?.let {
+                    if (data?.getBooleanExtra(NewCardActivity.card_isStartTimeSet, false)) {
+                        card.strStartTime = it
+                    }
+                }
+                data?.getStringExtra(NewCardActivity.card_strStartDateTime)?.let {
+                    card.strStartDateTime = it
+                }
                 cardViewModel.insert(card)
             }
 
