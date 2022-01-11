@@ -85,21 +85,35 @@ class CardFragment : Fragment() {
 
             data?.getStringExtra(NewCardActivity.card_name)?.let {
                 card.title = it
-                data?.getStringExtra(NewCardActivity.card_comment)?.let {
+                data.getStringExtra(NewCardActivity.card_comment)?.let {
                     card.description = it
                 }
-                data?.getStringExtra(NewCardActivity.card_startDate)?.let {
-                    if (data?.getBooleanExtra(NewCardActivity.card_isStartDateSet, false)) {
+                data.getStringExtra(NewCardActivity.card_startDate)?.let {
+                    if (data.getBooleanExtra(NewCardActivity.card_isStartDateSet, false)) {
                         card.strStartDate = it
+                        card.isStartDateSet = true
+                    }else{
+                        card.isStartDateSet = false
                     }
                 }
-                data?.getStringExtra(NewCardActivity.card_startTime)?.let {
-                    if (data?.getBooleanExtra(NewCardActivity.card_isStartTimeSet, false)) {
+                data.getStringExtra(NewCardActivity.card_startTime)?.let {
+                    if (data.getBooleanExtra(NewCardActivity.card_isStartTimeSet, false)) {
                         card.strStartTime = it
+                        card.isStartTimeSet = true
+                    }else{
+                        card.isStartTimeSet = false
                     }
                 }
-                data?.getStringExtra(NewCardActivity.card_strStartDateTime)?.let {
-                    card.strStartDateTime = it
+                data.getStringExtra(NewCardActivity.card_strStartDateTime)?.let {
+                    card.strStartDateTime =
+                        if (card.isStartDateSet) it
+                        else "(スケジュール未設定)"
+                }
+                data.getStringExtra(NewCardActivity.card_timeHour)?.let {
+                    card.timerHour = it.toInt()
+                }
+                data.getStringExtra(NewCardActivity.card_timeHour)?.let {
+                    card.timerMinute = it.toInt()
                 }
                 cardViewModel.insert(card)
             }
@@ -108,11 +122,11 @@ class CardFragment : Fragment() {
                 activity,
                 "カードを作成しました",
                 Toast.LENGTH_LONG).show()
-//        } else {
-//            Toast.makeText(
-//                activity,
-//                "名前が登録されてないよーーー",
-//                Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(
+                activity,
+                "名前が登録されていません. 登録を中止します. \n(TODO: 画面戻す必要はない, 戻さないようにしたい! )",
+                Toast.LENGTH_LONG).show()
         }
     }
 }

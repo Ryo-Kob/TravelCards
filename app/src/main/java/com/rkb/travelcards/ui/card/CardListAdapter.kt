@@ -70,7 +70,7 @@ class CardListAdapter : ListAdapter<Card, CardListAdapter.ViewHolder>(CardsCompa
         }
 
         override fun areContentsTheSame(oldItem: Card, newItem: Card): Boolean {
-            return oldItem.title == newItem.title // ここに要注意!
+            return oldItem.title == newItem.title // TODO: 全アイテムを比較するようにする. もしくは, この関数自体消しちゃう.
         }
     }
 

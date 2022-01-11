@@ -40,6 +40,8 @@ class NewCardActivity : AppCompatActivity() {
         const val card_isStartDateSet = "カードの開始日付を使うか"
         const val card_isStartTimeSet = "カードの開始時刻を使うか"
         const val card_strStartDateTime = "カードの開始日時を表す文字列"
+        const val card_timeHour = "カードの所要時間:時"
+        const val card_timeMinute = "カードの所要時間:分"
         const val card_comment = "カードのコメント"
     }
 
@@ -83,6 +85,8 @@ class NewCardActivity : AppCompatActivity() {
                 replyIntent.putExtra(card_isStartDateSet, isSetDate)
                 replyIntent.putExtra(card_isStartTimeSet, isSetTime)
                 replyIntent.putExtra(card_strStartDateTime, strStartDateTime)
+                replyIntent.putExtra(card_timeHour, timer.toHours())
+                replyIntent.putExtra(card_timeMinute, timer.toMillis())
                 replyIntent.putExtra(card_comment, editCommentView.text.toString())
                 setResult(Activity.RESULT_OK, replyIntent)
             }
@@ -112,7 +116,7 @@ class NewCardActivity : AppCompatActivity() {
 
         startDate = LocalDate.now()
         startTime = LocalTime.now()
-        timer = Duration.ofHours(0)
+        timer = Duration.ZERO
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -137,7 +141,9 @@ class NewCardActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setTimer(hour: Int, minute: Int) {
-        timer.withSeconds((minute*60 + hour*3600).toLong())
+        timer = Duration.ZERO
+        timer.plusHours(hour.toLong())
+        timer.plusMinutes(minute.toLong())
         tvTime.setText("$hour 時間 $minute 分")
         ibTime.visibility=View.VISIBLE
     }
