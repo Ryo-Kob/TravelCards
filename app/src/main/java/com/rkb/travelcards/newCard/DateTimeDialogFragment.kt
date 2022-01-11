@@ -119,7 +119,7 @@ class DateTimeDialogFragment : DialogFragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun setStartDateTime(year: Int, month: Int, day: Int) {
         startDate = LocalDate.of(year, month, day)
-        etDate.setText(startDate.format(DateTimeFormatter.ofPattern("M/dd")))
+        etDate.setText(startDate.format(DateTimeFormatter.ofPattern("M/d")))
         isSetDate = true
     }
 

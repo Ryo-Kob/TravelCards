@@ -106,13 +106,13 @@ class CardFragment : Fragment() {
 
             Toast.makeText(
                 activity,
-                "天才！！",
+                "カードを作成しました",
                 Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(
-                activity,
-                "名前が登録されてないよーーー",
-                Toast.LENGTH_LONG).show()
+//        } else {
+//            Toast.makeText(
+//                activity,
+//                "名前が登録されてないよーーー",
+//                Toast.LENGTH_LONG).show()
         }
     }
 }

@@ -121,7 +121,7 @@ class NewCardActivity : AppCompatActivity() {
         var strTime : String = ""
         if (isSetDate) {
             startDate = LocalDate.of(sd.year, sd.monthValue, sd.dayOfMonth)
-            strDate = startDate.format(DateTimeFormatter.ofPattern("M/dd"))
+            strDate = startDate.format(DateTimeFormatter.ofPattern("M/d"))
         }
         if (isSetTime) {
             startTime = LocalTime.of(st.hour, st.minute, 0)
