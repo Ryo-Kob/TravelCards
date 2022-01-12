@@ -12,7 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-<!--        <item name="android:timePickerStyle">@style/SpinnerTimePicker</item>-->
+<!--        <color name="colorCardBackground">@color/cardDark</color>-->
     </style>
 
     <style name="SpinnerTimePicker" parent="android:Widget.Material.Light.TimePicker">
