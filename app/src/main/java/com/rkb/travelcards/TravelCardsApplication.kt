@@ -21,6 +21,10 @@ class TravelCardsApplication  : Application() {
         CardRoomDatabase.getDatabase(this, applicationScope)
     }
     val repository by lazy {
-        TravelCardsRepository(database.cardDao(), database.cardSuiteDao(), database.planDao())
+        TravelCardsRepository(
+            database.cardDao(),
+//            database.cardSuiteDao(),
+//            database.planDao()
+        )
     }
 }
