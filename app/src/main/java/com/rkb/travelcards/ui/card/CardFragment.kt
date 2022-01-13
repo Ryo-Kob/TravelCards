@@ -81,7 +81,7 @@ class CardFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newCardActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            val card = Card(0)
+            val card = Card()
 
             data?.getStringExtra(NewCardActivity.card_name)?.let {
                 card.title = it

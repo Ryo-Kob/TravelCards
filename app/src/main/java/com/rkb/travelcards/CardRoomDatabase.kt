@@ -57,9 +57,9 @@ public abstract class CardRoomDatabase : RoomDatabase() {
             cardDao.deleteAll()
 
             // Add sample words.
-            var card = Card(0)
+            var card = Card()
             cardDao.insert(card)
-            card = Card(1)
+            card = Card()
             cardDao.insert(card)
 
             // TODO: Add your own words!
