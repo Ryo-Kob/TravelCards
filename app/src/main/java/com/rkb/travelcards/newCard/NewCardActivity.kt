@@ -85,8 +85,8 @@ class NewCardActivity : AppCompatActivity() {
                 replyIntent.putExtra(card_isStartDateSet, isSetDate)
                 replyIntent.putExtra(card_isStartTimeSet, isSetTime)
                 replyIntent.putExtra(card_strStartDateTime, strStartDateTime)
-                replyIntent.putExtra(card_timeHour, timer.toHours())
-                replyIntent.putExtra(card_timeMinute, timer.toMillis())
+                replyIntent.putExtra(card_timeHour, timer.toHours().toString())
+                replyIntent.putExtra(card_timeMinute, timer.toMillis().toString())
                 replyIntent.putExtra(card_comment, editCommentView.text.toString())
                 setResult(Activity.RESULT_OK, replyIntent)
             }
@@ -131,6 +131,7 @@ class NewCardActivity : AppCompatActivity() {
             startTime = LocalTime.of(st.hour, st.minute, 0)
             strTime = startTime.format(DateTimeFormatter.ofPattern("H:mm"))
         }
+        Log.v("", "isSetDate, isSetTime: $isSetDate, $isSetTime. $strDate, $strTime")
         if (isSetDate && isSetTime) strStartDateTime = "$strDate $strTime"
         if (isSetDate && !isSetTime) strStartDateTime = strDate
         if (!isSetDate && isSetTime) strStartDateTime = strTime

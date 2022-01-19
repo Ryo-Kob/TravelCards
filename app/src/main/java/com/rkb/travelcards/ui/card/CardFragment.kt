@@ -106,7 +106,7 @@ class CardFragment : Fragment() {
                 }
                 data.getStringExtra(NewCardActivity.card_strStartDateTime)?.let {
                     card.strStartDateTime =
-                        if (card.isStartDateSet) it
+                        if (card.isStartDateSet || card.isStartTimeSet) it
                         else "(スケジュール未設定)"
                 }
                 data.getStringExtra(NewCardActivity.card_timeHour)?.let {
