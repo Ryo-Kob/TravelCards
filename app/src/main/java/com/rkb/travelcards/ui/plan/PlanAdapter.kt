@@ -11,18 +11,14 @@ import com.rkb.travelCards.ui.plan.PlanViewModel
 import com.rkb.travelcards.CardSuite
 import com.rkb.travelcards.R
 
-class PlanAdapter(
-    vm : PlanViewModel
-) : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparator()) {
-    lateinit var vm : PlanViewModel
+class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparator()) {
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    class ViewHolder(view: View, vm : PlanViewModel) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewName: TextView
-        lateinit var vm: PlanViewModel
 //        val textViewDescription: TextView
 
         init {
@@ -32,7 +28,7 @@ class PlanAdapter(
         }
 
         fun bind(cardId: Int) {
-            textViewName.text = vm.getCard(cardId).toString()
+//            textViewName.text = vm.getCard(cardId).toString()
 //            textViewName.text = "111111111111111111"
         }
     }
@@ -43,13 +39,13 @@ class PlanAdapter(
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.plan_recycler_view_item, viewGroup, false)
 
-        val holder = PlanAdapter.ViewHolder(view, vm)
+        val holder = PlanAdapter.ViewHolder(view)
 
         view.setOnClickListener{       // リスナーの実装
             itemClickListener?.onItemClick(holder)
         }
 
-        return ViewHolder(view, vm)
+        return ViewHolder(view)
     }
 
     // Replace the contents of a view (invoked by the layout manager)

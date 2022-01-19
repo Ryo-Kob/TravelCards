@@ -41,7 +41,7 @@ class PlanFragment : Fragment() {
 
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.plan_list_recycler_view)
-        val adapter = PlanAdapter(planViewModel)
+        val adapter = PlanAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 
