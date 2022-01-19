@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_journey"
-        android:name="com.rkb.travelcards.ui.plan.JourneyFragment"
+        android:name="com.rkb.travelcards.ui.plan.PlanFragment"
         android:label="@string/title_journey"
         tools:layout="@layout/fragment_plan" />
 

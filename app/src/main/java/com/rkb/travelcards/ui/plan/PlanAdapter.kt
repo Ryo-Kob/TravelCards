@@ -1,4 +1,4 @@
-package com.rkb.travelcards.ui.card
+package com.rkb.travelcards.ui.plan
 
 import android.view.LayoutInflater
 import android.view.View

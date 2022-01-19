@@ -13,12 +13,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.rkb.travelCards.ui.Plan.PlanViewModel
-import com.rkb.travelCards.ui.Plan.PlanViewModelFactory
+import com.rkb.travelCards.ui.plan.PlanViewModel
+import com.rkb.travelCards.ui.plan.PlanViewModelFactory
 import com.rkb.travelcards.R
 import com.rkb.travelcards.TravelCardsApplication
-import com.rkb.travelcards.ui.card.PlanAdapter
-//import com.rkb.travelcards.ui.plan.PlanAdapter
 
 class PlanFragment : Fragment() {
 
