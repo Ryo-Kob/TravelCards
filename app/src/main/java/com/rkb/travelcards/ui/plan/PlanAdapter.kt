@@ -7,10 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.rkb.travelcards.Card
+import com.rkb.travelcards.CardSuite
 import com.rkb.travelcards.R
 
-class PlanAdapter : ListAdapter<Card, PlanAdapter.ViewHolder>(CardsComparator()) {
+class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparator()) {
 
     /**
      * Provide a reference to the type of views that you are using
@@ -18,17 +18,16 @@ class PlanAdapter : ListAdapter<Card, PlanAdapter.ViewHolder>(CardsComparator())
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewName: TextView
-        val textViewDescription: TextView
+//        val textViewDescription: TextView
 
         init {
             // Define click listener for the ViewHolder's View.
             textViewName = view.findViewById(R.id.card_text_view_name)
-            textViewDescription = view.findViewById(R.id.card_text_view_time)
+//            textViewDescription = view.findViewById(R.id.card_text_view_time)
         }
 
-        fun bind(text: String?, description: String?) {
+        fun bind(text: String?) {
             textViewName.text = text
-            textViewDescription.text = description
         }
     }
 
@@ -55,20 +54,20 @@ class PlanAdapter : ListAdapter<Card, PlanAdapter.ViewHolder>(CardsComparator())
 
 //        viewHolder.textView.text = "てきすと"//dataSet[position]
         val current = getItem(position)
-        viewHolder.bind(current.title, current.strStartDateTime) // ここにも注意だ!
+        viewHolder.bind(current.cardId.toString()) // ここにも注意だ!
     }
 
     // Return the size of your dataset (invoked by the layout manager)
 //    override fun getItemCount() = dataSet.size
 //    override fun getItemCount() = 10
 
-    class CardsComparator : DiffUtil.ItemCallback<Card>() {
-        override fun areItemsTheSame(oldItem: Card, newItem: Card): Boolean {
+    class CardsComparator : DiffUtil.ItemCallback<CardSuite>() {
+        override fun areItemsTheSame(oldItem: CardSuite, newItem: CardSuite): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: Card, newItem: Card): Boolean {
-            return oldItem.title == newItem.title // TODO: 全アイテムを比較するようにする. もしくは, この関数自体消しちゃう.
+        override fun areContentsTheSame(oldItem: CardSuite, newItem: CardSuite): Boolean {
+            return oldItem.cardId == newItem.cardId // TODO: 全アイテムを比較するようにする. もしくは, この関数自体消しちゃう.
         }
     }
 
