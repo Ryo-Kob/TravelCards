@@ -15,13 +15,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.rkb.travelCards.ui.plan.PlanViewModel
 import com.rkb.travelCards.ui.plan.PlanViewModelFactory
+import com.rkb.travelcards.Plan
 import com.rkb.travelcards.R
 import com.rkb.travelcards.TravelCardsApplication
 
 class PlanFragment : Fragment() {
 
     //    private lateinit var PlanViewModel: PlanViewModel
-    private val planViewModel: PlanViewModel by viewModels {
+    val planViewModel: PlanViewModel by viewModels {
         PlanViewModelFactory((activity?.application as TravelCardsApplication).repository)
     }
 
@@ -40,7 +41,7 @@ class PlanFragment : Fragment() {
 
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.plan_list_recycler_view)
-        val adapter = PlanAdapter()
+        val adapter = PlanAdapter(PlanViewModel)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 

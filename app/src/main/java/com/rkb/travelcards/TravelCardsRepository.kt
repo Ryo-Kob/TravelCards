@@ -35,4 +35,10 @@ class TravelCardsRepository(
     suspend fun insert(plan: Plan) {
         planDao.insert(plan)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getCard(id: Int) {
+        cardDao.getCard(id)
+    }
 }

@@ -1,6 +1,7 @@
 package com.rkb.travelCards.ui.plan
 
 import androidx.lifecycle.*
+import com.rkb.travelcards.Card
 import com.rkb.travelcards.CardSuite
 import com.rkb.travelcards.TravelCardsRepository
 import kotlinx.coroutines.launch
@@ -12,12 +13,17 @@ class PlanViewModel(private val repository: TravelCardsRepository) : ViewModel()
     //   the UI when the data actually changes.
     // - Repository is completely separated from the UI through the ViewModel.
     val allCardSuites: LiveData<List<CardSuite>> = repository.allCardSuites.asLiveData()
+    val allCards: LiveData<List<Card>> = repository.allCards.asLiveData()
 
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
     fun insert(cardSuite: CardSuite) = viewModelScope.launch {
         repository.insert(cardSuite)
+    }
+
+    fun getCard(cardId: Int) = viewModelScope.launch {
+        repository.getCard(cardId)
     }
 }
 

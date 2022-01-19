@@ -7,17 +7,22 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.rkb.travelCards.ui.plan.PlanViewModel
 import com.rkb.travelcards.CardSuite
 import com.rkb.travelcards.R
 
-class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparator()) {
+class PlanAdapter(
+    vm : PlanViewModel
+) : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparator()) {
+    lateinit var vm : PlanViewModel
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, vm : PlanViewModel) : RecyclerView.ViewHolder(view) {
         val textViewName: TextView
+        lateinit var vm: PlanViewModel
 //        val textViewDescription: TextView
 
         init {
@@ -26,8 +31,9 @@ class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparat
 //            textViewDescription = view.findViewById(R.id.card_text_view_time)
         }
 
-        fun bind(text: String?) {
-            textViewName.text = text
+        fun bind(cardId: Int) {
+            textViewName.text = vm.getCard(cardId).toString()
+//            textViewName.text = "111111111111111111"
         }
     }
 
@@ -35,15 +41,15 @@ class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparat
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.card_list_recycler_view_item, viewGroup, false)
+            .inflate(R.layout.plan_recycler_view_item, viewGroup, false)
 
-        val holder = PlanAdapter.ViewHolder(view)
+        val holder = PlanAdapter.ViewHolder(view, vm)
 
         view.setOnClickListener{       // リスナーの実装
             itemClickListener?.onItemClick(holder)
         }
 
-        return ViewHolder(view)
+        return ViewHolder(view, vm)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -54,7 +60,7 @@ class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparat
 
 //        viewHolder.textView.text = "てきすと"//dataSet[position]
         val current = getItem(position)
-        viewHolder.bind(current.cardId.toString()) // ここにも注意だ!
+        viewHolder.bind(current.cardId) // ここにも注意だ!
     }
 
     // Return the size of your dataset (invoked by the layout manager)
