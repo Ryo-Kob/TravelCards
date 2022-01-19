@@ -61,11 +61,9 @@ public abstract class CardRoomDatabase : RoomDatabase() {
 
             // Add sample words.
             var card = Card()
+            card.title = "(サンプル) ××レストランでランチ"
+            card.strStartDateTime = "1/1 12:00 - 14:00"
             cardDao.insert(card)
-            card = Card()
-            cardDao.insert(card)
-
-            // TODO: Add your own words!
         }
 
         suspend fun populateDatabase(cardSuiteDao: CardSuiteDao) {
