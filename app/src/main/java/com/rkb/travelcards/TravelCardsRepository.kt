@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 class TravelCardsRepository(
     private val cardDao: CardDao,
-//    private val cardSuiteDao: CardSuiteDao,
-//    private val planDao: PlanDao
+    private val cardSuiteDao: CardSuiteDao,
+    private val planDao: PlanDao
     ) {
 
     // Room executes all queries on a separate thread.

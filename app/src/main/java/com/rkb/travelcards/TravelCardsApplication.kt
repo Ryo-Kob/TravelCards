@@ -23,8 +23,8 @@ class TravelCardsApplication  : Application() {
     val repository by lazy {
         TravelCardsRepository(
             database.cardDao(),
-//            database.cardSuiteDao(),
-//            database.planDao()
+            database.cardSuiteDao(),
+            database.planDao()
         )
     }
 }

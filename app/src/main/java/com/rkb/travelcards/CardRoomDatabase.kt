@@ -8,12 +8,15 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(Card::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(
+    Card::class,
+    CardSuite::class,
+    Plan::class), version = 1, exportSchema = false)
 public abstract class CardRoomDatabase : RoomDatabase() {
 
     abstract fun cardDao(): CardDao
-//    abstract fun cardSuiteDao() : CardSuiteDao
-//    abstract fun planDao() : PlanDao
+    abstract fun cardSuiteDao() : CardSuiteDao
+    abstract fun planDao() : PlanDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
@@ -46,8 +49,8 @@ public abstract class CardRoomDatabase : RoomDatabase() {
             INSTANCE?.let { database ->
                 scope.launch {
                     populateDatabase(database.cardDao())
-//                    populateDatabase(database.cardSuiteDao())
-//                    populateDatabase(database.planDao())
+                    populateDatabase(database.cardSuiteDao())
+                    populateDatabase(database.planDao())
                 }
             }
         }
@@ -65,26 +68,26 @@ public abstract class CardRoomDatabase : RoomDatabase() {
             // TODO: Add your own words!
         }
 
-//        suspend fun populateDatabase(cardSuiteDao: CardSuiteDao) {
-//            // Delete all content here.
-//            cardSuiteDao.deleteAll()
-//
-//            // Add sample words.
-//            var cardSuite = CardSuite(0)
-//            cardSuiteDao.insert(cardSuite)
-//
-//            // TODO: Add your own words!
-//        }
-//
-//        suspend fun populateDatabase(planDao: PlanDao) {
-//            // Delete all content here.
-//            planDao.deleteAll()
-//
-//            // Add sample words.
-//            var plan = Plan(0)
-//            planDao.insert(plan)
-//
-//            // TODO: Add your own words!
-//        }
+        suspend fun populateDatabase(cardSuiteDao: CardSuiteDao) {
+            // Delete all content here.
+            cardSuiteDao.deleteAll()
+
+            // Add sample words.
+            var cardSuite = CardSuite()
+            cardSuiteDao.insert(cardSuite)
+
+            // TODO: Add your own words!
+        }
+
+        suspend fun populateDatabase(planDao: PlanDao) {
+            // Delete all content here.
+            planDao.deleteAll()
+
+            // Add sample words.
+            var plan = Plan()
+            planDao.insert(plan)
+
+            // TODO: Add your own words!
+        }
     }
 }

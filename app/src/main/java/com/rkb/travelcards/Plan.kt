@@ -6,8 +6,9 @@ import java.util.*
 
 @Entity(tableName = "plan_table")
 data class Plan(
-    @PrimaryKey(autoGenerate = true) val id: Int,
     var title : String = "",
     var description : String = "",
 //    var cardSuite: CardSuite
-)
+) {
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
+}
