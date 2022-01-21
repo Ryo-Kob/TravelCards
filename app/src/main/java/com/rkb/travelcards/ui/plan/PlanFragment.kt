@@ -71,12 +71,9 @@ class PlanFragment : Fragment() {
 //        }
 
         // ドロワー
-        val navHostFragment =
-            activity!!.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-
+        val navHostFragment = activity!!.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-
-        view.findViewById<NavigationView>(R.id.nav_view_drawer).setupWithNavController(navController)
+        view.findViewById<NavigationView>(R.id.my_nav_view).setupWithNavController(navController)
 
         adapter.itemClickListener = object : PlanAdapter.OnItemClickListener {
             override fun onItemClick(holder: PlanAdapter.ViewHolder) {
