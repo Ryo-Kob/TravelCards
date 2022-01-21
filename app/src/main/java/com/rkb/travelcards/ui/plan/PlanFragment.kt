@@ -10,8 +10,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
 import com.rkb.travelCards.ui.plan.PlanViewModel
 import com.rkb.travelCards.ui.plan.PlanViewModelFactory
 import com.rkb.travelcards.*
@@ -66,6 +69,14 @@ class PlanFragment : Fragment() {
 //            val intent = Intent(activity, NewplanActivity::class.java)
 //            startActivityForResult(intent, newplanActivityRequestCode)
 //        }
+
+        // ドロワー
+        val navHostFragment =
+            activity!!.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+
+        val navController = navHostFragment.navController
+
+        view.findViewById<NavigationView>(R.id.nav_view_drawer).setupWithNavController(navController)
 
         adapter.itemClickListener = object : PlanAdapter.OnItemClickListener {
             override fun onItemClick(holder: PlanAdapter.ViewHolder) {
