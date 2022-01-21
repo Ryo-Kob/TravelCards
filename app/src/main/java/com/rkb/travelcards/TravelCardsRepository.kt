@@ -41,4 +41,9 @@ class TravelCardsRepository(
     suspend fun getCard(id: Int) {
         cardDao.getCard(id)
     }
+
+
+    fun getCardList() : List<Card> {
+        return cardDao.getCardList()
+    }
 }

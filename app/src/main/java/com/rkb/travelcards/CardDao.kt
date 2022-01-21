@@ -11,6 +11,9 @@ interface CardDao {
     @Query("SELECT * FROM card_table")
     fun getCards(): Flow<List<Card>>
 
+    @Query("SELECT * FROM card_table")
+    fun getCardList(): List<Card>
+
     @Query("SELECT * FROM card_table WHERE id=:id")
     fun getCard(id: Int): Card
 

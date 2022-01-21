@@ -3,6 +3,7 @@ package com.rkb.travelcards.ui.plan
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +16,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.rkb.travelCards.ui.plan.PlanViewModel
 import com.rkb.travelCards.ui.plan.PlanViewModelFactory
-import com.rkb.travelcards.Plan
-import com.rkb.travelcards.R
-import com.rkb.travelcards.TravelCardsApplication
+import com.rkb.travelcards.*
 
 class PlanFragment : Fragment() {
 
-    //    private lateinit var PlanViewModel: PlanViewModel
+    lateinit var cards : List<Card>
+
     val planViewModel: PlanViewModel by viewModels {
         PlanViewModelFactory((activity?.application as TravelCardsApplication).repository)
     }
@@ -44,6 +44,9 @@ class PlanFragment : Fragment() {
         val adapter = PlanAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+
+        cards = planViewModel.getCardList()
+        Log.v("", cards[0].toString())
 
         planViewModel.allCardSuites.observe(viewLifecycleOwner, Observer { cardSuites ->
             // Update the cached copy of the words in the adapter.

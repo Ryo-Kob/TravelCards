@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.rkb.travelcards.Card
 import com.rkb.travelcards.CardSuite
 import com.rkb.travelcards.TravelCardsRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class PlanViewModel(private val repository: TravelCardsRepository) : ViewModel() {
@@ -24,6 +25,10 @@ class PlanViewModel(private val repository: TravelCardsRepository) : ViewModel()
 
     fun getCard(cardId: Int) = viewModelScope.launch {
         repository.getCard(cardId)
+    }
+
+    fun getCardList() : List<Card> {
+        return repository.getCardList()
     }
 }
 
