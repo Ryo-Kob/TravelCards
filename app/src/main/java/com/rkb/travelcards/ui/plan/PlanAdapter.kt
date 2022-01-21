@@ -7,16 +7,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.rkb.travelcards.Card
 import com.rkb.travelcards.CardSuite
 import com.rkb.travelcards.R
 
-class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparator()) {
+class PlanAdapter() : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparator()) {
+    var card = mutableListOf<Card>()
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var cards = mutableListOf<Card>()
         val textViewName: TextView
 //        val textViewDescription: TextView
 
@@ -29,7 +32,7 @@ class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparat
         fun bind(cardId: Int) {
             // TODO: 特定のcardIdを持つCardの情報を取得し、textViewName等に反映させたい！
 //            textViewName.text = vm.getCard(cardId).toString()
-            textViewName.text = "111111111111111111"
+            textViewName.text = cards[cardId]
         }
     }
 
