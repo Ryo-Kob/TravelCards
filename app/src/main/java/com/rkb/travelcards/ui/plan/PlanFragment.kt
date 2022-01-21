@@ -26,7 +26,7 @@ import kotlinx.coroutines.runBlocking
 
 class PlanFragment : Fragment() {
 
-    lateinit var cards : List<Card>
+    var cards = mutableListOf<Card>()
 
     val planViewModel: PlanViewModel by viewModels {
         PlanViewModelFactory((activity?.application as TravelCardsApplication).repository)
@@ -53,12 +53,12 @@ class PlanFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
 
+        // card一覧(cards)を、データベースから拾ってくる。
         Single.fromCallable {
-            getCardList()
+            planViewModel.getCardList()
         }.subscribeOn(Schedulers.io())
             .flatMapObservable { it.toObservable() }
-            .map { it.title }
-            .subscribe({ println(it) })
+            .subscribe({ cards.add(it) })
 
         planViewModel.allCardSuites.observe(viewLifecycleOwner, Observer { cardSuites ->
             // Update the cached copy of the words in the adapter.
@@ -91,11 +91,4 @@ class PlanFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
     }
-
-    private fun getCardList() : List<Card> {
-        return planViewModel.getCardList()
-//        Log.v("", cards[0].toString())
-//        Log.v("", "Finished!!!!!!!!!!!")
-    }
-
 }
