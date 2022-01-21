@@ -1,7 +1,5 @@
 package com.rkb.travelcards.ui.plan
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -14,16 +12,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.rkb.travelCards.ui.plan.PlanViewModel
 import com.rkb.travelCards.ui.plan.PlanViewModelFactory
 import com.rkb.travelcards.*
 import io.reactivex.Single
-import io.reactivex.SingleObserver
-import io.reactivex.rxkotlin.toObservable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class PlanFragment : Fragment() {
 
