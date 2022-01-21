@@ -1,5 +1,6 @@
 package com.rkb.travelcards.ui.plan
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -17,6 +18,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.rkb.travelCards.ui.plan.PlanViewModel
 import com.rkb.travelCards.ui.plan.PlanViewModelFactory
 import com.rkb.travelcards.*
+import io.reactivex.Single
+import io.reactivex.rxkotlin.toObservable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class PlanFragment : Fragment() {
 
@@ -36,6 +42,7 @@ class PlanFragment : Fragment() {
         return root
     }
 
+    @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -45,8 +52,13 @@ class PlanFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        cards = planViewModel.getCardList()
-        Log.v("", cards[0].toString())
+
+        Single.fromCallable {
+            getCardList()
+        }.subscribeOn(Schedulers.io())
+            .flatMapObservable { it.toObservable() }
+            .map { it.title }
+            .subscribe({ println(it) })
 
         planViewModel.allCardSuites.observe(viewLifecycleOwner, Observer { cardSuites ->
             // Update the cached copy of the words in the adapter.
@@ -79,4 +91,11 @@ class PlanFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
     }
+
+    private fun getCardList() : List<Card> {
+        return planViewModel.getCardList()
+//        Log.v("", cards[0].toString())
+//        Log.v("", "Finished!!!!!!!!!!!")
+    }
+
 }
