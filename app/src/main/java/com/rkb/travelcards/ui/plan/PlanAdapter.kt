@@ -12,14 +12,14 @@ import com.rkb.travelcards.CardSuite
 import com.rkb.travelcards.R
 
 class PlanAdapter() : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparator()) {
-    var card = mutableListOf<Card>()
+    lateinit var card : List<Card>
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var cards = mutableListOf<Card>()
+        lateinit var card : List<Card>
         val textViewName: TextView
 //        val textViewDescription: TextView
 
@@ -32,7 +32,7 @@ class PlanAdapter() : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsCompar
         fun bind(cardId: Int) {
             // TODO: 特定のcardIdを持つCardの情報を取得し、textViewName等に反映させたい！
 //            textViewName.text = vm.getCard(cardId).toString()
-            textViewName.text = cards[cardId]
+            textViewName.text = card[cardId].title
         }
     }
 
@@ -42,13 +42,14 @@ class PlanAdapter() : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsCompar
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.plan_recycler_view_item, viewGroup, false)
 
-        val holder = PlanAdapter.ViewHolder(view)
+        val holder = ViewHolder(view)
+        holder.card = card
 
         view.setOnClickListener{       // リスナーの実装
             itemClickListener?.onItemClick(holder)
         }
 
-        return ViewHolder(view)
+        return holder
     }
 
     // Replace the contents of a view (invoked by the layout manager)

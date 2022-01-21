@@ -19,6 +19,7 @@ import com.rkb.travelCards.ui.plan.PlanViewModel
 import com.rkb.travelCards.ui.plan.PlanViewModelFactory
 import com.rkb.travelcards.*
 import io.reactivex.Single
+import io.reactivex.SingleObserver
 import io.reactivex.rxkotlin.toObservable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
@@ -26,7 +27,7 @@ import kotlinx.coroutines.runBlocking
 
 class PlanFragment : Fragment() {
 
-    var cards = mutableListOf<Card>()
+    lateinit var cards : List<Card>
 
     val planViewModel: PlanViewModel by viewModels {
         PlanViewModelFactory((activity?.application as TravelCardsApplication).repository)
@@ -42,7 +43,6 @@ class PlanFragment : Fragment() {
         return root
     }
 
-    @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -57,8 +57,11 @@ class PlanFragment : Fragment() {
         Single.fromCallable {
             planViewModel.getCardList()
         }.subscribeOn(Schedulers.io())
-            .flatMapObservable { it.toObservable() }
-            .subscribe({ cards.add(it) })
+            .subscribe({
+                cards = it
+                Log.v("", cards[0].title)
+                adapter.card = cards
+            }, {})
 
         planViewModel.allCardSuites.observe(viewLifecycleOwner, Observer { cardSuites ->
             // Update the cached copy of the words in the adapter.
