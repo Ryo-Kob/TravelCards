@@ -66,7 +66,7 @@ class PlanFragment : Fragment() {
         val mIth = ItemTouchHelper(
             object : ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-                ItemTouchHelper.LEFT
+                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
             ) {
                 override fun onMove(
                     recyclerView: RecyclerView,
@@ -77,11 +77,8 @@ class PlanFragment : Fragment() {
                     val toPos = target.adapterPosition
                     adapter.notifyItemMoved(fromPos, toPos)
 
-                    Toast.makeText(
-                        activity,
-                        "Click from:$fromPos, to:$toPos",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Log.v("", "Click from:$fromPos, to:$toPos")
+
                     return true // true if moved, false otherwise
                 }
 
@@ -89,44 +86,10 @@ class PlanFragment : Fragment() {
                     viewHolder: RecyclerView.ViewHolder,
                     direction: Int
                 ) {
+                    Log.v("", "Click direction:$direction")
                 }
             })
         mIth.attachToRecyclerView(recyclerView)
-//        val itemTouchHelper = ItemTouchHelper(
-//            object : ItemTouchHelper.SimpleCallback(
-//                ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT
-//            ) {
-//                override fun onItemClick(holder: PlanAdapter.ViewHolder) {
-//                    //
-//                    // ここにクリックイベント時の処理を記述
-//                    //
-//                    // 例：Toastを表示
-//                    val _position = holder.adapterPosition  // アイテムのポジションを取得
-//                    val _mesg = holder.textViewName.text    // mesgはエレメントのView(TextView)
-//                    Toast.makeText(
-//                        activity,
-//                        "Click Pos=${_position} Mesg=\"${_mesg}\"",
-//                        Toast.LENGTH_LONG
-//                    ).show()
-//                }
-//
-//                override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?): Boolean {
-//
-//                    val fromPosition = viewHolder?.adapterPosition ?: 0
-//                    val toPosition = target?.adapterPosition ?: 0
-//
-//                    recyclerView!!.adapter!!.notifyItemMoved(fromPosition, toPosition)
-//
-//                    return true
-//                }
-//
-//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
-//                    viewHolder?.let {
-//                        recyclerView.adapter!!.notifyItemRemoved(viewHolder.adapterPosition)
-//                    }
-//                }
-//            })
-//        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         // ドロワー
         val navHostFragment = activity!!.supportFragmentManager.fragments[0] as NavHostFragment
@@ -134,5 +97,11 @@ class PlanFragment : Fragment() {
         val navController = navHostFragment.navController
         view.findViewById<NavigationView>(R.id.my_nav_view).setupWithNavController(navController)
 
+        // 蛇足
+        val cs : CardSuite
+        cs.cardId = 0
+        cs.isStartDateFixed = false
+        cs.startDate =
+        planViewModel.insert(cs)
     }
 }
