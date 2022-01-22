@@ -45,9 +45,9 @@ class PlanAdapter() : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsCompar
         val holder = ViewHolder(view)
         holder.card = card
 
-        view.setOnClickListener{       // リスナーの実装
-            itemClickListener?.onItemClick(holder)
-        }
+//        view.setOnClickListener{       // リスナーの実装
+//            itemClickListener?.onItemClick(holder)
+//        }
 
         return holder
     }
@@ -77,8 +77,8 @@ class PlanAdapter() : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsCompar
         }
     }
 
-    var itemClickListener: OnItemClickListener? = null
-    interface OnItemClickListener {
-        fun onItemClick(holder: PlanAdapter.ViewHolder)
-    }
+//    var itemClickListener: OnItemClickListener? = null
+//    interface OnItemClickListener {
+//        fun onItemClick(holder: PlanAdapter.ViewHolder)
+//    }
 }

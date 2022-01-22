@@ -19,8 +19,8 @@ import com.rkb.travelcards.*
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class PlanFragment : Fragment(),
-    GestureDetector.OnGestureListener {
+class PlanFragment : Fragment()
+    , PlanRecyclerItemClickListener.OnRecyclerClickListener {
 
     lateinit var cards : List<Card>
 
@@ -98,37 +98,18 @@ class PlanFragment : Fragment(),
         }
     }
 
-    override fun onDown(e: MotionEvent?): Boolean {
-        return true
+    override fun onItemClick(view: View, position: Int) {
+        Toast.makeText(context, "普通のタップ", Toast.LENGTH_SHORT).show()
+        Log.d("MainActivty", "普通のタップ")
     }
 
-    override fun onShowPress(e: MotionEvent?) {
+    override fun onItemLongClick(view: View, position: Int) {
+        Toast.makeText(context, "長押しタップ", Toast.LENGTH_SHORT).show()
+        Log.d("MainActivty", "長押しのタップ")
     }
 
-    override fun onSingleTapUp(e: MotionEvent?): Boolean {
-        return true
+    override fun onDoubleClick(view: View, position: Int) {
+        Toast.makeText(context, "ダブルタップ", Toast.LENGTH_SHORT).show()
+        Log.d("MainActivty", "ダブルタップ")
     }
-
-    override fun onScroll(
-        e1: MotionEvent?,
-        e2: MotionEvent?,
-        distanceX: Float,
-        distanceY: Float
-    ): Boolean {
-        return true
-    }
-
-    override fun onLongPress(e: MotionEvent?) {
-        Log.v("", "LongPress: $e")
-    }
-
-    override fun onFling(
-        e1: MotionEvent?,
-        e2: MotionEvent?,
-        velocityX: Float,
-        velocityY: Float
-    ): Boolean {
-        return true
-    }
-
 }
