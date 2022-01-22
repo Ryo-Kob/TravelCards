@@ -71,7 +71,7 @@ class PlanFragment : Fragment() {
 //        }
 
         // ドロワー
-        val navHostFragment = activity!!.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment = activity!!.supportFragmentManager.findFragmentById(R.id.my_nav_host) as NavHostFragment
         val navController = navHostFragment.navController
         view.findViewById<NavigationView>(R.id.my_nav_view).setupWithNavController(navController)
 
