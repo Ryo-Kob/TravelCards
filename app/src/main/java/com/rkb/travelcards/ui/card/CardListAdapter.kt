@@ -21,16 +21,22 @@ class CardListAdapter : ListAdapter<Card, CardListAdapter.ViewHolder>(CardsCompa
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewName: TextView
         val textViewDescription: TextView
+        val cardView: View
 
         init {
             // Define click listener for the ViewHolder's View.
+            cardView = view
             textViewName = view.findViewById(R.id.card_text_view_name)
             textViewDescription = view.findViewById(R.id.card_text_view_time)
         }
 
-        fun bind(text: String?, description: String?) {
-            textViewName.text = text
-            textViewDescription.text = description
+        fun bind(card: Card) {
+            textViewName.text = card.title
+            textViewDescription.text = card.strDateTime
+
+            val params : ViewGroup.LayoutParams = cardView.layoutParams
+            params.height = 100 + card.timerHour * 100
+            cardView.layoutParams = params
         }
     }
 
@@ -57,7 +63,7 @@ class CardListAdapter : ListAdapter<Card, CardListAdapter.ViewHolder>(CardsCompa
 
 //        viewHolder.textView.text = "てきすと"//dataSet[position]
         val current = getItem(position)
-        viewHolder.bind(current.title, current.strDateTime) // ここにも注意だ!
+        viewHolder.bind(current) // ここにも注意だ!
     }
 
     // Return the size of your dataset (invoked by the layout manager)

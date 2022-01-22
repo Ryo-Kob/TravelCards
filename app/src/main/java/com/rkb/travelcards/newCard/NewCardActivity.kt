@@ -24,7 +24,8 @@ class NewCardActivity : AppCompatActivity() {
     lateinit var startTime : LocalTime
     var isSetDate : Boolean = false
     var isSetTime : Boolean = false
-    lateinit var timer : Duration
+    var timeHour : Int = 0
+    var timeMinute : Int = 0
     var strStartDateTime : String = ""
     var strTime : String = ""
     var strDateTime : String = ""
@@ -96,8 +97,8 @@ class NewCardActivity : AppCompatActivity() {
                 replyIntent.putExtra(card_isStartTimeSet, isSetTime)
                 replyIntent.putExtra(card_strStartDateTime, strStartDateTime)
                 replyIntent.putExtra(card_strDateTime, strDateTime)
-                replyIntent.putExtra(card_timeHour, timer.toHours().toString())
-                replyIntent.putExtra(card_timeMinute, timer.toMillis().toString())
+                replyIntent.putExtra(card_timeHour, timeHour.toString())
+                replyIntent.putExtra(card_timeMinute, timeMinute.toString())
                 replyIntent.putExtra(card_comment, editCommentView.text.toString())
                 setResult(Activity.RESULT_OK, replyIntent)
             }
@@ -127,7 +128,6 @@ class NewCardActivity : AppCompatActivity() {
 
         startDate = LocalDate.now()
         startTime = LocalTime.now()
-        timer = Duration.ZERO
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -154,9 +154,8 @@ class NewCardActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setTimer(hour: Int, minute: Int) {
-        timer = Duration.ZERO
-        timer.plusHours(hour.toLong())
-        timer.plusMinutes(minute.toLong())
+        timeHour = hour
+        timeMinute = minute
         strTime = "$hour 時間 $minute 分"
         tvTime.setText(strTime)
         ibTime.visibility=View.VISIBLE

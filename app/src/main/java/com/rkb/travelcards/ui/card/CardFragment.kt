@@ -127,9 +127,10 @@ class CardFragment : Fragment() {
                         else "(スケジュール未設定)"
                 }
                 data.getStringExtra(NewCardActivity.card_timeHour)?.let {
+                    Log.v("", it)
                     card.timerHour = it.toInt()
                 }
-                data.getStringExtra(NewCardActivity.card_timeHour)?.let {
+                data.getStringExtra(NewCardActivity.card_timeMinute)?.let {
                     card.timerMinute = it.toInt()
                 }
                 cardViewModel.insert(card)
