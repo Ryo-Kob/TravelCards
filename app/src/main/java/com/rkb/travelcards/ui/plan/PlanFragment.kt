@@ -70,13 +70,15 @@ class PlanFragment : Fragment() {
 //            startActivityForResult(intent, newplanActivityRequestCode)
 //        }
 
-        Log.v("", activity.toString())
-        Log.v("", activity!!.supportFragmentManager.toString())
-        Log.v("", activity!!.supportFragmentManager.findFragmentById(R.id.my_nav_host).toString())
+//        Log.v("", activity.toString())
+//        Log.v("", activity!!.supportFragmentManager.toString())
+//        Log.v("", activity!!.supportFragmentManager.findFragmentById(R.id.my_nav_host).toString())
+//        Log.v("", activity!!.supportFragmentManager.fragments.toString())
+//        Log.v("", activity!!.supportFragmentManager.fragments[0].toString())
 
         // ドロワー
-        val navHostFragment = activity!!.supportFragmentManager.findFragmentById(R.id.my_nav_host) as NavHostFragment
-//        val navHostFragment = view.findViewById<View?>(R.id.my_nav_host) as NavHostFragment
+        val navHostFragment = activity!!.supportFragmentManager.fragments[0] as NavHostFragment
+//        val navHostFragment = activity!!.supportFragmentManager.findFragmentById(R.id.my_nav_host) as NavHostFragment
         val navController = navHostFragment.navController
         view.findViewById<NavigationView>(R.id.my_nav_view).setupWithNavController(navController)
 
