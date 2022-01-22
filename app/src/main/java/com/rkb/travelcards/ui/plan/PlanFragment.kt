@@ -98,10 +98,10 @@ class PlanFragment : Fragment() {
         view.findViewById<NavigationView>(R.id.my_nav_view).setupWithNavController(navController)
 
         // 蛇足
-        val cs : CardSuite
-        cs.cardId = 0
-        cs.isStartDateFixed = false
-        cs.startDate =
-        planViewModel.insert(cs)
+//        val cs : CardSuite
+//        cs.cardId = 0
+//        cs.isStartDateFixed = false
+//        cs.startDate =
+//        planViewModel.insert(cs)
     }
 }
