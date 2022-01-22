@@ -43,10 +43,10 @@ class PlanFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-//        val recyclerView = view.findViewById<RecyclerView>(R.id.plan_list_recycler_view)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.plan_recycler_view)
         val adapter = PlanAdapter()
-//        recyclerView.adapter = adapter
-//        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
 
 
         // card一覧(cards)を、データベースから拾ってくる。

@@ -31,6 +31,17 @@
             >
         </fragment>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/plan_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/cardBoard"
+            tools:listitem="@layout/plan_recycler_view_item" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -38,9 +49,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"/>
-
-<!--    tools:layout="@layout/fragment_drawer_plan_card"-->
+        android:fitsSystemWindows="true"
+        >
+        <fragment
+            android:name="com.rkb.travelcards.ui.plan.DrawerPlanFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </com.google.android.material.navigation.NavigationView>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

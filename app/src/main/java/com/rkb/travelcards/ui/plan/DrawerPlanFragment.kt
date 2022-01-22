@@ -37,7 +37,7 @@ class DrawerPlanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.plan_list_recycler_view)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.plan_card_list_recycler_view)
         val adapter = CardListAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
