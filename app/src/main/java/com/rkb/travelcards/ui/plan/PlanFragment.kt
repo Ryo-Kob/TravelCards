@@ -43,10 +43,10 @@ class PlanFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.plan_list_recycler_view)
+//        val recyclerView = view.findViewById<RecyclerView>(R.id.plan_list_recycler_view)
         val adapter = PlanAdapter()
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
+//        recyclerView.adapter = adapter
+//        recyclerView.layoutManager = LinearLayoutManager(context)
 
 
         // card一覧(cards)を、データベースから拾ってくる。
@@ -70,8 +70,13 @@ class PlanFragment : Fragment() {
 //            startActivityForResult(intent, newplanActivityRequestCode)
 //        }
 
+        Log.v("", activity.toString())
+        Log.v("", activity!!.supportFragmentManager.toString())
+        Log.v("", activity!!.supportFragmentManager.findFragmentById(R.id.my_nav_host).toString())
+
         // ドロワー
         val navHostFragment = activity!!.supportFragmentManager.findFragmentById(R.id.my_nav_host) as NavHostFragment
+//        val navHostFragment = view.findViewById<View?>(R.id.my_nav_host) as NavHostFragment
         val navController = navHostFragment.navController
         view.findViewById<NavigationView>(R.id.my_nav_view).setupWithNavController(navController)
 
@@ -92,7 +97,7 @@ class PlanFragment : Fragment() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//    }
 }
