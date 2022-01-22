@@ -3,6 +3,7 @@ package com.rkb.travelcards.ui.card
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -60,21 +62,33 @@ class CardFragment : Fragment() {
 //            Toast.makeText(getActivity(), "Hello World!!!!!!!!!!!!!!", 1).show()
         }
 
-        adapter.itemClickListener = object : CardListAdapter.OnItemClickListener {
-            override fun onItemClick(holder: CardListAdapter.ViewHolder) {
-                //
-                // ここにクリックイベント時の処理を記述
-                //
-                // 例：Toastを表示
-                val _position = holder.adapterPosition  // アイテムのポジションを取得
-                val _mesg = holder.textViewName.text    // mesgはエレメントのView(TextView)
-                Toast.makeText(
-                    activity,
-                    "Click Pos=${_position} Mesg=\"${_mesg}\"",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
+        val mIth = ItemTouchHelper(
+            object : ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            ) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    val fromPos = viewHolder.adapterPosition
+                    val toPos = target.adapterPosition
+                    adapter.notifyItemMoved(fromPos, toPos)
+
+                    Log.v("", "Click from:$fromPos, to:$toPos")
+
+                    return true // true if moved, false otherwise
+                }
+
+                override fun onSwiped(
+                    viewHolder: RecyclerView.ViewHolder,
+                    direction: Int
+                ) {
+                    Log.v("", "Click direction:$direction")
+                }
+            })
+        mIth.attachToRecyclerView(recyclerView)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

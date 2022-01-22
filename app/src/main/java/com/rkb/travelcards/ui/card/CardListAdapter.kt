@@ -42,9 +42,9 @@ class CardListAdapter : ListAdapter<Card, CardListAdapter.ViewHolder>(CardsCompa
 
         val holder = CardListAdapter.ViewHolder(view)
 
-        view.setOnClickListener{       // リスナーの実装
-            itemClickListener?.onItemClick(holder)
-        }
+//        view.setOnClickListener{       // リスナーの実装
+//            itemClickListener?.onItemClick(holder)
+//        }
 
         return ViewHolder(view)
     }
@@ -74,8 +74,8 @@ class CardListAdapter : ListAdapter<Card, CardListAdapter.ViewHolder>(CardsCompa
         }
     }
 
-    var itemClickListener: OnItemClickListener? = null
-    interface OnItemClickListener {
-        fun onItemClick(holder: CardListAdapter.ViewHolder)
-    }
+//    var itemClickListener: OnItemClickListener? = null
+//    interface OnItemClickListener {
+//        fun onItemClick(holder: CardListAdapter.ViewHolder)
+//    }
 }
