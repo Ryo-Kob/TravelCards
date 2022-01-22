@@ -26,6 +26,8 @@ class NewCardActivity : AppCompatActivity() {
     var isSetTime : Boolean = false
     lateinit var timer : Duration
     var strStartDateTime : String = ""
+    var strTime : String = ""
+    var strDateTime : String = ""
 
     lateinit var tvDate : TextView
     lateinit var ibDate : ImageButton
@@ -40,6 +42,7 @@ class NewCardActivity : AppCompatActivity() {
         const val card_isStartDateSet = "カードの開始日付を使うか"
         const val card_isStartTimeSet = "カードの開始時刻を使うか"
         const val card_strStartDateTime = "カードの開始日時を表す文字列"
+        const val card_strDateTime = "カードの開始日時・時間を表す文字列"
         const val card_timeHour = "カードの所要時間:時"
         const val card_timeMinute = "カードの所要時間:分"
         const val card_comment = "カードのコメント"
@@ -79,12 +82,20 @@ class NewCardActivity : AppCompatActivity() {
             if (TextUtils.isEmpty(editWordView.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
+                strDateTime = (
+                    if (ibDate.visibility == View.VISIBLE && ibTime.visibility == View.VISIBLE) "$strStartDateTime から $strTime"
+                    else if (ibDate.visibility == View.VISIBLE && ibTime.visibility != View.VISIBLE) strStartDateTime
+                    else if (ibDate.visibility != View.VISIBLE && ibTime.visibility == View.VISIBLE) strTime
+                    else ""
+                )
+
                 replyIntent.putExtra(card_name, editWordView.text.toString())
                 replyIntent.putExtra(card_startDate, startDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd")))
                 replyIntent.putExtra(card_startTime, startTime.format(DateTimeFormatter.ofPattern("HH:mm")))
                 replyIntent.putExtra(card_isStartDateSet, isSetDate)
                 replyIntent.putExtra(card_isStartTimeSet, isSetTime)
                 replyIntent.putExtra(card_strStartDateTime, strStartDateTime)
+                replyIntent.putExtra(card_strDateTime, strDateTime)
                 replyIntent.putExtra(card_timeHour, timer.toHours().toString())
                 replyIntent.putExtra(card_timeMinute, timer.toMillis().toString())
                 replyIntent.putExtra(card_comment, editCommentView.text.toString())
@@ -135,9 +146,10 @@ class NewCardActivity : AppCompatActivity() {
         if (isSetDate && isSetTime) strStartDateTime = "$strDate $strTime"
         if (isSetDate && !isSetTime) strStartDateTime = strDate
         if (!isSetDate && isSetTime) strStartDateTime = strTime
-        if (!isSetDate && !isSetTime) return
-        tvDate.setText(strStartDateTime)
-        ibDate.visibility=View.VISIBLE
+        if (isSetDate || isSetTime) {
+            tvDate.setText(strStartDateTime)
+            ibDate.visibility = View.VISIBLE
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -145,7 +157,8 @@ class NewCardActivity : AppCompatActivity() {
         timer = Duration.ZERO
         timer.plusHours(hour.toLong())
         timer.plusMinutes(minute.toLong())
-        tvTime.setText("$hour 時間 $minute 分")
+        strTime = "$hour 時間 $minute 分"
+        tvTime.setText(strTime)
         ibTime.visibility=View.VISIBLE
     }
 

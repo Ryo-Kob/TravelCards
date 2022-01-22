@@ -57,7 +57,7 @@ class DrawerPlanAdapter : ListAdapter<Card, DrawerPlanAdapter.ViewHolder>(CardsC
 
 //        viewHolder.textView.text = "てきすと"//dataSet[position]
         val current = getItem(position)
-        viewHolder.bind(current.title, current.strStartDateTime) // ここにも注意だ!
+        viewHolder.bind(current.title, current.strDateTime) // ここにも注意だ!
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -62,7 +62,7 @@ public abstract class CardRoomDatabase : RoomDatabase() {
             // Add sample words.
             var card = Card()
             card.title = "(サンプル) ××レストランでランチ"
-            card.strStartDateTime = "1/1 12:00 - 14:00"
+            card.strDateTime = "1/1 12:00 - 14:00"
             cardDao.insert(card)
         }
 

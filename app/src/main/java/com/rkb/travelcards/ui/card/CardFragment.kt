@@ -99,7 +99,7 @@ class CardFragment : Fragment() {
         if (requestCode == newCardActivityRequestCode && resultCode == Activity.RESULT_OK) {
             val card = Card()
 
-            data?.getStringExtra(NewCardActivity.card_name)?.let {
+            data?.getStringExtra(NewCardActivity.card_name)?.let { it ->
                 card.title = it
                 data.getStringExtra(NewCardActivity.card_comment)?.let {
                     card.description = it
@@ -120,9 +120,10 @@ class CardFragment : Fragment() {
                         card.isStartTimeSet = false
                     }
                 }
-                data.getStringExtra(NewCardActivity.card_strStartDateTime)?.let {
-                    card.strStartDateTime =
-                        if (card.isStartDateSet || card.isStartTimeSet) it
+                data.getStringExtra(NewCardActivity.card_strDateTime)?.let {
+                    card.strDateTime =
+//                        if (card.isStartDateSet || card.isStartTimeSet) it
+                        if (it != "") it
                         else "(スケジュール未設定)"
                 }
                 data.getStringExtra(NewCardActivity.card_timeHour)?.let {
