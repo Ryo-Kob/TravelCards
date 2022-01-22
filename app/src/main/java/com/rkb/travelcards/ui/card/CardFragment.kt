@@ -85,8 +85,10 @@ class CardFragment : Fragment() {
                     viewHolder: RecyclerView.ViewHolder,
                     direction: Int
                 ) {
+                    adapter.notifyItemRemoved(viewHolder.adapterPosition)
                     Log.v("", "Click direction:$direction")
                 }
+
             })
         mIth.attachToRecyclerView(recyclerView)
     }
