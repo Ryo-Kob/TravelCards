@@ -3,7 +3,6 @@ package com.rkb.travelcards.ui.plan
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -45,7 +44,6 @@ class PlanFragment : Fragment() {
         val adapter = PlanAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
-
 
         // card一覧(cards)を、データベースから拾ってくる。
         Single.fromCallable {
@@ -97,11 +95,26 @@ class PlanFragment : Fragment() {
         val navController = navHostFragment.navController
         view.findViewById<NavigationView>(R.id.my_nav_view).setupWithNavController(navController)
 
-        // 蛇足
-//        val cs : CardSuite
-//        cs.cardId = 0
-//        cs.isStartDateFixed = false
-//        cs.startDate =
-//        planViewModel.insert(cs)
+        // CardSuiteがすっからかんなら、空白充填で初期化する
+        val s : Int = planViewModel.cardSuiteCount()
+        Log.v("", "size: $s")
+        if (s == 0) {
+            Log.v("", "Initialize!!")
+            this.initializeCardSuite()
+        }
+    }
+
+    private fun initializeCardSuite() {
+        var cs : CardSuite
+        for(i in 0..4*24) {
+            cs = CardSuite()
+            cs.cardId = 0
+            cs.isBlank = true
+            cs.isStartDateFixed = false
+            cs.startDate = 0
+            cs.startTime = 15*i
+            cs.timer = 15
+            planViewModel.insert(cs)
+        }
     }
 }

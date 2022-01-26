@@ -29,6 +29,14 @@ class PlanViewModel(private val repository: TravelCardsRepository) : ViewModel()
     fun getCardList() : List<Card> {
         return repository.getCardList()
     }
+
+    fun cardSuiteCount() : Int {
+        return if (allCardSuites.value != null) {
+            allCardSuites.value!!.size
+        }else{
+            0
+        }
+    }
 }
 
 class PlanViewModelFactory(private val repository: TravelCardsRepository) : ViewModelProvider.Factory {
