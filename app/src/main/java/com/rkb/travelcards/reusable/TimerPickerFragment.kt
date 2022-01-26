@@ -37,7 +37,8 @@ class TimerPickerFragment : DialogFragment() {
 
             npMinute = view.findViewById<NumberPicker>(R.id.numberPicker_minute)
             npMinute.minValue = 0
-            npMinute.maxValue = 59
+            npMinute.maxValue = 3
+            npMinute.displayedValues = arrayOf("0", "15", "30", "45")
             npMinute.value = 0
             npMinute.setOnValueChangedListener{ picker, oldVal, newVal ->
 //                Log.v("", "$oldVal, $newVal")
@@ -68,7 +69,7 @@ class TimerPickerFragment : DialogFragment() {
     fun submit() {
         val data = bundleOf(
             "hour" to npHour.value,
-            "minute" to npMinute.value
+            "minute" to npMinute.value*15
         )
 
         // FragmentManager経由で結果を伝える
