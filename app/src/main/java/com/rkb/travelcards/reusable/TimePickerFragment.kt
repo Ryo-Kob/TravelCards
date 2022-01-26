@@ -25,7 +25,7 @@ class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener 
         // Do something with the time chosen by the user
 
         val data = bundleOf(
-            "hourOfDay" to hourOfDay, "minute" to minute
+            "hourOfDay" to hourOfDay, "minute" to minute/15*15
         )
 
         // FragmentManager経由で結果を伝える
