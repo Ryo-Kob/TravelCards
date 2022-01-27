@@ -96,7 +96,7 @@ class PlanFragment : Fragment() {
         view.findViewById<NavigationView>(R.id.my_nav_view).setupWithNavController(navController)
 
         // CardSuiteがすっからかんなら、空白充填で初期化する
-        val s : Int = planViewModel.cardSuiteCount()
+        val s : Int = adapter.currentList.size
         Log.v("", "size: $s")
         if (s == 0) {
             Log.v("", "Initialize!!")

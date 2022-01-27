@@ -11,7 +11,7 @@ import com.rkb.travelcards.Card
 import com.rkb.travelcards.CardSuite
 import com.rkb.travelcards.R
 
-class PlanAdapter() : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparator()) {
+class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparator()) {
     lateinit var card : List<Card>
 
     /**
