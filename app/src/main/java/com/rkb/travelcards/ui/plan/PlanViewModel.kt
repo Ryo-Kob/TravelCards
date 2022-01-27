@@ -13,13 +13,17 @@ class PlanViewModel(private val repository: TravelCardsRepository) : ViewModel()
     //   the UI when the data actually changes.
     // - Repository is completely separated from the UI through the ViewModel.
     val allCardSuites: LiveData<List<CardSuite>> = repository.allCardSuites.asLiveData()
-    val allCards: LiveData<List<Card>> = repository.allCards.asLiveData()
+//    val allCards: LiveData<List<Card>> = repository.allCards.asLiveData()
 
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
     fun insert(cardSuite: CardSuite) = viewModelScope.launch {
         repository.insert(cardSuite)
+    }
+
+    fun delete(id : Int) = viewModelScope.launch {
+        repository.delete(id)
     }
 
     fun getCard(cardId: Int) = viewModelScope.launch {

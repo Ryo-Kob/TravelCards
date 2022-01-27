@@ -32,6 +32,12 @@ class TravelCardsRepository(
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
+    suspend fun delete(id: Int) {
+        cardSuiteDao.delete(id)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun insert(plan: Plan) {
         planDao.insert(plan)
     }

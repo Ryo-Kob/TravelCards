@@ -92,6 +92,13 @@ class PlanFragment : Fragment() {
                     direction: Int
                 ) {
                     Log.v("", "Click direction:$direction")
+                    val pos = viewHolder.adapterPosition
+                    Single.fromCallable {
+                        planViewModel.allCardSuites
+                    }.subscribeOn(Schedulers.io())
+                        .subscribe({
+                            planViewModel.delete(it.value!![pos].id)
+                        }, {})
                 }
             })
         mIth.attachToRecyclerView(recyclerView)

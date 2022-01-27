@@ -14,6 +14,9 @@ interface CardSuiteDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(cardSuite: CardSuite)
 
+    @Query("DELETE FROM card_suite_table WHERE id=:id")
+    fun delete(id : Int)
+
     @Query("DELETE FROM card_suite_table")
     suspend fun deleteAll()
 }
