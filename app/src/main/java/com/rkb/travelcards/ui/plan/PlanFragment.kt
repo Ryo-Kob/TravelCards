@@ -17,6 +17,7 @@ import com.rkb.travelCards.ui.plan.PlanViewModelFactory
 import com.rkb.travelcards.*
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class PlanFragment : Fragment() {
 
@@ -74,6 +75,12 @@ class PlanFragment : Fragment() {
                     val fromPos = viewHolder.adapterPosition
                     val toPos = target.adapterPosition
                     adapter.notifyItemMoved(fromPos, toPos)
+                    Single.fromCallable {
+                        planViewModel.allCardSuites
+                    }.subscribeOn(Schedulers.io())
+                        .subscribe({
+                            Collections.swap(it.value, fromPos, toPos)
+                        }, {})
 
                     Log.v("", "Click from:$fromPos, to:$toPos")
 
