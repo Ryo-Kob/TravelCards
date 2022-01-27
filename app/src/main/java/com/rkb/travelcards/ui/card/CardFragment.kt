@@ -91,6 +91,10 @@ class CardFragment : Fragment() {
 
             })
         mIth.attachToRecyclerView(recyclerView)
+
+        val s : Int = adapter.currentList.size
+        Log.v("", "size: $s")
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

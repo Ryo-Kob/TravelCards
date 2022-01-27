@@ -67,7 +67,7 @@ class CardListAdapter : ListAdapter<Card, CardListAdapter.ViewHolder>(CardsCompa
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-//    override fun getItemCount() = dataSet.size
+    override fun getItemCount() = currentList.size
 //    override fun getItemCount() = 10
 
     class CardsComparator : DiffUtil.ItemCallback<Card>() {
