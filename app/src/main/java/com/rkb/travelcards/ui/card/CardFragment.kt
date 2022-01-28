@@ -19,6 +19,9 @@ import com.rkb.travelcards.Card
 import com.rkb.travelcards.newCard.NewCardActivity
 import com.rkb.travelcards.R
 import com.rkb.travelcards.TravelCardsApplication
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class CardFragment : Fragment() {
 
@@ -75,6 +78,12 @@ class CardFragment : Fragment() {
                     val fromPos = viewHolder.adapterPosition
                     val toPos = target.adapterPosition
                     adapter.notifyItemMoved(fromPos, toPos)
+                    Single.fromCallable {
+                        cardViewModel.allCards
+                    }.subscribeOn(Schedulers.io())
+                        .subscribe({
+                            Collections.swap(it.value, fromPos, toPos)
+                        }, {})
 
                     Log.v("", "Click from:$fromPos, to:$toPos")
 

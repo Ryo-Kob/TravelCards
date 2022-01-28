@@ -94,10 +94,12 @@ class PlanFragment : Fragment() {
                     Log.v("", "Click direction:$direction")
                     val pos = viewHolder.adapterPosition
                     Single.fromCallable {
-                        planViewModel.allCardSuites
+                        planViewModel
                     }.subscribeOn(Schedulers.io())
                         .subscribe({
-                            planViewModel.delete(it.value!![pos].id)
+                            val id = it.allCardSuites.value!![pos].id
+                            Log.v("", "$id")
+                            planViewModel.delete(id)
                         }, {})
                 }
             })
