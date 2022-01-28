@@ -12,23 +12,16 @@ import com.rkb.travelcards.R
 
 
 //class CardListAdapter : RecyclerView.Adapter<CardListAdapter.ViewHolder>() {
-class CardListAdapter : ListAdapter<Card, CardListAdapter.ViewHolder>(CardsComparator()) {
+class CardListAdapter : ListAdapter<Card, CardListAdapter.CardViewHolder>(CardsComparator()) {
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textViewName: TextView
-        val textViewDescription: TextView
-        val cardView: View
-
-        init {
-            // Define click listener for the ViewHolder's View.
-            cardView = view
-            textViewName = view.findViewById(R.id.card_text_view_name)
-            textViewDescription = view.findViewById(R.id.card_text_view_time)
-        }
+    class CardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val textViewName: TextView = view.findViewById(R.id.card_text_view_name)
+        private val textViewDescription: TextView = view.findViewById(R.id.card_text_view_time)
+        private val cardView: View = view
 
         fun bind(card: Card) {
             textViewName.text = card.title
@@ -38,25 +31,33 @@ class CardListAdapter : ListAdapter<Card, CardListAdapter.ViewHolder>(CardsCompa
             params.height = 100 + card.timerHour * 100
             cardView.layoutParams = params
         }
+
+        companion object {
+            fun create(parent: ViewGroup): CardViewHolder {
+                val view: View = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.card_list_recycler_view_item, parent, false)
+                return CardViewHolder(view)
+            }
+        }
     }
 
     // Create new views (invoked by the layout manager)
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): CardViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
                 .inflate(R.layout.card_list_recycler_view_item, viewGroup, false)
 
-        val holder = CardListAdapter.ViewHolder(view)
+        val holder = CardListAdapter.CardViewHolder(view)
 
 //        view.setOnClickListener{       // リスナーの実装
 //            itemClickListener?.onItemClick(holder)
 //        }
 
-        return ViewHolder(view)
+        return CardViewHolder(view)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: CardViewHolder, position: Int) {
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element

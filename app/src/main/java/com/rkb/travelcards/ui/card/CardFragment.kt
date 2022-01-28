@@ -25,7 +25,6 @@ import java.util.*
 
 class CardFragment : Fragment() {
 
-//    private lateinit var cardViewModel: CardViewModel
     private val cardViewModel: CardViewModel by viewModels {
         CardViewModelFactory((activity?.application as TravelCardsApplication).repository)
     }
@@ -37,8 +36,6 @@ class CardFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-//        cardViewModel =
-//                ViewModelProvider(this).get(CardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_card, container, false)
 
         return root
@@ -62,13 +59,12 @@ class CardFragment : Fragment() {
         this.fab.setOnClickListener {
             val intent = Intent(activity, NewCardActivity::class.java)
             startActivityForResult(intent, newCardActivityRequestCode)
-//            Toast.makeText(getActivity(), "Hello World!!!!!!!!!!!!!!", 1).show()
         }
 
         val mIth = ItemTouchHelper(
             object : ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+                ItemTouchHelper.UP // onSwiped封じ
             ) {
                 override fun onMove(
                     recyclerView: RecyclerView,
@@ -94,16 +90,12 @@ class CardFragment : Fragment() {
                     viewHolder: RecyclerView.ViewHolder,
                     direction: Int
                 ) {
-                    adapter.notifyItemRemoved(viewHolder.adapterPosition)
-                    Log.v("", "Click direction:$direction")
+//                    adapter.notifyItemRemoved(viewHolder.adapterPosition)
+//                    Log.v("", "Click direction:$direction")
                 }
 
             })
         mIth.attachToRecyclerView(recyclerView)
-
-        val s : Int = adapter.currentList.size
-        Log.v("", "size: $s")
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
