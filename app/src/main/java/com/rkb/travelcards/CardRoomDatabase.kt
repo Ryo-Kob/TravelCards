@@ -62,7 +62,14 @@ public abstract class CardRoomDatabase : RoomDatabase() {
             // Add sample words.
             var card = Card()
             card.title = "(サンプル) ××レストランでランチ"
-            card.strDateTime = "1/1 12:00 - 14:00"
+            card.description = ""
+            card.strStartDate = ""
+            card.strStartTime = ""
+            card.isStartDateSet = false
+            card.isStartTimeSet =false
+            card.strDateTime = "1 時間 0 分"
+            card.timerHour = 1
+            card.timerMinute = 0
             cardDao.insert(card)
         }
 
@@ -71,8 +78,8 @@ public abstract class CardRoomDatabase : RoomDatabase() {
             cardSuiteDao.deleteAll()
 
             // Add sample words.
-            var cardSuite = CardSuite()
-            cardSuiteDao.insert(cardSuite)
+//            var cardSuite = CardSuite()
+//            cardSuiteDao.insert(cardSuite)
 
             // TODO: Add your own words!
         }
@@ -82,8 +89,8 @@ public abstract class CardRoomDatabase : RoomDatabase() {
             planDao.deleteAll()
 
             // Add sample words.
-            var plan = Plan()
-            planDao.insert(plan)
+//            var plan = Plan()
+//            planDao.insert(plan)
 
             // TODO: Add your own words!
         }

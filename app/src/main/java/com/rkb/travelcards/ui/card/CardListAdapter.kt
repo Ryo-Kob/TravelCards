@@ -43,32 +43,19 @@ class CardListAdapter : ListAdapter<Card, CardListAdapter.CardViewHolder>(CardsC
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): CardViewHolder {
-        // Create a new view, which defines the UI of the list item
-        val view = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.card_list_recycler_view_item, viewGroup, false)
-
-        val holder = CardListAdapter.CardViewHolder(view)
-
-//        view.setOnClickListener{       // リスナーの実装
-//            itemClickListener?.onItemClick(holder)
-//        }
-
-        return CardViewHolder(view)
+        return CardViewHolder.create(
+            viewGroup
+        )
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: CardViewHolder, position: Int) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-
-//        viewHolder.textView.text = "てきすと"//dataSet[position]
         val current = getItem(position)
         viewHolder.bind(current) // ここにも注意だ!
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = currentList.size
+//    override fun getItemCount() = currentList.size
 //    override fun getItemCount() = 10
 
     class CardsComparator : DiffUtil.ItemCallback<Card>() {

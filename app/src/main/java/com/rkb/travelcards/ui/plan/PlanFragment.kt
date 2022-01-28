@@ -1,6 +1,5 @@
 package com.rkb.travelcards.ui.plan
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -67,7 +66,7 @@ class PlanFragment : Fragment() {
 //                    Log.d("Observer", "id ${item.id}, cardId ${item.cardId}")
                 }
                 Log.d("Observer", "card count: $cnt")
-                if (cnt == 1) {
+                if (cnt == 0) {
                     Log.v("", "Initialize!!")
                     this.initializeCardSuite()
                 }
