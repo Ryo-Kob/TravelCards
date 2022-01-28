@@ -12,7 +12,8 @@ data class CardSuite(
     var startTime: Int = 0, // 1分=1として数値化
     var isStartDateFixed: Boolean = false,
     var isStartTimeFixed: Boolean = false,
-    var timer: Int = 0
+    var timer: Int = 0,
 ) {
     @PrimaryKey(autoGenerate = true) var id: Int = 0
+    var text: String = ""
 }

@@ -29,10 +29,11 @@ class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparat
 //            textViewDescription = view.findViewById(R.id.card_text_view_time)
         }
 
-        fun bind(cardId: Int) {
+        fun bind(cs: CardSuite) {
             // TODO: 特定のcardIdを持つCardの情報を取得し、textViewName等に反映させたい！
-//            textViewName.text = vm.getCard(cardId).toString()
-            textViewName.text = card[cardId].title
+//            textViewName.text = card[cardId].title
+//            textViewName.text = card[cs.cardId].title
+            textViewName.text = cs.text
         }
     }
 
@@ -60,7 +61,7 @@ class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparat
 
 //        viewHolder.textView.text = "てきすと"//dataSet[position]
         val current = getItem(position)
-        viewHolder.bind(current.cardId) // ここにも注意だ!
+        viewHolder.bind(current) // ここにも注意だ!
     }
 
     // Return the size of your dataset (invoked by the layout manager)
