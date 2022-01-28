@@ -3,6 +3,8 @@ package com.rkb.travelcards.ui.plan
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -110,6 +112,22 @@ class PlanFragment : Fragment() {
         val navHostFragment = activity!!.supportFragmentManager.fragments[0] as NavHostFragment
         val navController = navHostFragment.navController
         view.findViewById<NavigationView>(R.id.my_nav_view).setupWithNavController(navController)
+
+        val mDrawerLayout = view.findViewById<DrawerLayout>(R.id.fragment_plan)
+
+        // ドロワーの結果取得
+        childFragmentManager.setFragmentResultListener("pickingCardFromDrawer", this) { key, data ->
+            val cardId = data.getInt("cardId", 0)
+
+            if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                //drawer is open
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
+            }
+
+            // 結果を使った処理
+            Log.v("", "Good: $cardId")
+//            setStartDateTime(year, month, day)
+        }
 
         // CardSuiteがすっからかんなら、空白充填で初期化する
 //        val s : Int = adapter.currentList.size

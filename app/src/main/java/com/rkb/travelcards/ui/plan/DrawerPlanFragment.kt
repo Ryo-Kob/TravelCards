@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -72,5 +73,7 @@ class DrawerPlanFragment : Fragment() , DrawerPlanItemClickListener.OnRecyclerCl
     }
     override fun onItemLongClick(view: View, position: Int) {
         Log.v("", "long: pos=${position}")
+        val data = bundleOf("cardId" to position)
+        parentFragmentManager.setFragmentResult("pickingCardFromDrawer", data)
     }
 }
