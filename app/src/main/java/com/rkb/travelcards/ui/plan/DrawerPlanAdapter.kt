@@ -38,12 +38,7 @@ class DrawerPlanAdapter : ListAdapter<Card, DrawerPlanAdapter.ViewHolder>(CardsC
         val view = LayoutInflater.from(viewGroup.context)
                 .inflate(R.layout.card_list_recycler_view_item, viewGroup, false)
 
-        val holder = DrawerPlanAdapter.ViewHolder(view)
-
-        view.setOnClickListener{       // リスナーの実装
-            itemClickListener?.onItemClick(holder)
-        }
-
+//        val holder = DrawerPlanAdapter.ViewHolder(view)
         return ViewHolder(view)
     }
 
@@ -70,10 +65,5 @@ class DrawerPlanAdapter : ListAdapter<Card, DrawerPlanAdapter.ViewHolder>(CardsC
         override fun areContentsTheSame(oldItem: Card, newItem: Card): Boolean {
             return oldItem.title == newItem.title // TODO: 全アイテムを比較するようにする. もしくは, この関数自体消しちゃう.
         }
-    }
-
-    var itemClickListener: OnItemClickListener? = null
-    interface OnItemClickListener {
-        fun onItemClick(holder: DrawerPlanAdapter.ViewHolder)
     }
 }

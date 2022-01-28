@@ -18,9 +18,9 @@ import com.rkb.travelcards.ui.card.CardListAdapter
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import java.util.*
+import com.rkb.travelcards.ui.plan.DrawerPlanItemClickListener
 
-
-class DrawerPlanFragment : Fragment() {
+class DrawerPlanFragment : Fragment() , DrawerPlanItemClickListener.OnRecyclerClickListener {
     private val drawerViewModel: DrawerPlanViewModel by viewModels {
         DrawerPlanViewModelFactory((activity?.application as TravelCardsApplication).repository)
     }
@@ -39,6 +39,7 @@ class DrawerPlanFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.plan_card_list_recycler_view)
         val adapter = DrawerPlanAdapter()
         recyclerView.adapter = adapter
+        recyclerView.addOnItemTouchListener(DrawerPlanItemClickListener(context!!, recyclerView, this))
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         drawerViewModel.allCards.observe(viewLifecycleOwner, Observer { cards ->
@@ -46,48 +47,30 @@ class DrawerPlanFragment : Fragment() {
             cards?.let { adapter.submitList(it) }
         })
 
-
     }
 
-    // クリックイベント等
-    override fun onItemLongClick(arg0 : AdapterView<*>, arg1:View, pos:Int, id:Int) : Boolean {
-        //TODO Auto-generated method stub
-        Log.v("long clicked")
-        return true
+//    override fun onCreateContextMenu(menu: ContextMenu, v: View?, menuInfo: ContextMenuInfo?) {
+//        // 長押しされたメッセージ位置を取得し、
+//        // RecyclerViewで表示させているListのindexとして扱い、
+//        // ユーザーIDを取得してメニューの出し分けを実現
+//        if (list.get(adapter.getPosition()).getUserId() === loginUserId) {
+//            menu.add(Menu.NONE, 1, Menu.NONE, "コピー")
+//            menu.add(Menu.NONE, 2, Menu.NONE, "編集")
+//            menu.add(Menu.NONE, 3, Menu.NONE, "削除")
+//        } else {
+//            menu.add(Menu.NONE, 1, Menu.NONE, "コピー")
+//        }
+//    }
+
+    override fun onItemClick(view: View, position: Int) {
+        Log.v("", "cl: pos=${position}")
+
     }
+    override fun onDoubleClick(view: View, position: Int) {
+        Log.v("", "double-cl: pos=${position}")
 
-
-//        val mIth = ItemTouchHelper(
-//            object : ItemTouchHelper.SimpleCallback(
-//                ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-//                ItemTouchHelper.ACTION_STATE_IDLE
-//            ) {
-//                override fun onMove(
-//                    recyclerView: RecyclerView,
-//                    viewHolder: RecyclerView.ViewHolder,
-//                    target: RecyclerView.ViewHolder
-//                ): Boolean {
-//                    val fromPos = viewHolder.adapterPosition
-//                    val toPos = target.adapterPosition
-//                    Log.v("", "長押しはされましたよ")
-////                    adapter.notifyItemMoved(fromPos, toPos)
-////                    Single.fromCallable {
-////                        drawerViewModel.allCards
-////                    }.subscribeOn(Schedulers.io())
-////                        .subscribe({
-////                            Collections.swap(it.value!!, fromPos, toPos)
-////                        }, {})
-//
-//                    Log.v("", "Click from:$fromPos, to:$toPos")
-//                    return true // true if moved, false otherwise
-//                }
-//
-//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
-//
-//                override fun isLongPressDragEnabled(): Boolean {
-//                    return false
-//                }
-//            })
-//        mIth.attachToRecyclerView(recyclerView)
+    }
+    override fun onItemLongClick(view: View, position: Int) {
+        Log.v("", "long: pos=${position}")
     }
 }
