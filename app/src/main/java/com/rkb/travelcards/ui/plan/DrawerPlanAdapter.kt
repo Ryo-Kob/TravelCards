@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rkb.travelcards.Card
 import com.rkb.travelcards.R
 
-
-//class CardListAdapter : RecyclerView.Adapter<CardListAdapter.ViewHolder>() {
 class DrawerPlanAdapter : ListAdapter<Card, DrawerPlanAdapter.ViewHolder>(CardsComparator()) {
 
     /**

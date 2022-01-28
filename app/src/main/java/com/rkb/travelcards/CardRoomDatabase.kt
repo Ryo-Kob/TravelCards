@@ -61,7 +61,7 @@ public abstract class CardRoomDatabase : RoomDatabase() {
 
             // Add sample words.
             var card = Card()
-            card.title = "(サンプル) ××レストランでランチ"
+            card.title = "(例) ××レストランでランチ"
             card.description = ""
             card.strStartDate = ""
             card.strStartTime = ""
