@@ -80,8 +80,6 @@ public abstract class CardRoomDatabase : RoomDatabase() {
             // Add sample words.
 //            var cardSuite = CardSuite()
 //            cardSuiteDao.insert(cardSuite)
-
-            // TODO: Add your own words!
         }
 
         suspend fun populateDatabase(planDao: PlanDao) {
@@ -91,8 +89,6 @@ public abstract class CardRoomDatabase : RoomDatabase() {
             // Add sample words.
 //            var plan = Plan()
 //            planDao.insert(plan)
-
-            // TODO: Add your own words!
         }
     }
 }
