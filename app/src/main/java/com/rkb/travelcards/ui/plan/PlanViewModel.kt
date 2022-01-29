@@ -26,6 +26,10 @@ class PlanViewModel(private val repository: TravelCardsRepository) : ViewModel()
         repository.delete(id)
     }
 
+    fun updateStartTime(startTime: Int, id: Int) = viewModelScope.launch {
+        repository.updateStartTime(startTime, id)
+    }
+
     fun getCard(cardId: Int) = viewModelScope.launch {
         repository.getCard(cardId)
     }

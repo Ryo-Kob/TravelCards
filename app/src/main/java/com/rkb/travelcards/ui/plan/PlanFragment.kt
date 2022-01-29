@@ -89,12 +89,17 @@ class PlanFragment : Fragment() {
                 ): Boolean {
                     val fromPos = viewHolder.adapterPosition
                     val toPos = target.adapterPosition
+
+                    // 入れ替えられたカードのデータを操作する
+                    Log.v("", "text ========= ${adapter.currentList[fromPos].text}")
+//                    adapter.currentList[fromPos].text = "ほげほげ！！"
+//                    planViewModel.allCardSuites.value!![fromPos].text = "ほげほげ！！"
                     adapter.notifyItemMoved(fromPos, toPos)
                     Single.fromCallable {
-                        planViewModel.allCardSuites
+                        planViewModel
                     }.subscribeOn(Schedulers.io())
                         .subscribe({
-                            Collections.swap(it.value!!, fromPos, toPos)
+                            it.updateStartTime(0, fromPos)
                         }, {})
 
                     Log.v("", "Click from:$fromPos, to:$toPos")

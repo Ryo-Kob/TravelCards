@@ -14,6 +14,9 @@ interface CardSuiteDao {
     @Query("DELETE FROM card_suite_table WHERE id=:id")
     fun delete(id : Int)
 
+    @Query("UPDATE card_suite_table SET startTime=:startTime WHERE id=:id")
+    fun updateStartTime(startTime: Int, id: Int)
+
     @Query("DELETE FROM card_suite_table")
     suspend fun deleteAll()
 }
