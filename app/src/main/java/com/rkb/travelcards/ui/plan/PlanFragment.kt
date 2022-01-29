@@ -73,24 +73,22 @@ class PlanFragment : Fragment() {
         adapterT.submitList(tl)
 
         // スクロールイベント
-        val listener = object : RecyclerView.OnScrollListener(){
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             // https://android.suzu-sd.com/2021/05/recyclerview_item_scroll/#OnScrollListener
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             }
             override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
                 recyclerViewT.scrollBy(0, dy)
             }
-        }
-        recyclerView.addOnScrollListener(listener)
-        val listenerT = object : RecyclerView.OnItemTouchListener {
+        })
+        recyclerViewT.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
             // https://qiita.com/Horie1024/items/72742f76485d02bf1b90
             override fun onInterceptTouchEvent(recyclerView: RecyclerView, e: MotionEvent): Boolean {
                 return true
             }
             override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
             override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
-        }
-        recyclerViewT.addOnItemTouchListener(listenerT)
+        })
 
 
         // クリックイベント等
