@@ -45,12 +45,7 @@ class PlanAdapterT : ListAdapter<Int, PlanAdapterT.ViewHolder>(CardsComparator()
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(
-                when(viewType) {
-                    CardSuite.VIEW_TYPE_EMPTY -> R.layout.plan_recycler_view_item_empty
-                    CardSuite.VIEW_TYPE_CARD -> R.layout.plan_recycler_view_item
-                    else -> R.layout.plan_recycler_view_item
-                }, viewGroup, false
+            .inflate(R.layout.plan_recycler_view_timeline_item, viewGroup, false
             )
         return ViewHolder(view)
     }

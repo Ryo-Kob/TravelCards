@@ -12,7 +12,6 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.google.android.material.navigation.NavigationView
 import com.rkb.travelCards.ui.plan.PlanViewModel
 import com.rkb.travelCards.ui.plan.PlanViewModelFactory
@@ -99,7 +98,15 @@ class PlanFragment : Fragment() {
             }
         }
         recyclerView.addOnScrollListener(listener)
-//        recyclerViewT.addOnScrollListener(listener)
+        val listenerT = object : RecyclerView.OnItemTouchListener {
+            // https://android.suzu-sd.com/2021/05/recyclerview_item_scroll/#OnScrollListener
+            override fun onInterceptTouchEvent(recyclerView: RecyclerView, e: MotionEvent): Boolean {
+                return true
+            }
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+        }
+        recyclerViewT.addOnItemTouchListener(listenerT)
 
 
         // クリックイベント等
