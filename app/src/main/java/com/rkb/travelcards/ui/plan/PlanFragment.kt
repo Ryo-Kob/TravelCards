@@ -7,7 +7,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -24,9 +23,14 @@ import java.util.*
 class PlanFragment : Fragment() {
 
     lateinit var cards : List<Card>
+    var cs : MutableList<CardSuite> = mutableListOf()
 
     val planViewModel: PlanViewModel by viewModels {
         PlanViewModelFactory((activity?.application as TravelCardsApplication).repository)
+    }
+
+    init {
+        initializeCardSuite()
     }
 
     override fun onCreateView(
@@ -41,8 +45,6 @@ class PlanFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        var cnt = 0
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.plan_recycler_view)
         val adapter = PlanAdapter()
@@ -59,28 +61,14 @@ class PlanFragment : Fragment() {
                 adapter.card = cards
             }, {})
 
-        planViewModel.allCardSuites.observe(viewLifecycleOwner, Observer { cardSuites ->
-            // Update the cached copy of the words in the adapter.
-            cardSuites?.let {
-                cnt = 0
-                for (item in it) {
-                    cnt += 1
-//                    Log.d("Observer", "id ${item.id}, cardId ${item.cardId}")
-                }
-                Log.d("Observer", "card count: $cnt")
-                if (cnt == 0) {
-                    Log.v("", "Initialize!!")
-                    this.initializeCardSuite()
-                }
-                adapter.submitList(it)
-            }
-        })
+        // adapter接続
+        adapter.submitList(cs)
 
         // クリックイベント等
         val mIth = ItemTouchHelper(
             object : ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-                ItemTouchHelper.UP // 強制onSwipe封じ(正しい封じ方を知らない)
+                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT // 強制onSwipe封じ(正しい封じ方を知らない)
             ) {
                 override fun onMove(
                     recyclerView: RecyclerView,
@@ -91,16 +79,8 @@ class PlanFragment : Fragment() {
                     val toPos = target.adapterPosition
 
                     // 入れ替えられたカードのデータを操作する
-                    Log.v("", "text ========= ${adapter.currentList[fromPos].text}")
-//                    adapter.currentList[fromPos].text = "ほげほげ！！"
-//                    planViewModel.allCardSuites.value!![fromPos].text = "ほげほげ！！"
+                    Collections.swap(cs, fromPos, toPos)
                     adapter.notifyItemMoved(fromPos, toPos)
-                    Single.fromCallable {
-                        planViewModel
-                    }.subscribeOn(Schedulers.io())
-                        .subscribe({
-                            it.updateStartTime(0, fromPos)
-                        }, {})
 
                     Log.v("", "Click from:$fromPos, to:$toPos")
                     return true // true if moved, false otherwise
@@ -109,7 +89,13 @@ class PlanFragment : Fragment() {
                 override fun onSwiped(
                     viewHolder: RecyclerView.ViewHolder,
                     direction: Int
-                ) {}
+                ) {
+                    val pos = viewHolder.adapterPosition
+                    if (true) {//!cs[pos].isBlank) {
+                        cs.removeAt(pos)
+                        adapter.notifyItemRemoved(pos)
+                    }
+                }
             })
         mIth.attachToRecyclerView(recyclerView)
 
@@ -133,41 +119,34 @@ class PlanFragment : Fragment() {
             Log.v("", "Good: $cardId")
 //            setStartDateTime(year, month, day)
 
-            var newCardSuite = CardSuite()
-            newCardSuite.cardId = cardId
-            newCardSuite.text = cards[cardId].title
-            newCardSuite.isBlank = false
-            newCardSuite.type = CardSuite.VIEW_TYPE_CARD
-            newCardSuite.startDate = 0 // 日付をどうにかして数値にしたいが……
-            newCardSuite.startTime = 0 // 1分=1として数値化
-            newCardSuite.isStartDateFixed = false
-            newCardSuite.isStartTimeFixed = false
-            newCardSuite.timer = 0
-            planViewModel.insert(newCardSuite)
+            var ncs = CardSuite()
+            ncs.cardId = cardId
+            ncs.text = cards[cardId].title
+            ncs.isBlank = false
+            ncs.type = CardSuite.VIEW_TYPE_CARD
+            ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
+            ncs.startTime = 0 // 1分=1として数値化
+            ncs.isStartDateFixed = false
+            ncs.isStartTimeFixed = false
+            ncs.timer = 0
+            cs.add(0, ncs)
+            adapter.notifyDataSetChanged()
         }
-
-        // CardSuiteがすっからかんなら、空白充填で初期化する
-//        val s : Int = adapter.currentList.size
-//        Log.v("", "size: $s")
-//        if (s == 0) {
-//            Log.v("", "Initialize!!")
-//            this.initializeCardSuite()
-//        }
     }
 
     private fun initializeCardSuite() {
-        var cs : CardSuite
+        var ncs : CardSuite
         for(i in 1..4*24) {
-            cs = CardSuite()
-            cs.cardId = 0
-            cs.isBlank = true
-            cs.type = CardSuite.VIEW_TYPE_EMPTY
-            cs.isStartDateFixed = false
-            cs.startDate = 0
-            cs.startTime = 15*i
-            cs.timer = 15
-            cs.text = "$i"
-            planViewModel.insert(cs)
+            ncs = CardSuite()
+            ncs.cardId = 0
+            ncs.isBlank = true
+            ncs.type = CardSuite.VIEW_TYPE_EMPTY
+            ncs.isStartDateFixed = false
+            ncs.startDate = 0
+            ncs.startTime = 15*i
+            ncs.timer = 15
+            ncs.text = "$i"
+            cs.add(ncs)
         }
     }
 }
