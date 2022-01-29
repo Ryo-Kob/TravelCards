@@ -1,5 +1,6 @@
 package com.rkb.travelCards.ui.plan
 
+import android.view.MotionEvent
 import androidx.lifecycle.*
 import com.rkb.travelcards.Card
 import com.rkb.travelcards.CardSuite

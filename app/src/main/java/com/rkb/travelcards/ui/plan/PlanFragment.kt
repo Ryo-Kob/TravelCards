@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.google.android.material.navigation.NavigationView
 import com.rkb.travelCards.ui.plan.PlanViewModel
 import com.rkb.travelCards.ui.plan.PlanViewModelFactory
@@ -25,6 +26,8 @@ class PlanFragment : Fragment() {
     lateinit var cards : List<Card>
     var cs : MutableList<CardSuite> = mutableListOf()
     var tl : MutableList<Int> = mutableListOf()
+    var scrollPos : Int = 0
+    var scrollPosT : Int = 0
 
     val planViewModel: PlanViewModel by viewModels {
         PlanViewModelFactory((activity?.application as TravelCardsApplication).repository)
@@ -41,7 +44,6 @@ class PlanFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_plan, container, false)
-
         return root
     }
 
@@ -73,6 +75,32 @@ class PlanFragment : Fragment() {
         // adapter接続
         adapter.submitList(cs)
         adapterT.submitList(tl)
+
+        // スクロールイベント
+        val listener = object : RecyclerView.OnScrollListener(){
+            // https://android.suzu-sd.com/2021/05/recyclerview_item_scroll/#OnScrollListener
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            }
+            override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+                Log.i("OnScrollListener", "onScrolled dx=%3d dy=%3d" .format(dx, dy))
+//                Log.i("", "rec = ${rv}")
+//                Log.i("", "${scrollPos}, ${scrollPos/15/6}")
+                if (rv == recyclerView) {
+//                    scrollPos += dy
+//                    recyclerViewT.scrollToPosition(scrollPos/15/6)
+                    recyclerViewT.scrollBy(0, dy)
+                }else if (rv == recyclerViewT) {
+//                    scrollPos += dy
+//                    recyclerView.scrollToPosition(scrollPos)
+                    Log.e("", "なんだこれ？？　何のrecyclerViewがスクロールされてんのかさっぱりわからん")
+                }else{
+                    Log.e("", "なんだこれ？？　何のrecyclerViewがスクロールされてんのかさっぱりわからん")
+                }
+            }
+        }
+        recyclerView.addOnScrollListener(listener)
+//        recyclerViewT.addOnScrollListener(listener)
+
 
         // クリックイベント等
         val mIth = ItemTouchHelper(
