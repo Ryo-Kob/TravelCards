@@ -99,7 +99,7 @@ class PlanFragment : Fragment() {
         }
         recyclerView.addOnScrollListener(listener)
         val listenerT = object : RecyclerView.OnItemTouchListener {
-            // https://android.suzu-sd.com/2021/05/recyclerview_item_scroll/#OnScrollListener
+            // https://qiita.com/Horie1024/items/72742f76485d02bf1b90
             override fun onInterceptTouchEvent(recyclerView: RecyclerView, e: MotionEvent): Boolean {
                 return true
             }
