@@ -41,7 +41,13 @@ class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparat
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.plan_recycler_view_item, viewGroup, false)
+            .inflate(
+                when(viewType) {
+                    CardSuite.VIEW_TYPE_EMPTY -> R.layout.plan_recycler_view_item_empty
+                    CardSuite.VIEW_TYPE_CARD -> R.layout.plan_recycler_view_item
+                    else -> R.layout.plan_recycler_view_item
+                }, viewGroup, false
+            )
 
         val holder = ViewHolder(view)
         holder.card = card
@@ -51,6 +57,10 @@ class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparat
 //        }
 
         return holder
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return getItem(position).type
     }
 
     // Replace the contents of a view (invoked by the layout manager)

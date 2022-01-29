@@ -13,7 +13,12 @@ data class CardSuite(
     var isStartDateFixed: Boolean = false,
     var isStartTimeFixed: Boolean = false,
     var timer: Int = 0,
+    var type: Int = VIEW_TYPE_CARD
 ) {
     @PrimaryKey(autoGenerate = true) var id: Int = 0
     var text: String = ""
+    companion object {
+        val VIEW_TYPE_EMPTY: Int = 0
+        val VIEW_TYPE_CARD: Int = 1
+    }
 }

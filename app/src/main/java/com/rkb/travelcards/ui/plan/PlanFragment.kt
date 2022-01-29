@@ -130,7 +130,9 @@ class PlanFragment : Fragment() {
 
             var newCardSuite = CardSuite()
             newCardSuite.cardId = cardId
-            newCardSuite.isBlank = true
+            newCardSuite.text = cards[cardId].title
+            newCardSuite.isBlank = false
+            newCardSuite.type = CardSuite.VIEW_TYPE_CARD
             newCardSuite.startDate = 0 // 日付をどうにかして数値にしたいが……
             newCardSuite.startTime = 0 // 1分=1として数値化
             newCardSuite.isStartDateFixed = false
@@ -154,6 +156,7 @@ class PlanFragment : Fragment() {
             cs = CardSuite()
             cs.cardId = 0
             cs.isBlank = true
+            cs.type = CardSuite.VIEW_TYPE_EMPTY
             cs.isStartDateFixed = false
             cs.startDate = 0
             cs.startTime = 15*i

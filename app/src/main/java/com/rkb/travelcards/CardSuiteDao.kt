@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CardSuiteDao {
-    @Query("SELECT * FROM card_suite_table")
+    @Query("SELECT * FROM card_suite_table ORDER BY startTime")
     fun getCardSuites(): Flow<List<CardSuite>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
