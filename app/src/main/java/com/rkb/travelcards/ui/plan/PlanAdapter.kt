@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rkb.travelcards.Card
 import com.rkb.travelcards.CardSuite
 import com.rkb.travelcards.R
-import org.w3c.dom.Text
 
 class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparator()) {
     lateinit var card : List<Card>
@@ -107,9 +106,4 @@ class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparat
             return oldItem.cardId == newItem.cardId // TODO: 全アイテムを比較するようにする. もしくは, この関数自体消しちゃう.
         }
     }
-
-//    var itemClickListener: OnItemClickListener? = null
-//    interface OnItemClickListener {
-//        fun onItemClick(holder: PlanAdapter.ViewHolder)
-//    }
 }

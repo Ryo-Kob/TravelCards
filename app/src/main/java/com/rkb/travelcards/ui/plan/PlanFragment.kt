@@ -24,6 +24,7 @@ class PlanFragment : Fragment() {
 
     lateinit var cards : List<Card>
     var cs : MutableList<CardSuite> = mutableListOf()
+    var tl : MutableList<Int> = mutableListOf()
 
     val planViewModel: PlanViewModel by viewModels {
         PlanViewModelFactory((activity?.application as TravelCardsApplication).repository)
@@ -31,6 +32,7 @@ class PlanFragment : Fragment() {
 
     init {
         initializeCardSuite()
+        initializeTimeLine()
     }
 
     override fun onCreateView(
@@ -46,10 +48,17 @@ class PlanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // recyclerview初期化
         val recyclerView = view.findViewById<RecyclerView>(R.id.plan_recycler_view)
         val adapter = PlanAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+
+        // timelineも同様に初期化
+        val recyclerViewT = view.findViewById<RecyclerView>(R.id.plan_recycler_view_timeline)
+        val adapterT = PlanAdapterT()
+        recyclerViewT.adapter = adapterT
+        recyclerViewT.layoutManager = LinearLayoutManager(context)
 
         // card一覧(cards)を、データベースから拾ってくる。
         Single.fromCallable {
@@ -63,6 +72,7 @@ class PlanFragment : Fragment() {
 
         // adapter接続
         adapter.submitList(cs)
+        adapterT.submitList(tl)
 
         // クリックイベント等
         val mIth = ItemTouchHelper(
@@ -178,6 +188,13 @@ class PlanFragment : Fragment() {
             ncs.startTime = 15*i
             ncs.timer = 15
             cs.add(ncs)
+        }
+    }
+
+    private fun initializeTimeLine() {
+        for(i in 0..4*24-1) {
+            val ntl = i*15
+            tl.add(ntl)
         }
     }
 }
