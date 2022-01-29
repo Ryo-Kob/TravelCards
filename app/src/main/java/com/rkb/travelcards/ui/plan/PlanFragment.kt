@@ -21,12 +21,9 @@ import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 class PlanFragment : Fragment() {
-
     lateinit var cards : List<Card>
     var cs : MutableList<CardSuite> = mutableListOf()
     var tl : MutableList<Int> = mutableListOf()
-    var scrollPos : Int = 0
-    var scrollPosT : Int = 0
 
     val planViewModel: PlanViewModel by viewModels {
         PlanViewModelFactory((activity?.application as TravelCardsApplication).repository)
@@ -81,20 +78,7 @@ class PlanFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             }
             override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
-                Log.i("OnScrollListener", "onScrolled dx=%3d dy=%3d" .format(dx, dy))
-//                Log.i("", "rec = ${rv}")
-//                Log.i("", "${scrollPos}, ${scrollPos/15/6}")
-                if (rv == recyclerView) {
-//                    scrollPos += dy
-//                    recyclerViewT.scrollToPosition(scrollPos/15/6)
-                    recyclerViewT.scrollBy(0, dy)
-                }else if (rv == recyclerViewT) {
-//                    scrollPos += dy
-//                    recyclerView.scrollToPosition(scrollPos)
-                    Log.e("", "なんだこれ？？　何のrecyclerViewがスクロールされてんのかさっぱりわからん")
-                }else{
-                    Log.e("", "なんだこれ？？　何のrecyclerViewがスクロールされてんのかさっぱりわからん")
-                }
+                recyclerViewT.scrollBy(0, dy)
             }
         }
         recyclerView.addOnScrollListener(listener)
