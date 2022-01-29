@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rkb.travelcards.Card
 import com.rkb.travelcards.CardSuite
 import com.rkb.travelcards.R
+import org.w3c.dom.Text
 
 class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparator()) {
     lateinit var card : List<Card>
@@ -18,22 +19,41 @@ class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparat
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var card : List<Card>
-        val textViewName: TextView
 //        val textViewDescription: TextView
 
-        init {
-            // Define click listener for the ViewHolder's View.
-            textViewName = view.findViewById(R.id.card_text_view_name)
-//            textViewDescription = view.findViewById(R.id.card_text_view_time)
+        companion object {
+            fun create(parent: ViewGroup, viewType: Int) : ViewHolder {
+                val view: View = LayoutInflater.from(parent.context)
+                    .inflate(when(viewType) {
+                        CardSuite.VIEW_TYPE_EMPTY -> R.layout.plan_recycler_view_item_empty
+                        CardSuite.VIEW_TYPE_CARD -> R.layout.plan_recycler_view_item
+                        else ->  R.layout.plan_recycler_view_item
+                    }, parent, false)
+                return ViewHolder(view)
+            }
         }
 
         fun bind(cs: CardSuite) {
             // TODO: 特定のcardIdを持つCardの情報を取得し、textViewName等に反映させたい！
 //            textViewName.text = card[cardId].title
 //            textViewName.text = card[cs.cardId].title
-            textViewName.text = cs.text
+            if (cs.isBlank) {
+                val params : ViewGroup.LayoutParams = itemView.layoutParams
+                params.height = cs.timer*6
+                val textViewName = itemView.findViewById<TextView>(R.id.card_text_view_name)
+                textViewName.text = cs.text
+//                val textViewTime = itemView.findViewById<TextView>(R.id.card_text_view_time)
+//                textViewTime.text = "${cs.timer} 分"
+            }else{
+                val params : ViewGroup.LayoutParams = itemView.layoutParams
+                params.height = cs.timer*6
+                val textViewName = itemView.findViewById<TextView>(R.id.card_text_view_name)
+                textViewName.text = cs.text
+                val textViewTime = itemView.findViewById<TextView>(R.id.card_text_view_time)
+                textViewTime.text = "${cs.timer} 分"
+            }
         }
     }
 

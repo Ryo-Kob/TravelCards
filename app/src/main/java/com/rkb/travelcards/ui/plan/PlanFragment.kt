@@ -92,8 +92,9 @@ class PlanFragment : Fragment() {
                 ) {
                     val pos = viewHolder.adapterPosition
                     if (cs[pos].isBlank) {
+                        // 空白を消された。カウンターアタック!
                         cs.removeAt(pos)
-                        var ncs = CardSuite()
+                        val ncs = CardSuite()
                         ncs.cardId = 0
                         ncs.text = "NewBlank"
                         ncs.isBlank = true
@@ -106,22 +107,22 @@ class PlanFragment : Fragment() {
                         cs.add(pos, ncs)
                         adapter.notifyDataSetChanged()
                     }else{
-                        cs.removeAt(pos)
-                        adapter.notifyItemRemoved(pos)
-                        for(i in 0..cs[pos].timer/15-1) {
-                            var ncs = CardSuite()
+                        // カードが消されたので、その分空白を充填する
+                        for(i in 1..cs[pos].timer/15) {
+                            val ncs = CardSuite()
                             ncs.cardId = 0
-                            ncs.text = "NewBlank"
+                            ncs.text = "NewBlank-${i}"
                             ncs.isBlank = true
                             ncs.type = CardSuite.VIEW_TYPE_EMPTY
                             ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
-                            ncs.startTime = 0 // 1分=1として数値化
+                            ncs.startTime = (pos+i)*15 // 1分=1として数値化
                             ncs.isStartDateFixed = false
                             ncs.isStartTimeFixed = false
                             ncs.timer = 15
                             cs.add(pos+i, ncs)
-                            adapter.notifyItemInserted(pos+i)
                         }
+                        cs.removeAt(pos)
+                        adapter.notifyDataSetChanged()
                     }
                 }
             })
@@ -140,14 +141,11 @@ class PlanFragment : Fragment() {
 
             if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                 //drawer is open -> 閉じる
-                mDrawerLayout.closeDrawer(Gravity.LEFT);
+                mDrawerLayout.closeDrawer(GravityCompat.START);
             }
 
-            // 結果を使った処理
-            Log.v("", "Good: $cardId")
-//            setStartDateTime(year, month, day)
-
-            var ncs = CardSuite()
+            // 新しいカードを追加する！
+            val ncs = CardSuite()
             ncs.cardId = cardId
             ncs.text = cards[cardId].title
             ncs.isBlank = false
@@ -158,6 +156,11 @@ class PlanFragment : Fragment() {
             ncs.isStartTimeFixed = false
             ncs.timer = cards[cardId].timerHour*60 + cards[cardId].timerMinute
             cs.add(0, ncs)
+
+            // 要らなくなった空白は捨てる
+            for(i in 0..ncs.timer/15-1) {
+                cs.removeAt(1)
+            }
             adapter.notifyDataSetChanged()
         }
     }
