@@ -91,9 +91,37 @@ class PlanFragment : Fragment() {
                     direction: Int
                 ) {
                     val pos = viewHolder.adapterPosition
-                    if (true) {//!cs[pos].isBlank) {
+                    if (cs[pos].isBlank) {
+                        cs.removeAt(pos)
+                        var ncs = CardSuite()
+                        ncs.cardId = 0
+                        ncs.text = "NewBlank"
+                        ncs.isBlank = true
+                        ncs.type = CardSuite.VIEW_TYPE_EMPTY
+                        ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
+                        ncs.startTime = pos*4 // 1分=1として数値化
+                        ncs.isStartDateFixed = false
+                        ncs.isStartTimeFixed = false
+                        ncs.timer = 15
+                        cs.add(pos, ncs)
+                        adapter.notifyDataSetChanged()
+                    }else{
                         cs.removeAt(pos)
                         adapter.notifyItemRemoved(pos)
+                        for(i in 0..cs[pos].timer/15-1) {
+                            var ncs = CardSuite()
+                            ncs.cardId = 0
+                            ncs.text = "NewBlank"
+                            ncs.isBlank = true
+                            ncs.type = CardSuite.VIEW_TYPE_EMPTY
+                            ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
+                            ncs.startTime = 0 // 1分=1として数値化
+                            ncs.isStartDateFixed = false
+                            ncs.isStartTimeFixed = false
+                            ncs.timer = 15
+                            cs.add(pos+i, ncs)
+                            adapter.notifyItemInserted(pos+i)
+                        }
                     }
                 }
             })
@@ -128,7 +156,7 @@ class PlanFragment : Fragment() {
             ncs.startTime = 0 // 1分=1として数値化
             ncs.isStartDateFixed = false
             ncs.isStartTimeFixed = false
-            ncs.timer = 0
+            ncs.timer = cards[cardId].timerHour*60 + cards[cardId].timerMinute
             cs.add(0, ncs)
             adapter.notifyDataSetChanged()
         }
@@ -139,13 +167,13 @@ class PlanFragment : Fragment() {
         for(i in 1..4*24) {
             ncs = CardSuite()
             ncs.cardId = 0
+            ncs.text = "$i"
             ncs.isBlank = true
             ncs.type = CardSuite.VIEW_TYPE_EMPTY
             ncs.isStartDateFixed = false
             ncs.startDate = 0
             ncs.startTime = 15*i
             ncs.timer = 15
-            ncs.text = "$i"
             cs.add(ncs)
         }
     }
