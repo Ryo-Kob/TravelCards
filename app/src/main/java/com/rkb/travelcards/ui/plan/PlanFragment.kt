@@ -120,13 +120,23 @@ class PlanFragment : Fragment() {
             val cardId = data.getInt("cardId", 0)
 
             if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                //drawer is open
+                //drawer is open -> 閉じる
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
             }
 
             // 結果を使った処理
             Log.v("", "Good: $cardId")
 //            setStartDateTime(year, month, day)
+
+            var newCardSuite = CardSuite()
+            newCardSuite.cardId = cardId
+            newCardSuite.isBlank = true
+            newCardSuite.startDate = 0 // 日付をどうにかして数値にしたいが……
+            newCardSuite.startTime = 0 // 1分=1として数値化
+            newCardSuite.isStartDateFixed = false
+            newCardSuite.isStartTimeFixed = false
+            newCardSuite.timer = 0
+            planViewModel.insert(newCardSuite)
         }
 
         // CardSuiteがすっからかんなら、空白充填で初期化する
