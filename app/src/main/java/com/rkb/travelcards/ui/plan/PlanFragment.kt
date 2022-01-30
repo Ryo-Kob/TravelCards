@@ -1,9 +1,11 @@
 package com.rkb.travelcards.ui.plan
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -19,6 +21,8 @@ import com.rkb.travelCards.ui.plan.PlanViewModelFactory
 import com.rkb.travelcards.*
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.math.abs
 
@@ -73,7 +77,7 @@ class PlanFragment : Fragment() {
             planViewModel.getCardSuiteList()
         }.subscribeOn(Schedulers.io())
             .subscribe({
-                if (it.isEmpty()) {
+                if (true){ //it.isEmpty()) { // TODO: 仮で毎回初期化するようにしている。
                     initializeCardSuite()
                 }else {
                     for(i in it as MutableList<CardSuite>) {
@@ -267,6 +271,7 @@ class PlanFragment : Fragment() {
             }, {})
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initializeCardSuite() {
         var ncs : CardSuite
         for(i in 1..4*24) {
@@ -281,8 +286,47 @@ class PlanFragment : Fragment() {
             ncs.timer = 15
             cs.add(ncs)
         }
-    }
 
+        // Cardに時刻指定のカードが有れば入れちゃう
+        for(cardId in cards.indices) {
+            if (!cards[cardId].isStartTimeSet) continue
+
+            // 開始時刻計算
+            var st = 0
+            var stTime = LocalTime.parse(cards[cardId].strStartTime, DateTimeFormatter.ofPattern("HH:mm"))
+//            Log.v("", "${stTime.hour}, ${stTime.minute}, ${stTime.toSecondOfDay()}")
+            st += stTime.hour * 60
+            st += stTime.minute
+
+            // index計算
+            var index = -1
+            for(j in 0..cs.size-1) {
+                Log.v("", "${cs[j].startTime}, ${st}")
+                if (cs[j].startTime == st) {
+                    index = j
+                    break
+                }
+            }
+
+            val ncs = CardSuite()
+            ncs.cardId = cardId
+            ncs.text = cards[cardId].title
+            ncs.isBlank = false
+            ncs.type = CardSuite.VIEW_TYPE_CARD
+            ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
+            ncs.isStartDateFixed = false
+            ncs.isStartTimeFixed = false
+            ncs.timer = cards[cardId].timerHour * 60 + cards[cardId].timerMinute
+            ncs.startTime = st
+            Log.v("", "idx=${index}")
+            cs.add(index, ncs)
+
+            // 要らなくなった空白は捨てる
+            for (i in 0..ncs.timer / 15 - 1) {
+                cs.removeAt(index + 1)
+            }
+        }
+    }
     private fun initializeTimeLine() {
         for(i in 0..4*24-1) {
             val ntl = i*15
