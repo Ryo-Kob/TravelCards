@@ -61,4 +61,8 @@ class TravelCardsRepository(
         return cardDao.getCardList()
     }
 
+    fun getCardSuiteList() : List<CardSuite> {
+        return cardSuiteDao.getCardSuiteList()
+    }
+
 }

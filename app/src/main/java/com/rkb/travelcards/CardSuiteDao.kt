@@ -8,6 +8,9 @@ interface CardSuiteDao {
     @Query("SELECT * FROM card_suite_table ORDER BY startTime")
     fun getCardSuites(): Flow<List<CardSuite>>
 
+    @Query("SELECT * FROM card_suite_table")
+    fun getCardSuiteList(): List<CardSuite>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(cardSuite: CardSuite)
 

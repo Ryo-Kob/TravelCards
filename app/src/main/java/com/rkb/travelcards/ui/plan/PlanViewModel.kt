@@ -39,6 +39,10 @@ class PlanViewModel(private val repository: TravelCardsRepository) : ViewModel()
         return repository.getCardList()
     }
 
+    fun getCardSuiteList() : List<CardSuite> {
+        return repository.getCardSuiteList()
+    }
+
     fun deleteAllCardSuites() = viewModelScope.launch {
         repository.deleteAllCardSuites()
     }

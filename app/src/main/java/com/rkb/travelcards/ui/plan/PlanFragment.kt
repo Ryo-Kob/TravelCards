@@ -30,7 +30,6 @@ class PlanFragment : Fragment() {
     }
 
     init {
-        initializeCardSuite()
         initializeTimeLine()
     }
 
@@ -67,6 +66,22 @@ class PlanFragment : Fragment() {
                 Log.v("", cards[0].title)
                 adapter.card = cards
             }, {})
+
+        Single.fromCallable {
+            planViewModel.getCardSuiteList()
+        }.subscribeOn(Schedulers.io())
+            .subscribe({
+                if (it.isEmpty()) {
+                    initializeCardSuite()
+                }else {
+                    cs = it as MutableList<CardSuite>
+                    for(i in cs) {
+                        Log.v("Hayosei", "${i.id}, ${i.isBlank}, ${i.text}")
+                    }
+                    adapter.notifyDataSetChanged()
+                    Log.v("", "いかがでしたか？")
+                }
+           }, {})
 
         // adapter接続
         adapter.submitList(cs)
@@ -193,6 +208,8 @@ class PlanFragment : Fragment() {
             }
             adapter.notifyDataSetChanged()
         }
+
+        Log.v("", "はよせんかい！")
     }
 
     override fun onStop() {
@@ -222,7 +239,7 @@ class PlanFragment : Fragment() {
             ncs.type = CardSuite.VIEW_TYPE_EMPTY
             ncs.isStartDateFixed = false
             ncs.startDate = 0
-            ncs.startTime = 15*i
+            ncs.startTime = 15 * i
             ncs.timer = 15
             cs.add(ncs)
         }
