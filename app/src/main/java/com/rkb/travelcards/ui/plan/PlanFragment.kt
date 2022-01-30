@@ -153,7 +153,6 @@ class PlanFragment : Fragment() {
                     val pos = viewHolder.adapterPosition
                     if (cs[pos].isBlank) {
                         // 空白を消された。カウンターアタック!
-                        val time = cs[pos].startTime
                         cs.removeAt(pos)
                         val ncs = CardSuite()
                         ncs.cardId = 0
@@ -161,7 +160,7 @@ class PlanFragment : Fragment() {
                         ncs.isBlank = true
                         ncs.type = CardSuite.VIEW_TYPE_EMPTY
                         ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
-                        ncs.startTime = time
+                        ncs.startTime = cs[pos-1].startTime + cs[pos-1].timer
                         ncs.isStartDateFixed = false
                         ncs.isStartTimeFixed = false
                         ncs.timer = 15
@@ -169,20 +168,25 @@ class PlanFragment : Fragment() {
                         adapter.notifyDataSetChanged()
                     }else{
                         // カードが消されたので、その分空白を充填する
-                        for(i in 1..cs[pos].timer/15) {
+                        val num = cs[pos].timer/15
+                        cs.removeAt(pos)
+                        for(i in 0..num-1) {
                             val ncs = CardSuite()
                             ncs.cardId = 0
                             ncs.text = "NewBlank-${i}"
                             ncs.isBlank = true
                             ncs.type = CardSuite.VIEW_TYPE_EMPTY
                             ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
-                            ncs.startTime = (pos+i)*15 // 1分=1として数値化
                             ncs.isStartDateFixed = false
                             ncs.isStartTimeFixed = false
                             ncs.timer = 15
+                            if (pos-1 < 0) {
+                                ncs.startTime = cs[pos - 1 + i].startTime + cs[pos - 1 + i].timer
+                            }else {
+                                ncs.startTime = cs[pos - 1 + i].startTime + cs[pos - 1 + i].timer
+                            }
                             cs.add(pos+i, ncs)
                         }
-                        cs.removeAt(pos)
                         adapter.notifyDataSetChanged()
                     }
                 }
