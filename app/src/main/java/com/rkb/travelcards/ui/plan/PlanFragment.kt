@@ -182,11 +182,14 @@ class PlanFragment : Fragment() {
             ncs.isStartDateFixed = false
             ncs.isStartTimeFixed = false
             ncs.timer = cards[cardId].timerHour*60 + cards[cardId].timerMinute
-            cs.add(0, ncs)
+            val manager = recyclerView.layoutManager as LinearLayoutManager
+            val index = manager.findFirstVisibleItemPosition()+1
+            Log.v("", "idx=${index}")
+            cs.add(index, ncs)
 
             // 要らなくなった空白は捨てる
             for(i in 0..ncs.timer/15-1) {
-                cs.removeAt(1)
+                cs.removeAt(index+1)
             }
             adapter.notifyDataSetChanged()
         }
