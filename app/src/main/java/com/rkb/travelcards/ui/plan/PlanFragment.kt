@@ -3,6 +3,7 @@ package com.rkb.travelcards.ui.plan
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -205,27 +206,45 @@ class PlanFragment : Fragment() {
                 mDrawerLayout.closeDrawer(GravityCompat.START);
             }
 
-            // 新しいカードを追加する！
-            val ncs = CardSuite()
-            ncs.cardId = cardId
-            ncs.text = cards[cardId].title
-            ncs.isBlank = false
-            ncs.type = CardSuite.VIEW_TYPE_CARD
-            ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
-            ncs.isStartDateFixed = false
-            ncs.isStartTimeFixed = false
-            ncs.timer = cards[cardId].timerHour*60 + cards[cardId].timerMinute
+            // 新しいカードを配置していいかどうか（既存のカードに衝突しないかどうか）チェック
             val manager = recyclerView.layoutManager as LinearLayoutManager
             val index = manager.findFirstVisibleItemPosition()+1
-            ncs.startTime = cs[index-1].startTime + cs[index-1].timer
-            Log.v("", "idx=${index}")
-            cs.add(index, ncs)
 
-            // 要らなくなった空白は捨てる
-            for(i in 0..ncs.timer/15-1) {
-                cs.removeAt(index+1)
+            val timer = cards[cardId].timerHour*60 + cards[cardId].timerMinute
+            val st = cs[index-1].startTime + cs[index-1].timer
+            var okFlag = true
+            for(i in 0..timer/15-1) {
+                Log.v("", "i:${i}, ${cs[index-1+i].startTime + cs[index-1+i].timer}, ${st+timer}")
+                if (cs[index-1+i].startTime + cs[index-1+i].timer > st+timer) {
+                    // カードがかぶる！
+                    Toast.makeText(context, "Error: 既存のカードとぶつかってしまいます。位置を変えてやりなおしてください", Toast.LENGTH_LONG).show()
+                    Log.e("", "Error: 既存のカードとぶつかってしまいます。位置を変えてやりなおしてください")
+                    okFlag = false
+                    break
+                }
             }
-            adapter.notifyDataSetChanged()
+
+            // 新しいカードを追加する！
+            if (okFlag) {
+                val ncs = CardSuite()
+                ncs.cardId = cardId
+                ncs.text = cards[cardId].title
+                ncs.isBlank = false
+                ncs.type = CardSuite.VIEW_TYPE_CARD
+                ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
+                ncs.isStartDateFixed = false
+                ncs.isStartTimeFixed = false
+                ncs.timer = cards[cardId].timerHour * 60 + cards[cardId].timerMinute
+                ncs.startTime = st
+                Log.v("", "idx=${index}")
+                cs.add(index, ncs)
+
+                // 要らなくなった空白は捨てる
+                for (i in 0..ncs.timer / 15 - 1) {
+                    cs.removeAt(index + 1)
+                }
+                adapter.notifyDataSetChanged()
+            }
         }
 
         Log.v("", "はよせんかい！")
