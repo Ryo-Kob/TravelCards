@@ -180,11 +180,7 @@ class PlanFragment : Fragment() {
                             ncs.isStartDateFixed = false
                             ncs.isStartTimeFixed = false
                             ncs.timer = 15
-                            if (pos-1 < 0) {
-                                ncs.startTime = cs[pos - 1 + i].startTime + cs[pos - 1 + i].timer
-                            }else {
-                                ncs.startTime = cs[pos - 1 + i].startTime + cs[pos - 1 + i].timer
-                            }
+                            ncs.startTime = cs[pos - 1 + i].startTime + cs[pos - 1 + i].timer
                             cs.add(pos+i, ncs)
                         }
                         adapter.notifyDataSetChanged()
