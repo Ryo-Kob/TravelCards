@@ -195,6 +195,23 @@ class PlanFragment : Fragment() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        Log.v("", "onStop!")
+
+        // 編集したrecyclerviewのデータを永続化
+        Single.fromCallable {
+            planViewModel
+        }.subscribeOn(Schedulers.io())
+            .subscribe({
+                it.deleteAllCardSuites()
+                for(i in cs) {
+                    Log.v("", "${i.id}, ${i.isBlank}, ${i.text}")
+                    it.insert(i)
+                }
+            }, {})
+    }
+
     private fun initializeCardSuite() {
         var ncs : CardSuite
         for(i in 1..4*24) {

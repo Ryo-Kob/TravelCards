@@ -40,6 +40,10 @@ class TravelCardsRepository(
         cardSuiteDao.updateStartTime(startTime, id)
     }
 
+    suspend fun deleteAllCardSuites() {
+        cardSuiteDao.deleteAll()
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(plan: Plan) {
