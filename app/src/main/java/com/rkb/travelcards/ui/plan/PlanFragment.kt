@@ -77,7 +77,8 @@ class PlanFragment : Fragment() {
             planViewModel.getCardSuiteList()
         }.subscribeOn(Schedulers.io())
             .subscribe({
-                if (true){ //it.isEmpty()) { // TODO: 仮で毎回初期化するようにしている。
+//                if (true){ //it.isEmpty()) { // 仮で毎回初期化するときの条件文
+                if (it.isEmpty()) {
                     initializeCardSuite()
                 }else {
                     for(i in it as MutableList<CardSuite>) {
@@ -315,9 +316,10 @@ class PlanFragment : Fragment() {
             ncs.type = CardSuite.VIEW_TYPE_CARD
             ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
             ncs.isStartDateFixed = false
-            ncs.isStartTimeFixed = false
+            ncs.isStartTimeFixed = true
             ncs.timer = cards[cardId].timerHour * 60 + cards[cardId].timerMinute
             ncs.startTime = st
+            ncs.startTimeOriginal = st
             Log.v("", "idx=${index}")
             cs.add(index, ncs)
 

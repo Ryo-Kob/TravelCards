@@ -1,9 +1,13 @@
 package com.rkb.travelcards.ui.plan
 
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +38,7 @@ class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparat
             }
         }
 
+        @SuppressLint("ResourceAsColor")
         fun bind(cs: CardSuite) {
             // TODO: 特定のcardIdを持つCardの情報を取得し、textViewName等に反映させたい！
 //            textViewName.text = card[cardId].title
@@ -53,6 +58,19 @@ class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparat
                 val textViewTime = itemView.findViewById<TextView>(R.id.card_text_view_time)
                 textViewTime.text = "${cs.startTime/60}:${cs.startTime%60}"
 //                textViewTime.text = "${cs.timer} 分"
+
+                // 時刻照合警告
+                val cardView = itemView.findViewById<CardView>(R.id.card_view)
+                if (cs.isStartTimeFixed) {
+                    if (cs.startTimeOriginal != cs.startTime) {
+//                        cardView.setCardBackgroundColor(R.color.pale_red)
+                        cardView.setCardBackgroundColor(Color.rgb(255, 200, 200))
+                    }else{
+                        cardView.setCardBackgroundColor(Color.WHITE)
+                    }
+                }else{
+                    cardView.setCardBackgroundColor(Color.WHITE)
+                }
             }
         }
     }

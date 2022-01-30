@@ -10,6 +10,8 @@ data class CardSuite(
     var cardId: Int = 0,
     var startDate: Int = 0, // 日付をどうにかして数値にしたいが……
     var startTime: Int = 0, // 1分=1として数値化
+    var startDateOriginal: Int = 0,
+    var startTimeOriginal: Int = 0,
     var isStartDateFixed: Boolean = false,
     var isStartTimeFixed: Boolean = false,
     var timer: Int = 0,
