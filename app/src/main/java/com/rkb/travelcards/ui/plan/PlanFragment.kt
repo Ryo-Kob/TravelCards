@@ -217,7 +217,7 @@ class PlanFragment : Fragment() {
             ncs.timer = cards[cardId].timerHour*60 + cards[cardId].timerMinute
             val manager = recyclerView.layoutManager as LinearLayoutManager
             val index = manager.findFirstVisibleItemPosition()+1
-            ncs.startTime = index*15 // 1分=1として数値化
+            ncs.startTime = cs[index-1].startTime + cs[index-1].timer
             Log.v("", "idx=${index}")
             cs.add(index, ncs)
 

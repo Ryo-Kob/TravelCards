@@ -15,9 +15,9 @@
         android:layout_margin="4dp"
         app:cardBackgroundColor="@color/cardBoard"
         app:cardCornerRadius="4dp"
+            android:outlineAmbientShadowColor="@color/cardBoard"
+            android:outlineSpotShadowColor="@color/cardBoard"
         >
-        <!--        android:outlineAmbientShadowColor="@color/cardBoard"-->
-        <!--        android:outlineSpotShadowColor="@color/cardBoard"-->
 
         <LinearLayout
             android:layout_width="match_parent"
