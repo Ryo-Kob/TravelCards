@@ -19,6 +19,7 @@ import com.rkb.travelcards.*
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import java.util.*
+import kotlin.math.abs
 
 class PlanFragment : Fragment() {
     lateinit var cards : List<Card>
@@ -123,16 +124,23 @@ class PlanFragment : Fragment() {
                     if (cs[fromPos].isBlank) return false
 
                     // 入れ替えられたカードのデータを操作する
-                    if (fromPos < toPos) {
-                        cs[fromPos].startTime += cs[toPos].timer
-                        cs[toPos].startTime -= cs[fromPos].timer
-                    }else{
-                        cs[fromPos].startTime -= cs[toPos].timer
-                        cs[toPos].startTime += cs[fromPos].timer
+                    for(i in 0..abs(toPos-fromPos) -1) {
+                        var fromPos2=0; var toPos2=0
+                        if (fromPos < toPos) {
+                            fromPos2 = fromPos + i
+                            toPos2 = fromPos2 + 1
+                            cs[fromPos2].startTime += cs[toPos2].timer
+                            cs[toPos2].startTime -= cs[fromPos2].timer
+                        }else{
+                            fromPos2 = fromPos - i
+                            toPos2 = fromPos2 - 1
+                            cs[fromPos2].startTime -= cs[toPos2].timer
+                            cs[toPos2].startTime += cs[fromPos2].timer
+                        }
+                        Collections.swap(cs, fromPos, toPos)
+                        adapter.notifyItemMoved(fromPos, toPos)
+//                    adapter.notifyDataSetChanged()
                     }
-                    Collections.swap(cs, fromPos, toPos)
-//                    adapter.notifyItemMoved(fromPos, toPos)
-                    adapter.notifyDataSetChanged()
 
                     Log.v("", "Click from:$fromPos, to:$toPos")
                     return true // true if moved, false otherwise
@@ -145,6 +153,7 @@ class PlanFragment : Fragment() {
                     val pos = viewHolder.adapterPosition
                     if (cs[pos].isBlank) {
                         // 空白を消された。カウンターアタック!
+                        val time = cs[pos].startTime
                         cs.removeAt(pos)
                         val ncs = CardSuite()
                         ncs.cardId = 0
@@ -152,7 +161,7 @@ class PlanFragment : Fragment() {
                         ncs.isBlank = true
                         ncs.type = CardSuite.VIEW_TYPE_EMPTY
                         ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
-                        ncs.startTime = pos*15 // 1分=1として数値化
+                        ncs.startTime = time
                         ncs.isStartDateFixed = false
                         ncs.isStartTimeFixed = false
                         ncs.timer = 15
@@ -233,7 +242,7 @@ class PlanFragment : Fragment() {
             .subscribe({
                 it.deleteAllCardSuites()
                 for(i in cs) {
-                    Log.v("", "${i.id}, ${i.isBlank}, ${i.text}")
+//                    Log.v("", "${i.id}, ${i.isBlank}, ${i.text}")
                     it.insert(i)
                 }
             }, {})
