@@ -119,9 +119,20 @@ class PlanFragment : Fragment() {
                     val fromPos = viewHolder.adapterPosition
                     val toPos = target.adapterPosition
 
+                    // 空白カードは入れ替えさせない
+                    if (cs[fromPos].isBlank) return false
+
                     // 入れ替えられたカードのデータを操作する
+                    if (fromPos < toPos) {
+                        cs[fromPos].startTime += cs[toPos].timer
+                        cs[toPos].startTime -= cs[fromPos].timer
+                    }else{
+                        cs[fromPos].startTime -= cs[toPos].timer
+                        cs[toPos].startTime += cs[fromPos].timer
+                    }
                     Collections.swap(cs, fromPos, toPos)
-                    adapter.notifyItemMoved(fromPos, toPos)
+//                    adapter.notifyItemMoved(fromPos, toPos)
+                    adapter.notifyDataSetChanged()
 
                     Log.v("", "Click from:$fromPos, to:$toPos")
                     return true // true if moved, false otherwise
@@ -141,7 +152,7 @@ class PlanFragment : Fragment() {
                         ncs.isBlank = true
                         ncs.type = CardSuite.VIEW_TYPE_EMPTY
                         ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
-                        ncs.startTime = pos*4 // 1分=1として数値化
+                        ncs.startTime = pos*15 // 1分=1として数値化
                         ncs.isStartDateFixed = false
                         ncs.isStartTimeFixed = false
                         ncs.timer = 15
