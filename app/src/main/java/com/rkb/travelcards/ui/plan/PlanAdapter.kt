@@ -44,14 +44,15 @@ class PlanAdapter : ListAdapter<CardSuite, PlanAdapter.ViewHolder>(CardsComparat
                 val textViewName = itemView.findViewById<TextView>(R.id.card_text_view_name)
                 textViewName.text = cs.text
 //                val textViewTime = itemView.findViewById<TextView>(R.id.card_text_view_time)
-//                textViewTime.text = "${cs.timer} 分"
+                textViewName.text = "${cs.startTime/60}:${cs.startTime%60}"
             }else{
                 val params : ViewGroup.LayoutParams = itemView.layoutParams
                 params.height = cs.timer*6
                 val textViewName = itemView.findViewById<TextView>(R.id.card_text_view_name)
                 textViewName.text = cs.text
                 val textViewTime = itemView.findViewById<TextView>(R.id.card_text_view_time)
-                textViewTime.text = "${cs.timer} 分"
+                textViewTime.text = "${cs.startTime/60}:${cs.startTime%60}"
+//                textViewTime.text = "${cs.timer} 分"
             }
         }
     }

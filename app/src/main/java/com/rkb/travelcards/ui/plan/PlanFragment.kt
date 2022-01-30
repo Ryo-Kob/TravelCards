@@ -74,12 +74,11 @@ class PlanFragment : Fragment() {
                 if (it.isEmpty()) {
                     initializeCardSuite()
                 }else {
-                    cs = it as MutableList<CardSuite>
-                    for(i in cs) {
-                        Log.v("Hayosei", "${i.id}, ${i.isBlank}, ${i.text}")
+                    for(i in it as MutableList<CardSuite>) {
+                        cs.add(i)
                     }
+                    cs.sortBy { i -> i.startTime }
                     adapter.notifyDataSetChanged()
-                    Log.v("", "いかがでしたか？")
                 }
            }, {})
 
@@ -193,12 +192,12 @@ class PlanFragment : Fragment() {
             ncs.isBlank = false
             ncs.type = CardSuite.VIEW_TYPE_CARD
             ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
-            ncs.startTime = 0 // 1分=1として数値化
             ncs.isStartDateFixed = false
             ncs.isStartTimeFixed = false
             ncs.timer = cards[cardId].timerHour*60 + cards[cardId].timerMinute
             val manager = recyclerView.layoutManager as LinearLayoutManager
             val index = manager.findFirstVisibleItemPosition()+1
+            ncs.startTime = index*15 // 1分=1として数値化
             Log.v("", "idx=${index}")
             cs.add(index, ncs)
 
@@ -239,7 +238,7 @@ class PlanFragment : Fragment() {
             ncs.type = CardSuite.VIEW_TYPE_EMPTY
             ncs.isStartDateFixed = false
             ncs.startDate = 0
-            ncs.startTime = 15 * i
+            ncs.startTime = 15 * i - 15
             ncs.timer = 15
             cs.add(ncs)
         }
