@@ -5,7 +5,7 @@ import com.rkb.travelcards.Card
 import com.rkb.travelcards.TravelCardsRepository
 import kotlinx.coroutines.launch
 
-class DrawerPlanViewModel(private val repository: TravelCardsRepository) : ViewModel() {
+class DrawerPlanViewModel2(private val repository: TravelCardsRepository) : ViewModel() {
 
     // Using LiveData and caching what allWords returns has several benefits:
     // - We can put an observer on the data (instead of polling for changes) and only update the
@@ -21,11 +21,11 @@ class DrawerPlanViewModel(private val repository: TravelCardsRepository) : ViewM
     }
 }
 
-class DrawerPlanViewModelFactory(private val repository: TravelCardsRepository) : ViewModelProvider.Factory {
+class DrawerPlanViewModelFactory2(private val repository: TravelCardsRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DrawerPlanViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(DrawerPlanViewModel2::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return DrawerPlanViewModel(repository) as T
+            return DrawerPlanViewModel2(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

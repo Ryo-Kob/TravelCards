@@ -211,7 +211,7 @@ class PlanFragment2 : Fragment() {
         val navController = navHostFragment.navController
         view.findViewById<NavigationView>(R.id.my_nav_view).setupWithNavController(navController)
 
-        val mDrawerLayout = view.findViewById<DrawerLayout>(R.id.fragment_plan)
+        val mDrawerLayout = view.findViewById<DrawerLayout>(R.id.fragment_plan2)
 
         // ドロワーの結果取得
         childFragmentManager.setFragmentResultListener("pickingCardFromDrawer", this) { key, data ->

@@ -15,8 +15,8 @@ import com.rkb.travelcards.R
 import com.rkb.travelcards.TravelCardsApplication
 
 class DrawerPlanFragment2 : Fragment() , DrawerPlanItemClickListener2.OnRecyclerClickListener {
-    private val drawerViewModel: DrawerPlanViewModel by viewModels {
-        DrawerPlanViewModelFactory((activity?.application as TravelCardsApplication).repository)
+    private val drawerViewModel: DrawerPlanViewModel2 by viewModels {
+        DrawerPlanViewModelFactory2((activity?.application as TravelCardsApplication).repository)
     }
 
     override fun onCreateView(
