@@ -87,4 +87,8 @@ class TravelCardsRepository(
         return cardSuiteDao.getCardSuiteList()
     }
 
+    fun getCardSuiteList2() : List<CardSuite2> {
+        return cardSuiteDao2.getCardSuiteList()
+    }
+
 }

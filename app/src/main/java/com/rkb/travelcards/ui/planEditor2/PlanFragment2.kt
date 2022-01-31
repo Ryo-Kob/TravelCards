@@ -17,8 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.*
 import com.google.android.material.navigation.NavigationView
-import com.rkb.travelCards.ui.plan.PlanViewModel
-import com.rkb.travelCards.ui.plan.PlanViewModelFactory
 import com.rkb.travelcards.*
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -29,11 +27,11 @@ import kotlin.math.abs
 
 class PlanFragment2 : Fragment() {
     lateinit var cards : List<Card>
-    var cs : MutableList<CardSuite> = mutableListOf()
+    var cs : MutableList<CardSuite2> = mutableListOf()
     var tl : MutableList<Int> = mutableListOf()
 
-    val planViewModel: PlanViewModel by viewModels {
-        PlanViewModelFactory((activity?.application as TravelCardsApplication).repository)
+    val planViewModel: PlanViewModel2 by viewModels {
+        PlanViewModelFactory2((activity?.application as TravelCardsApplication).repository)
     }
 
     init {
@@ -82,7 +80,7 @@ class PlanFragment2 : Fragment() {
                 if (it.isEmpty()) {
                     initializeCardSuite()
                 }else {
-                    for(i in it as MutableList<CardSuite>) {
+                    for(i in it as MutableList<CardSuite2>) {
                         cs.add(i)
                     }
                     cs.sortBy { i -> i.startTime }
@@ -161,11 +159,11 @@ class PlanFragment2 : Fragment() {
                     if (cs[pos].isBlank) {
                         // 空白を消された。カウンターアタック!
                         cs.removeAt(pos)
-                        val ncs = CardSuite()
+                        val ncs = CardSuite2()
                         ncs.cardId = 0
                         ncs.text = "NewBlank"
                         ncs.isBlank = true
-                        ncs.type = CardSuite.VIEW_TYPE_EMPTY
+                        ncs.type = CardSuite2.VIEW_TYPE_EMPTY
                         ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
                         ncs.startTime = cs[pos-1].startTime + cs[pos-1].timer
                         ncs.isStartDateFixed = false
@@ -178,11 +176,11 @@ class PlanFragment2 : Fragment() {
                         val num = cs[pos].timer/15
                         cs.removeAt(pos)
                         for(i in 0..num-1) {
-                            val ncs = CardSuite()
+                            val ncs = CardSuite2()
                             ncs.cardId = 0
                             ncs.text = "NewBlank-${i}"
                             ncs.isBlank = true
-                            ncs.type = CardSuite.VIEW_TYPE_EMPTY
+                            ncs.type = CardSuite2.VIEW_TYPE_EMPTY
                             ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
                             ncs.isStartDateFixed = false
                             ncs.isStartTimeFixed = false
@@ -242,11 +240,11 @@ class PlanFragment2 : Fragment() {
 
             // 新しいカードを追加する！
             if (okFlag) {
-                val ncs = CardSuite()
+                val ncs = CardSuite2()
                 ncs.cardId = cardId
                 ncs.text = cards[cardId].title
                 ncs.isBlank = false
-                ncs.type = CardSuite.VIEW_TYPE_CARD
+                ncs.type = CardSuite2.VIEW_TYPE_CARD
                 ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
                 ncs.isStartDateFixed = false
                 ncs.isStartTimeFixed = false
@@ -285,13 +283,13 @@ class PlanFragment2 : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initializeCardSuite() {
-        var ncs : CardSuite
+        var ncs : CardSuite2
         for(i in 1..4*24) {
-            ncs = CardSuite()
+            ncs = CardSuite2()
             ncs.cardId = 0
             ncs.text = "$i"
             ncs.isBlank = true
-            ncs.type = CardSuite.VIEW_TYPE_EMPTY
+            ncs.type = CardSuite2.VIEW_TYPE_EMPTY
             ncs.isStartDateFixed = false
             ncs.startDate = 0
             ncs.startTime = 15 * i - 15
@@ -320,11 +318,11 @@ class PlanFragment2 : Fragment() {
                 }
             }
 
-            val ncs = CardSuite()
+            val ncs = CardSuite2()
             ncs.cardId = cardId
             ncs.text = cards[cardId].title
             ncs.isBlank = false
-            ncs.type = CardSuite.VIEW_TYPE_CARD
+            ncs.type = CardSuite2.VIEW_TYPE_CARD
             ncs.startDate = 0 // 日付をどうにかして数値にしたいが……
             ncs.isStartDateFixed = false
             ncs.isStartTimeFixed = true

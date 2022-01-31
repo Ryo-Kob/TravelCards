@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rkb.travelcards.Card
-import com.rkb.travelcards.CardSuite
+import com.rkb.travelcards.CardSuite2
 import com.rkb.travelcards.R
 
-class PlanAdapter2 : ListAdapter<CardSuite, PlanAdapter2.ViewHolder>(CardsComparator()) {
+class PlanAdapter2 : ListAdapter<CardSuite2, PlanAdapter2.ViewHolder>(CardsComparator()) {
     lateinit var card : List<Card>
 
     /**
@@ -29,8 +29,8 @@ class PlanAdapter2 : ListAdapter<CardSuite, PlanAdapter2.ViewHolder>(CardsCompar
             fun create(parent: ViewGroup, viewType: Int) : ViewHolder {
                 val view: View = LayoutInflater.from(parent.context)
                     .inflate(when(viewType) {
-                        CardSuite.VIEW_TYPE_EMPTY -> R.layout.plan_recycler_view_item_empty
-                        CardSuite.VIEW_TYPE_CARD -> R.layout.plan_recycler_view_item
+                        CardSuite2.VIEW_TYPE_EMPTY -> R.layout.plan_recycler_view_item_empty
+                        CardSuite2.VIEW_TYPE_CARD -> R.layout.plan_recycler_view_item
                         else ->  R.layout.plan_recycler_view_item
                     }, parent, false)
                 return ViewHolder(view)
@@ -38,7 +38,7 @@ class PlanAdapter2 : ListAdapter<CardSuite, PlanAdapter2.ViewHolder>(CardsCompar
         }
 
         @SuppressLint("ResourceAsColor")
-        fun bind(cs: CardSuite) {
+        fun bind(cs: CardSuite2) {
             // TODO: 特定のcardIdを持つCardの情報を取得し、textViewName等に反映させたい！
 //            textViewName.text = card[cardId].title
 //            textViewName.text = card[cs.cardId].title
@@ -80,8 +80,8 @@ class PlanAdapter2 : ListAdapter<CardSuite, PlanAdapter2.ViewHolder>(CardsCompar
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(
                 when(viewType) {
-                    CardSuite.VIEW_TYPE_EMPTY -> R.layout.plan_recycler_view_item_empty
-                    CardSuite.VIEW_TYPE_CARD -> R.layout.plan_recycler_view_item
+                    CardSuite2.VIEW_TYPE_EMPTY -> R.layout.plan_recycler_view_item_empty
+                    CardSuite2.VIEW_TYPE_CARD -> R.layout.plan_recycler_view_item
                     else -> R.layout.plan_recycler_view_item
                 }, viewGroup, false
             )
@@ -115,12 +115,12 @@ class PlanAdapter2 : ListAdapter<CardSuite, PlanAdapter2.ViewHolder>(CardsCompar
 //    override fun getItemCount() = dataSet.size
 //    override fun getItemCount() = 10
 
-    class CardsComparator : DiffUtil.ItemCallback<CardSuite>() {
-        override fun areItemsTheSame(oldItem: CardSuite, newItem: CardSuite): Boolean {
+    class CardsComparator : DiffUtil.ItemCallback<CardSuite2>() {
+        override fun areItemsTheSame(oldItem: CardSuite2, newItem: CardSuite2): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: CardSuite, newItem: CardSuite): Boolean {
+        override fun areContentsTheSame(oldItem: CardSuite2, newItem: CardSuite2): Boolean {
             return oldItem.cardId == newItem.cardId // TODO: 全アイテムを比較するようにする. もしくは, この関数自体消しちゃう.
         }
     }

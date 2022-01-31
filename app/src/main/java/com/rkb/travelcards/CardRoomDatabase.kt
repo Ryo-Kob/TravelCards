@@ -11,11 +11,13 @@ import kotlinx.coroutines.launch
 @Database(entities = arrayOf(
     Card::class,
     CardSuite::class,
+    CardSuite2::class,
     Plan::class), version = 1, exportSchema = false)
 public abstract class CardRoomDatabase : RoomDatabase() {
 
     abstract fun cardDao(): CardDao
     abstract fun cardSuiteDao() : CardSuiteDao
+    abstract fun cardSuiteDao2() : CardSuiteDao2
     abstract fun planDao() : PlanDao
 
     companion object {
@@ -50,6 +52,7 @@ public abstract class CardRoomDatabase : RoomDatabase() {
                 scope.launch {
                     populateDatabase(database.cardDao())
                     populateDatabase(database.cardSuiteDao())
+                    populateDatabase(database.cardSuiteDao2())
                     populateDatabase(database.planDao())
                 }
             }
@@ -76,6 +79,15 @@ public abstract class CardRoomDatabase : RoomDatabase() {
         suspend fun populateDatabase(cardSuiteDao: CardSuiteDao) {
             // Delete all content here.
             cardSuiteDao.deleteAll()
+
+            // Add sample words.
+//            var cardSuite = CardSuite()
+//            cardSuiteDao.insert(cardSuite)
+        }
+
+        suspend fun populateDatabase(cardSuiteDao2: CardSuiteDao2) {
+            // Delete all content here.
+            cardSuiteDao2.deleteAll()
 
             // Add sample words.
 //            var cardSuite = CardSuite()

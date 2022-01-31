@@ -24,6 +24,7 @@ class TravelCardsApplication  : Application() {
         TravelCardsRepository(
             database.cardDao(),
             database.cardSuiteDao(),
+            database.cardSuiteDao2(),
             database.planDao()
         )
     }
