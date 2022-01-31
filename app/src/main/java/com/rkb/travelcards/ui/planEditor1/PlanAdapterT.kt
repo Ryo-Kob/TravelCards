@@ -1,4 +1,4 @@
-package com.rkb.travelcards.ui.plan
+package com.rkb.travelcards.ui.planEditor1
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.rkb.travelcards.Card
-import com.rkb.travelcards.CardSuite
 import com.rkb.travelcards.R
 
 class PlanAdapterT : ListAdapter<Int, PlanAdapterT.ViewHolder>(CardsComparator()) {

@@ -6,7 +6,7 @@
     android:id="@+id/fragment_plan"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.plan.PlanFragment">
+    tools:context=".ui.planEditor1.PlanFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -73,7 +73,7 @@
         android:fitsSystemWindows="true"
         >
         <fragment
-            android:name="com.rkb.travelcards.ui.plan.DrawerPlanFragment"
+            android:name="com.rkb.travelcards.ui.planEditor1.DrawerPlanFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />

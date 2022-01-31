@@ -1,4 +1,4 @@
-package com.rkb.travelcards.ui.plan
+package com.rkb.travelcards.ui.planEditor2
 
 import androidx.lifecycle.*
 import com.rkb.travelcards.Card

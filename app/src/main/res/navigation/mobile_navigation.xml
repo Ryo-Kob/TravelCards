@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_card" />
 
     <fragment
-        android:id="@+id/navigation_journey"
-        android:name="com.rkb.travelcards.ui.plan.PlanFragment"
-        android:label="@string/title_journey"
+        android:id="@+id/navigation_plan"
+        android:name="com.rkb.travelcards.ui.planEditor1.PlanFragment"
+        android:label="@string/title_plan1_long"
+        tools:layout="@layout/fragment_plan" />
+
+    <fragment
+        android:id="@+id/navigation_plan2"
+        android:name="com.rkb.travelcards.ui.planEditor2.PlanFragment2"
+        android:label="@string/title_plan2_long"
         tools:layout="@layout/fragment_plan" />
 
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.rkb.travelcards.ui.setting.SettingFragment"
-        android:label="@string/title_settings"
+        android:label="@string/title_viewer"
         tools:layout="@layout/fragment_settings" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.rkb.travelcards.ui.plan
+package com.rkb.travelcards.ui.planEditor2
 
 import android.content.Context
 import android.view.GestureDetector
@@ -7,7 +7,7 @@ import android.view.View
 import androidx.core.view.GestureDetectorCompat
 import androidx.recyclerview.widget.RecyclerView
 
-class DrawerPlanItemClickListener(context: Context, recyclerView: RecyclerView, private val listener: DrawerPlanItemClickListener.OnRecyclerClickListener)
+class DrawerPlanItemClickListener2(context: Context, recyclerView: RecyclerView, private val listener: DrawerPlanItemClickListener2.OnRecyclerClickListener)
     : RecyclerView.SimpleOnItemTouchListener() {
 
     interface OnRecyclerClickListener{

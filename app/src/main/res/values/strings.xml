@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">TravelCards</string>
     <string name="title_card">Card</string>
-    <string name="title_journey">Journey</string>
-    <string name="title_settings">Settings</string>
+    <string name="title_plan">Planner</string>
+    <string name="title_plan1">Planner 1</string>
+    <string name="title_plan2">Planner 2</string>
+    <string name="title_plan1_long">Planner - Plan 1</string>
+    <string name="title_plan2_long">Planner - Plan 2</string>
+    <string name="title_viewer">Viewer</string>
     <string name="activity_new_card_title_text">カード新規作成</string>
     <string name="activity_new_card_button_save">作成</string>
     <string name="activity_new_card_edit_text_title">カードのタイトルを入力 …</string>
