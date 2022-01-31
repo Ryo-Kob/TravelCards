@@ -264,7 +264,7 @@ class PlanFragment : Fragment() {
             }
         }
 
-        Log.v("", "はよせんかい！")
+//        Log.v("", "はよせんかい！")
     }
 
     override fun onStop() {
