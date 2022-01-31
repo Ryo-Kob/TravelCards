@@ -69,7 +69,7 @@ class PlanFragment2 : Fragment() {
         }.subscribeOn(Schedulers.io())
             .subscribe({
                 cards = it
-                Log.v("", cards[0].title)
+                Log.v("cards取得", cards[0].title)
                 adapter.card = cards
             }, {})
 
@@ -88,6 +88,7 @@ class PlanFragment2 : Fragment() {
                     adapter.notifyDataSetChanged()
                 }
                 set = true
+                Log.v("", "Successfully set")
            }, {})
 
         // adapter接続
@@ -230,7 +231,7 @@ class PlanFragment2 : Fragment() {
             val st = cs[index-1].startTime + cs[index-1].timer
             var okFlag = true
             for(i in 0..timer/15-1) {
-                Log.v("", "i:${i}, ${cs[index-1+i].startTime + cs[index-1+i].timer}, ${st+timer}")
+                Log.v("ドロワーカード挿入", "i:${i}, ${cs[index-1+i].startTime + cs[index-1+i].timer}, ${st+timer}")
                 if (cs[index-1+i].startTime + cs[index-1+i].timer > st+timer) {
                     // カードがかぶる！
                     Toast.makeText(context, "Error: 既存のカードとぶつかってしまいます。位置を変えてやりなおしてください", Toast.LENGTH_LONG).show()
@@ -252,7 +253,7 @@ class PlanFragment2 : Fragment() {
                 ncs.isStartTimeFixed = false
                 ncs.timer = cards[cardId].timerHour * 60 + cards[cardId].timerMinute
                 ncs.startTime = st
-                Log.v("", "idx=${index}")
+                Log.v("ドロワーカード挿入", "idx=${index}")
                 cs.add(index, ncs)
 
                 // 要らなくなった空白は捨てる
@@ -319,7 +320,7 @@ class PlanFragment2 : Fragment() {
             // index計算
             var index = -1
             for(j in 0..cs.size-1) {
-                Log.v("", "${cs[j].startTime}, ${st}")
+                Log.v("時刻指定カード挿入", "${cs[j].startTime}, ${st}")
                 if (cs[j].startTime == st) {
                     index = j
                     break
@@ -337,7 +338,7 @@ class PlanFragment2 : Fragment() {
             ncs.timer = cards[cardId].timerHour * 60 + cards[cardId].timerMinute
             ncs.startTime = st
             ncs.startTimeOriginal = st
-            Log.v("", "idx=${index}")
+            Log.v("時刻指定カード挿入", "idx=${index}")
             cs.add(index, ncs)
 
             // 要らなくなった空白は捨てる

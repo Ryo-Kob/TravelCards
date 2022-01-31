@@ -70,7 +70,7 @@ class PlanFragment : Fragment() {
         }.subscribeOn(Schedulers.io())
             .subscribe({
                 cards = it
-                Log.v("", cards[0].title)
+                Log.v("cards取得", cards[0].title)
                 adapter.card = cards
             }, {})
 
@@ -230,11 +230,11 @@ class PlanFragment : Fragment() {
             val st = cs[index-1].startTime + cs[index-1].timer
             var okFlag = true
             for(i in 0..timer/15-1) {
-                Log.v("", "i:${i}, ${cs[index-1+i].startTime + cs[index-1+i].timer}, ${st+timer}")
+                Log.v("ドロワーカード挿入", "i:${i}, ${cs[index-1+i].startTime + cs[index-1+i].timer}, ${st+timer}")
                 if (cs[index-1+i].startTime + cs[index-1+i].timer > st+timer) {
                     // カードがかぶる！
                     Toast.makeText(context, "Error: 既存のカードとぶつかってしまいます。位置を変えてやりなおしてください", Toast.LENGTH_LONG).show()
-                    Log.e("", "Error: 既存のカードとぶつかってしまいます。位置を変えてやりなおしてください")
+                    Log.e("ドロワーカード挿入", "Error: 既存のカードとぶつかってしまいます。位置を変えてやりなおしてください")
                     okFlag = false
                     break
                 }
@@ -252,7 +252,7 @@ class PlanFragment : Fragment() {
                 ncs.isStartTimeFixed = false
                 ncs.timer = cards[cardId].timerHour * 60 + cards[cardId].timerMinute
                 ncs.startTime = st
-                Log.v("", "idx=${index}")
+                Log.v("ドロワーカード挿入", "idx=${index}")
                 cs.add(index, ncs)
 
                 // 要らなくなった空白は捨てる
@@ -306,14 +306,14 @@ class PlanFragment : Fragment() {
             // 開始時刻計算
             var st = 0
             var stTime = LocalTime.parse(cards[cardId].strStartTime, DateTimeFormatter.ofPattern("HH:mm"))
-//            Log.v("", "${stTime.hour}, ${stTime.minute}, ${stTime.toSecondOfDay()}")
+            Log.v("時刻指定カード挿入", "${stTime.hour}, ${stTime.minute}, ${stTime.toSecondOfDay()}")
             st += stTime.hour * 60
             st += stTime.minute
 
             // index計算
             var index = -1
             for(j in 0..cs.size-1) {
-                Log.v("", "${cs[j].startTime}, ${st}")
+                Log.v("時刻指定カード挿入", "${cs[j].startTime}, ${st}")
                 if (cs[j].startTime == st) {
                     index = j
                     break
@@ -331,7 +331,7 @@ class PlanFragment : Fragment() {
             ncs.timer = cards[cardId].timerHour * 60 + cards[cardId].timerMinute
             ncs.startTime = st
             ncs.startTimeOriginal = st
-            Log.v("", "idx=${index}")
+            Log.v("時刻指定カード挿入", "idx=${index}")
             cs.add(index, ncs)
 
             // 要らなくなった空白は捨てる

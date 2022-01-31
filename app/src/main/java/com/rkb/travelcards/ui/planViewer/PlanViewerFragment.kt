@@ -66,7 +66,7 @@ class PlanViewerFragment : Fragment() {
         }.subscribeOn(Schedulers.io())
             .subscribe({
                 cards = it
-                Log.v("", cards[0].title)
+                Log.v("cards取得", cards[0].title)
                 adapter.card = cards
                 adapter2.card = cards
             }, {})
@@ -203,7 +203,7 @@ class PlanViewerFragment : Fragment() {
             // index計算
             var index = -1
             for(j in 0..cs.size-1) {
-                Log.v("", "${cs[j].startTime}, ${st}")
+                Log.v("時刻指定カード挿入", "${cs[j].startTime}, ${st}")
                 if (cs[j].startTime == st) {
                     index = j
                     break
@@ -221,7 +221,7 @@ class PlanViewerFragment : Fragment() {
             ncs.timer = cards[cardId].timerHour * 60 + cards[cardId].timerMinute
             ncs.startTime = st
             ncs.startTimeOriginal = st
-            Log.v("", "idx=${index}")
+            Log.v("時刻指定カード挿入", "idx=${index}")
             cs.add(index, ncs)
 
             // 要らなくなった空白は捨てる
@@ -260,7 +260,7 @@ class PlanViewerFragment : Fragment() {
             // index計算
             var index = -1
             for(j in 0..cs2.size-1) {
-                Log.v("", "${cs2[j].startTime}, ${st}")
+                Log.v("時刻指定カード挿入", "${cs2[j].startTime}, ${st}")
                 if (cs2[j].startTime == st) {
                     index = j
                     break
