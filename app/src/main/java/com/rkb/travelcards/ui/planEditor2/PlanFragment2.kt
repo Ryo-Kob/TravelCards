@@ -29,6 +29,7 @@ class PlanFragment2 : Fragment() {
     lateinit var cards : List<Card>
     var cs : MutableList<CardSuite2> = mutableListOf()
     var tl : MutableList<Int> = mutableListOf()
+    var set = false
 
     val planViewModel: PlanViewModel2 by viewModels {
         PlanViewModelFactory2((activity?.application as TravelCardsApplication).repository)
@@ -86,6 +87,7 @@ class PlanFragment2 : Fragment() {
                     cs.sortBy { i -> i.startTime }
                     adapter.notifyDataSetChanged()
                 }
+                set = true
            }, {})
 
         // adapter接続
@@ -268,17 +270,23 @@ class PlanFragment2 : Fragment() {
         super.onStop()
         Log.v("", "onStop!")
 
-        // 編集したrecyclerviewのデータを永続化
-        Single.fromCallable {
-            planViewModel
-        }.subscribeOn(Schedulers.io())
-            .subscribe({
-                it.deleteAllCardSuites()
-                for(i in cs) {
+        if (set) {
+            // 編集したrecyclerviewのデータを永続化
+            // ただし、カードが準備できてなさそなときはやめとく
+            Single.fromCallable {
+                planViewModel
+            }.subscribeOn(Schedulers.io())
+                .subscribe({
+                    it.deleteAllCardSuites()
+                    for(i in cs) {
 //                    Log.v("", "${i.id}, ${i.isBlank}, ${i.text}")
-                    it.insert(i)
-                }
-            }, {})
+                        it.insert(i)
+                    }
+                }, {})
+            Log.v("", "保存しちゃうゾ")
+        }else{
+            Log.v("", "判断が早い")
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

@@ -74,6 +74,29 @@ public abstract class CardRoomDatabase : RoomDatabase() {
             card.timerHour = 1
             card.timerMinute = 0
             cardDao.insert(card)
+
+            // さらにサンプルワード。デモ用
+            card.title = "Locked"
+            card.description = ""
+            card.strStartDate = ""
+            card.strStartTime = "04:00"
+            card.isStartDateSet = false
+            card.isStartTimeSet = true
+            card.strDateTime = "4:00 から 1 時間 0 分"
+            card.timerHour = 1
+            card.timerMinute = 0
+            cardDao.insert(card)
+
+            card.title = "Timer"
+            card.description = ""
+            card.strStartDate = ""
+            card.strStartTime = ""
+            card.isStartDateSet = false
+            card.isStartTimeSet = false
+            card.strDateTime = "0 時間 30 分"
+            card.timerHour = 0
+            card.timerMinute = 30
+            cardDao.insert(card)
         }
 
         suspend fun populateDatabase(cardSuiteDao: CardSuiteDao) {
