@@ -27,9 +27,9 @@ class CardListAdapter : ListAdapter<Card, CardListAdapter.CardViewHolder>(CardsC
             textViewName.text = card.title
             textViewDescription.text = card.strDateTime
 
-            val params : ViewGroup.LayoutParams = cardView.layoutParams
-            params.height = 100 + card.timerHour * 100
-            cardView.layoutParams = params
+//            val params : ViewGroup.LayoutParams = cardView.layoutParams
+//            params.height = 100 + card.timerHour * 100
+//            cardView.layoutParams = params
         }
 
         companion object {

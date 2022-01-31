@@ -46,9 +46,10 @@ class PlanViewerAdapter : ListAdapter<CardSuite, PlanViewerAdapter.ViewHolder>(C
                 val params : ViewGroup.LayoutParams = itemView.layoutParams
                 params.height = cs.timer*6
                 val textViewName = itemView.findViewById<TextView>(R.id.card_text_view_name)
-                textViewName.text = cs.text
-//                val textViewTime = itemView.findViewById<TextView>(R.id.card_text_view_time)
-                textViewName.text = "${cs.startTime/60}:${cs.startTime%60}"
+//                textViewName.text = cs.text
+////                val textViewTime = itemView.findViewById<TextView>(R.id.card_text_view_time)
+//                textViewName.text = "${cs.startTime/60}:${cs.startTime%60}"
+                textViewName.text = ""
             }else{
                 val params : ViewGroup.LayoutParams = itemView.layoutParams
                 params.height = cs.timer*6
