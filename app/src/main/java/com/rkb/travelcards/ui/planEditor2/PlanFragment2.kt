@@ -274,16 +274,14 @@ class PlanFragment2 : Fragment() {
         if (set) {
             // 編集したrecyclerviewのデータを永続化
             // ただし、カードが準備できてなさそなときはやめとく
-            Single.fromCallable {
-                planViewModel
-            }.subscribeOn(Schedulers.io())
-                .subscribe({
-                    it.deleteAllCardSuites()
-                    for(i in cs) {
+            planViewModel
+            .let{
+                it.deleteAllCardSuites()
+                for(i in cs) {
 //                    Log.v("", "${i.id}, ${i.isBlank}, ${i.text}")
-                        it.insert(i)
-                    }
-                }, {})
+                    it.insert(i)
+                }
+            }
             Log.v("", "保存しちゃうゾ")
         }else{
             Log.v("", "判断が早い")

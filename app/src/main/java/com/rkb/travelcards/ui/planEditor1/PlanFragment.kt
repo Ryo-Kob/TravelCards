@@ -271,16 +271,13 @@ class PlanFragment : Fragment() {
         Log.v("", "onStop!")
 
         // 編集したrecyclerviewのデータを永続化
-        Single.fromCallable {
-            planViewModel
-        }.subscribeOn(Schedulers.io())
-            .subscribe({
-                it.deleteAllCardSuites()
-                for(i in cs) {
+        planViewModel.let{
+            it.deleteAllCardSuites()
+            for(i in cs) {
 //                    Log.v("", "${i.id}, ${i.isBlank}, ${i.text}")
-                    it.insert(i)
-                }
-            }, {})
+                it.insert(i)
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
