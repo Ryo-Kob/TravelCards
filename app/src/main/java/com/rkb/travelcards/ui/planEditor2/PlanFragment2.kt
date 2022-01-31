@@ -43,7 +43,7 @@ class PlanFragment2 : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_plan, container, false)
+        val root = inflater.inflate(R.layout.fragment_plan2, container, false)
         return root
     }
 
