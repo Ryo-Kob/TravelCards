@@ -56,7 +56,7 @@ class PlanAdapter2 : ListAdapter<CardSuite2, PlanAdapter2.ViewHolder>(CardsCompa
                 val textViewName = itemView.findViewById<TextView>(R.id.card_text_view_name)
                 textViewName.text = cs.text
                 val textViewTime = itemView.findViewById<TextView>(R.id.card_text_view_time)
-                textViewTime.text = "${cs.startTime/60}:${cs.startTime%60}"
+                textViewTime.text = "%2d:%02d - %2d:%02d".format(cs.startTime/60, cs.startTime%60, cs.startTime/60+cs.timer/60, cs.startTime%60+cs.timer%60)
 //                textViewTime.text = "${cs.timer} 分"
 
                 // 時刻照合警告

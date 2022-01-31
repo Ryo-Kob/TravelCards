@@ -12,7 +12,6 @@ data class CardSuite(
     var startTime: Int = 0, // 1分=1として数値化
     var startDateOriginal: Int = 0,
     var startTimeOriginal: Int = 0,
-//    var strDateTime: String = "",
     var isStartDateFixed: Boolean = false,
     var isStartTimeFixed: Boolean = false,
     var timer: Int = 0,
