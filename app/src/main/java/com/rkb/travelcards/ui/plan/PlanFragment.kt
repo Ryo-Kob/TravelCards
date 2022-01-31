@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.*
 import com.google.android.material.navigation.NavigationView
 import com.rkb.travelCards.ui.plan.PlanViewModel
 import com.rkb.travelCards.ui.plan.PlanViewModelFactory
@@ -94,7 +95,7 @@ class PlanFragment : Fragment() {
         adapterT.submitList(tl)
 
         // スクロールイベント
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        recyclerView.addOnScrollListener(object : OnScrollListener(){
             // https://android.suzu-sd.com/2021/05/recyclerview_item_scroll/#OnScrollListener
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             }
@@ -102,7 +103,7 @@ class PlanFragment : Fragment() {
                 recyclerViewT.scrollBy(0, dy)
             }
         })
-        recyclerViewT.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+        recyclerViewT.addOnItemTouchListener(object : OnItemTouchListener {
             // https://qiita.com/Horie1024/items/72742f76485d02bf1b90
             override fun onInterceptTouchEvent(recyclerView: RecyclerView, e: MotionEvent): Boolean {
                 return true
@@ -120,8 +121,8 @@ class PlanFragment : Fragment() {
             ) {
                 override fun onMove(
                     recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
+                    viewHolder: ViewHolder,
+                    target: ViewHolder
                 ): Boolean {
                     val fromPos = viewHolder.adapterPosition
                     val toPos = target.adapterPosition
@@ -153,7 +154,7 @@ class PlanFragment : Fragment() {
                 }
 
                 override fun onSwiped(
-                    viewHolder: RecyclerView.ViewHolder,
+                    viewHolder: ViewHolder,
                     direction: Int
                 ) {
                     val pos = viewHolder.adapterPosition
@@ -194,6 +195,9 @@ class PlanFragment : Fragment() {
                 }
             })
         mIth.attachToRecyclerView(recyclerView)
+
+        // アニメが終わったらイベント
+//        recyclerView.itemAnimator.
 
         // ドロワー
         val navHostFragment = activity!!.supportFragmentManager.fragments[0] as NavHostFragment
@@ -333,6 +337,33 @@ class PlanFragment : Fragment() {
         for(i in 0..4*24-1) {
             val ntl = i*15
             tl.add(ntl)
+        }
+    }
+
+    inner class CustomScrollListener : OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            when (newState) {
+                SCROLL_STATE_IDLE -> println("The RecyclerView is not scrolling")
+                SCROLL_STATE_DRAGGING -> println("Scrolling now")
+                SCROLL_STATE_SETTLING -> println("Scroll Settling")
+            }
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            if (dx > 0) {
+                println("Scrolled Right")
+            } else if (dx < 0) {
+                println("Scrolled Left")
+            } else {
+                println("No Horizontal Scrolled")
+            }
+            if (dy > 0) {
+                println("Scrolled Downwards")
+            } else if (dy < 0) {
+                println("Scrolled Upwards")
+            } else {
+                println("No Vertical Scrolled")
+            }
         }
     }
 }
