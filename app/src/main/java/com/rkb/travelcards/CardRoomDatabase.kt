@@ -109,16 +109,16 @@ public abstract class CardRoomDatabase : RoomDatabase() {
             card.timerMinute = 0
             cardDao.insert(card)
 
-            card.title = "細かい移動時間"
-            card.description = ""
-            card.strStartDate = ""
-            card.strStartTime = ""
-            card.isStartDateSet = false
-            card.isStartTimeSet = false
-            card.strDateTime = "1 時間 0 分"
-            card.timerHour = 1
-            card.timerMinute = 0
-            cardDao.insert(card)
+//            card.title = "細かい移動時間"
+//            card.description = ""
+//            card.strStartDate = ""
+//            card.strStartTime = ""
+//            card.isStartDateSet = false
+//            card.isStartTimeSet = false
+//            card.strDateTime = "1 時間 0 分"
+//            card.timerHour = 1
+//            card.timerMinute = 0
+//            cardDao.insert(card)
 
             card.title = "ランチ in 京都"
             card.description = ""
